@@ -9,8 +9,7 @@ function findMaxAverage(nums: number[], k: number): number {
 
     // hit the required size of k
     if (i >= k - 1) {
-      max_sum = max_sum >= window_sum ? max_sum : window_sum;
-
+      max_sum = Math.max(max_sum, window_sum);
       window_sum -= nums[window_start];
       window_start++;
     }
