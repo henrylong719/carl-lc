@@ -6,6 +6,8 @@
 
 This means that we will slide the window by one element when we move on to the next subarray. To reuse the `sum` from the previous subarray, we will subtract the element going out of the window and add the element now being included in the sliding window. This will save us from going through the whole subarray to find the `sum` and, as a result, the algorithm complexity will reduce to _O(N)_.
 
+![Screen Shot 2022-04-24 at 9.50.23 am](Images/sliding_window.png)
+
 <img src="Images/sliding_window.png" alt="TagFolder" />
 
 **Example:**
