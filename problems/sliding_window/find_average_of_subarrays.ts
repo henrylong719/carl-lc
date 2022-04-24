@@ -7,7 +7,7 @@
 
 // time complexity: O(N∗K)
 
-function find_average_of_subarrays(K: number, arr: number[]): number[] {
+export function find_average_of_subarrays(K: number, arr: number[]): number[] {
   let result = [];
 
   for (let i = 0; i < arr.length - K + 1; i++) {
@@ -61,5 +61,3 @@ let k = 5;
 console.log(find_average_of_subarrays(k, arr));
 
 console.log(fin_average_of_subarrays_with_slide_window(k, arr));
-
-export {};
