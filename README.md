@@ -8,8 +8,6 @@ This means that we will slide the window by one element when we move on to the n
 
 ![Screen Shot 2022-04-24 at 9.50.23 am](Images/sliding_window.png)
 
-<img src="Images/sliding_window.png" alt="TagFolder" />
-
 **Example:**
 
 ```javascript
