@@ -1,27 +1,16 @@
 # Data structure and Algorithms
 
-
-
 ## Sliding Window
-
-
 
 **Visualize each subarray as a sliding window of ‘K’ elements.**
 
+This means that we will slide the window by one element when we move on to the next subarray. To reuse the `sum` from the previous subarray, we will subtract the element going out of the window and add the element now being included in the sliding window. This will save us from going through the whole subarray to find the `sum` and, as a result, the algorithm complexity will reduce to _O(N)_.
 
-
-This means that we will slide the window by one element when we move on to the next subarray. To reuse the `sum` from the previous subarray, we will subtract the element going out of the window and add the element now being included in the sliding window. This will save us from going through the whole subarray to find the `sum` and, as a result, the algorithm complexity will reduce to *O(N)*.
-
-
-
-![Screen Shot 2022-04-24 at 9.50.23 am](Images/Screen Shot 2022-04-24 at 9.50.23 am.png)
-
-
+<img src="Images/sliding_window.png" alt="TagFolder" />
 
 **Example:**
 
 ```javascript
-
 /*
  *  Given an array, find the average of all subarrays of ‘K’ contiguous elements in it.
  *
@@ -85,21 +74,4 @@ let k = 5;
 console.log(find_average_of_subarrays(k, arr));
 
 console.log(fin_average_of_subarrays_with_slide_window(k, arr));
-
-
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
