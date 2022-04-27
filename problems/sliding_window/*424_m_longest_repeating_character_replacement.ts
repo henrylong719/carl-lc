@@ -26,7 +26,8 @@ function characterReplacement(s: string, k: number): number {
       frequencyMap[rightChar]
     );
 
-    if (windowEnd - windowStart + 1 - maxRepeatLetterCount > k) {
+    // maxLength will only be changed when maxRepeatLetterCount increases
+    while (windowEnd - windowStart + 1 - maxRepeatLetterCount > k) {
       const leftChar = s[windowStart];
       frequencyMap[leftChar]--;
       windowStart += 1;
