@@ -31,7 +31,6 @@ function checkInclusion(s1: string, s2: string): boolean {
     if (matchedLetter === Object.keys(frequencyMap).length) {
       return true;
     }
-    console.log(windowEnd - windowStart + 1);
 
     // slide window
     if (windowEnd - windowStart + 1 >= s1.length) {
@@ -52,4 +51,4 @@ function checkInclusion(s1: string, s2: string): boolean {
   return false;
 }
 
-console.log(checkInclusion('ab', 'eidboaoo'));
+console.log(checkInclusion('ab', 'eidboaboo'));
