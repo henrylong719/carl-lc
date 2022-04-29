@@ -1,48 +1,52 @@
-const find_string_anagrams = function (str: string, pattern: string) {
-  let resultIndexes = [];
+function findAnagrams(s: string, p: string): number[] {
   let windowStart = 0;
-  let letterCounter = 0;
-  let frequencyMap = {} as any;
+  let result: number[] = [];
+  let frequencyObj = {} as any;
+  let charCounter = 0;
 
-  for (let i = 0; i < pattern.length; i++) {
-    let char = pattern[i];
-    if (!(char in frequencyMap)) {
-      frequencyMap[char] = 0;
+  for (let i = 0; i < p.length; i++) {
+    let char = p[i];
+
+    if (!(char in frequencyObj)) {
+      frequencyObj[char] = 0;
     }
-    frequencyMap[char]++;
+    frequencyObj[char]++;
   }
 
-  for (let windowEnd = 0; windowEnd < str.length; windowEnd++) {
-    let charEnd = str[windowEnd];
+  for (let windowEnd = 0; windowEnd < s.length; windowEnd++) {
+    let charEnd = s[windowEnd];
 
-    if (charEnd in frequencyMap) {
-      frequencyMap[charEnd]--;
+    if (charEnd in frequencyObj) {
+      frequencyObj[charEnd]--;
 
-      if (frequencyMap[charEnd] === 0) {
-        letterCounter++;
+      if (frequencyObj[charEnd] === 0) {
+        charCounter++;
       }
     }
 
-    console.log(frequencyMap);
-
-    if (letterCounter === Object.keys(frequencyMap).length) {
-      resultIndexes.push(windowStart);
+    // find a anagrams, initialize everything
+    if (charCounter === Object.keys(frequencyObj).length) {
+      result.push(windowStart);
     }
 
-    if (windowEnd - windowStart + 1 >= pattern.length) {
-      let charStart = str[windowStart];
+    if (windowEnd - windowStart + 1 >= p.length) {
+      let charStart = s[windowStart];
       windowStart++;
-      if (charStart in frequencyMap) {
-        if (frequencyMap[charStart] === 0) {
-          letterCounter--;
+
+      if (charStart in frequencyObj) {
+        if (frequencyObj[charStart] === 0) {
+          charCounter--;
         }
-        frequencyMap[charStart]++;
+
+        frequencyObj[charStart]++;
       }
     }
   }
-  return resultIndexes;
-};
+
+  return result;
+}
+
 let s = 'abab';
 let p = 'ab';
 
-console.log(find_string_anagrams('ppqp', 'pq'));
+console.log(findAnagrams(s, p));
