@@ -54,3 +54,5 @@ function twoSumWithHashTable(nums: number[], target: number): number[] {
 }
 
 console.log(twoSum([3, 2, 4], 6));
+
+export {};
