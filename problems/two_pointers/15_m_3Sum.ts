@@ -45,3 +45,5 @@ function searchPair(
 }
 
 console.log(threeSum([-3, 0, 1, 2, -1, 1, -2]));
+
+export {};
