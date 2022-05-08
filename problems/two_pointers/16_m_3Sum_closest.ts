@@ -30,7 +30,7 @@ function threeSumClosest(nums: number[], target: number): number {
     }
   }
 
-  return smallest_difference;
+  return target - smallest_difference;
 }
 
 console.log(threeSumClosest([-2, 0, 1, 2], 2));
