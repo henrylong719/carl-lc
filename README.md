@@ -154,6 +154,70 @@ console.log(fin_average_of_subarrays_with_slide_window(k, arr));
 
 
 
+## Two Pointers
+
+
+
+Given that the input array is sorted, an efficient way to find a set of elements that fulfill certain constrains would be to start with one pointer in the begining and another pointer at the end. At every step, we will see if the numbers pointed by the two pointers add up to the target sum. If they do not, we will do one of two things:
+
+
+
+1. If the sum of the two numbers pointed by the two pointers is greater than the target sum, this means that we need a pair with a smaller sum, So, to try more pairs, we can decrement the end-pointer.
+
+2. If the sum of the two numbers pointed by the two pointers is smaller than the target sum, this means that we need a pair with a larger sum. So, to try more pairs, we can increment the start-pointer.
+
+![Screen Shot 2022-05-09 at 8.57.12 pm](Images/two_pointers.png)
+
+
+
+The time complexity of the above algorithm will be O(N).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
