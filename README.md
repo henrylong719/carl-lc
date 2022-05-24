@@ -174,6 +174,42 @@ The time complexity of the above algorithm will be O(N).
 
 
 
+**Example:**
+
+```javascript
+
+Input: [1, 2, 3, 4, 6], target=6
+Output: [1, 3]
+Explanation: The numbers at index 1 and 3 add up to 6: 2+4=6
+
+
+const pair_with_targetsum = function(arr, target_sum) {
+  let left = 0;
+  let right = arr.length - 1;
+  
+
+  while(left < right){
+    let lValue = arr[left];
+    let rValue = arr[right];
+
+    let sum = lValue + rValue
+
+
+    if(sum === target_sum){
+      return[left, right];
+    }else if(sum > target_sum ){
+      right --;
+    }else{
+      left ++
+    }
+  }
+  return [-1,-1];
+}
+
+
+
+```
+
 
 
 
