@@ -1,14 +1,5 @@
 // Problem 1: Given the head of a LinkedList with a cycle, find the length of the cycle.
 
-class ListNode {
-  val: number;
-  next: ListNode | null;
-  constructor(val?: number, next?: ListNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.next = next === undefined ? null : next;
-  }
-}
-
 function find_cycle_length(head: ListNode) {
   let fast = head;
   let slow = head;
