@@ -269,7 +269,45 @@ console.log(`LinkedList has cycle: ${has_cycle(head)}`)
 
 
 
+**Example 2**
 
+Given the head of a **Singly LinkedList** that contains a cycle, write a function to find the **starting node of the cycle**.
+
+
+
+![Screen Shot 2022-05-29 at 3.21.45 pm](Images/142_m_linked_list_cycle_II.png)
+
+
+
+```typescript
+
+
+// how to know which one is the starting node of the cycle
+
+function detectCycle(head: ListNode | null): ListNode | null {
+  let fast = head;
+  let slow = head;
+
+  while (fast !== null && fast.next !== null) {
+    fast = fast.next.next;
+    slow = slow?.next as ListNode;
+
+    // fast pointer catches the slow pointer
+    if (fast === slow) {
+      let slow = head;
+      while (slow !== fast) {
+        slow = slow?.next as ListNode;
+        fast = fast?.next as ListNode;
+      }
+      return slow;
+    }
+  }
+
+  return null;
+}
+
+
+```
 
 
 
