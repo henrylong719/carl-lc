@@ -1,11 +1,11 @@
-class ListNode {
-  val: number;
-  next: ListNode | null;
-  constructor(val?: number, next?: ListNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.next = next === undefined ? null : next;
-  }
-}
+// class ListNode {
+//   val: number;
+//   next: ListNode | null;
+//   constructor(val?: number, next?: ListNode | null) {
+//     this.val = val === undefined ? 0 : val;
+//     this.next = next === undefined ? null : next;
+//   }
+// }
 
 // how to know which one is the starting node of the cycle
 
