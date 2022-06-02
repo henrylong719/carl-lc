@@ -27,4 +27,34 @@ function separateNumberSquareSum(n: number) {
   return result;
 }
 
-console.log(isHappy(12));
+// console.log(isHappy(12));
+
+function isHappyFastSlowPointer(n: number): boolean {
+  let slow = n;
+  let fast = n;
+
+  while (true) {
+    slow = find_square_sum(slow);
+    fast = find_square_sum(find_square_sum(fast));
+
+    if (slow === fast) {
+      break;
+    }
+  }
+
+  return slow === 1;
+}
+
+function find_square_sum(num: number): number {
+  let sum = 0;
+
+  while (num > 0) {
+    let digit = num % 10;
+    sum += digit * digit;
+    num = Math.floor(num / 10);
+  }
+
+  return sum;
+}
+
+console.log(isHappyFastSlowPointer(12));
