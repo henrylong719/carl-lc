@@ -29,6 +29,7 @@ function separateNumberSquareSum(n: number) {
 
 // console.log(isHappy(12));
 
+// use fast slow pointer
 function isHappyFastSlowPointer(n: number): boolean {
   let slow = n;
   let fast = n;
@@ -36,7 +37,6 @@ function isHappyFastSlowPointer(n: number): boolean {
   while (true) {
     slow = find_square_sum(slow);
     fast = find_square_sum(find_square_sum(fast));
-
     if (slow === fast) {
       break;
     }
