@@ -15,18 +15,18 @@ function detectCycle(head: ListNode | null): ListNode | null {
 
   while (fast !== null && fast.next !== null) {
     fast = fast.next.next;
-    slow = slow?.next as ListNode;
+    slow = slow!.next;
 
-    // fast pointer catches the slow pointer
     if (fast === slow) {
-      let slow = head;
-      while (slow !== fast) {
-        slow = slow?.next as ListNode;
-        fast = fast?.next as ListNode;
+      // move fast pointer to the beginning of the list
+      fast = head;
+      while (fast !== slow) {
+        fast = fast!.next;
+        slow = slow!.next;
       }
-      return slow;
+      // meeting point is the node where the cycle begins. I
+      return fast;
     }
   }
-
   return null;
 }
