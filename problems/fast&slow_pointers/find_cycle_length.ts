@@ -1,15 +1,26 @@
 // Problem 1: Given the head of a LinkedList with a cycle, find the length of the cycle.
 
+// Once the fast and slow pointers meet, we can save the slow pointer
+//and iterate the whole cycle with another pointer until we see the slow pointer again to find the length of the cycle.
+
+class ListNode {
+  val: number;
+  next: ListNode | null;
+  constructor(val?: number, next?: ListNode | null) {
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
+  }
+}
+
 function find_cycle_length(head: ListNode) {
   let fast = head;
   let slow = head;
 
-  while (head !== null && head.next !== null) {
-    fast = fast.next?.next as ListNode;
-    slow = slow.next as ListNode;
+  while (fast?.next !== null && fast?.next.next !== null) {
+    fast = fast?.next.next;
+    slow = slow?.next!;
 
-    if (fast === slow) {
-      // fast pointer catches the slow pointer
+    while (fast === slow) {
       return calculate_cycle_length(slow);
     }
   }
@@ -18,14 +29,15 @@ function find_cycle_length(head: ListNode) {
 }
 
 function calculate_cycle_length(slow: ListNode) {
+  // save the slow pointer and iterate the whole cycle with another pointer
+  // until we see the slow pointer again to find the length of the cycle.
   let current = slow;
   let cycle_length = 0;
 
   while (true) {
-    current = current.next as ListNode;
-    cycle_length++;
-
-    if (current.next === slow) {
+    current = current!.next!;
+    cycle_length += 1;
+    if (current === slow) {
       return cycle_length;
     }
   }
