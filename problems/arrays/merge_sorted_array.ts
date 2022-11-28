@@ -1,3 +1,21 @@
+function mergeArrays(arr1: number[], arr2: number[]) {
+  const combinedArr = [...arr1, ...arr2];
+
+  for (let i = 0; i < combinedArr.length - 1; i++) {
+    for (let j = i + 1; j < combinedArr.length; j++) {
+      // switch position
+      if (combinedArr[i] > combinedArr[j]) {
+        let temp = combinedArr[i];
+        combinedArr[i] = combinedArr[j];
+        combinedArr[j] = temp;
+      }
+    }
+  }
+
+  return combinedArr;
+}
+// time complexity: O(n * m) (n^2)
+
 function mergeArraysTwo(arr1: number[], arr2: number[]) {
   // define an extra array and two pointer
   let merged = [];
@@ -28,26 +46,18 @@ function mergeArraysTwo(arr1: number[], arr2: number[]) {
   return merged;
 }
 
+// time complexity: O(n + m)
+// both the arrays are iterated over once.
+
+function mergeArraysThree(arr1: number[], arr2: number[]) {
+  return [...arr1, ...arr2].sort((a, b) => a - b);
+}
+
+// time complexity: O(nlogn)
+
 let arr1 = [1, 3, 4, 5];
 let arr2 = [2, 6, 7, 8];
 
-console.log(mergeArraysTwo(arr1, arr2));
+console.log(mergeArraysThree(arr1, arr2));
 
 export {};
-
-function mergeArrays(arr1: number[], arr2: number[]) {
-  const combinedArr = [...arr1, ...arr2];
-
-  for (let i = 0; i < combinedArr.length - 1; i++) {
-    for (let j = i + 1; j < combinedArr.length; j++) {
-      // switch position
-      if (combinedArr[i] > combinedArr[j]) {
-        let temp = combinedArr[i];
-        combinedArr[i] = combinedArr[j];
-        combinedArr[j] = temp;
-      }
-    }
-  }
-
-  return combinedArr;
-}
