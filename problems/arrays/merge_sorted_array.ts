@@ -1,27 +1,31 @@
 function mergeArraysTwo(arr1: number[], arr2: number[]) {
-  let merge = [];
+  // define an extra array and two pointer
+  let merged = [];
   let i = 0;
   let j = 0;
 
+  // loop and compare each element in two arrays until one of them is empty
+
   while (i < arr1.length && j < arr2.length) {
     if (arr1[i] < arr2[j]) {
-      merge.push(arr1[i]);
+      merged.push(arr1[i]);
       i++;
     } else {
-      merge.push(arr2[j]);
+      merged.push(arr2[j]);
       j++;
     }
   }
 
+  // get rest elements of the other array
   if (i <= arr1.length - 1) {
     arr1.splice(0, i);
-    merge = merge.concat(arr1);
+    merged = merged.concat(arr1);
   } else if (j <= arr2.length - 1) {
     arr2.splice(0, j);
-    merge = merge.concat(arr2);
+    merged = merged.concat(arr2);
   }
 
-  return merge;
+  return merged;
 }
 
 let arr1 = [1, 3, 4, 5];
