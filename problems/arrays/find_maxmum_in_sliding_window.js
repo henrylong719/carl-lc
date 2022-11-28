@@ -10,3 +10,11 @@
  * [3, 4, 5, 6, 7, 8, 9, 10]
  *
  */
+
+let findMaxSlidingWindow = function (nums, windowSize) {
+  var result = [];
+  //Write your code
+  return result;
+};
+
+export {};
