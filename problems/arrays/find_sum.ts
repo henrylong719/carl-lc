@@ -3,6 +3,7 @@ let value = 81;
 // output: [21,60]
 
 // brutal solution
+// time complexity x^2
 function findSumBrutal(arr: number[], value: number) {
   for (let i = 0; i < arr.length - 1; i++) {
     for (let j = i + 1; j < arr.length; j++) {
@@ -14,6 +15,11 @@ function findSumBrutal(arr: number[], value: number) {
 
   return false;
 }
+
+// Moving indices
+//Since most popular sorting functions take O(nlogn),
+//let’s assume that the JavaScript sort() function takes the same. Then, in the worst-case scenario,
+// the entire array iterated from opposite ends would take O(n). So this solution is in O(nlog(n))
 
 function findSum(arr: number[], value: number) {
   const sortedArr = arr.sort((a, b) => a - b);
