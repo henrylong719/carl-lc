@@ -2,6 +2,19 @@ let arr = [1, 21, 3, 14, 5, 60, 7, 6];
 let value = 81;
 // output: [21,60]
 
+// brutal solution
+function findSumBrutal(arr: number[], value: number) {
+  for (let i = 0; i < arr.length - 1; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === value) {
+        return [arr[i], arr[j]];
+      }
+    }
+  }
+
+  return false;
+}
+
 function findSum(arr: number[], value: number) {
   const sortedArr = arr.sort((a, b) => a - b);
 
