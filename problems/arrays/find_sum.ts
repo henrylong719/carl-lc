@@ -48,3 +48,5 @@ function findSum(arr: number[], value: number) {
 }
 
 console.log(findSum(arr, value));
+
+export {};
