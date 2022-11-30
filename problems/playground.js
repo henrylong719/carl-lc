@@ -1,11 +1,12 @@
-var obj = {
-  name: 'Tom',
+const getTodo = (callback) => {
+  setTimeout(() => {
+    callback({ text: 'Complete Code Example' });
+  }, 2000);
 };
+function display() {
+  getTodo((todo) => {
+    console.log(todo.text);
+  });
+}
 
-var info = function (a, b, c) {
-  return this.name + ' likes to eat ' + a + ' ' + b + ' and ' + c;
-};
-
-//creates a bound function that has same body and parameters
-var bound = info.bind(obj, 'Pasta');
-console.log(bound('Donuts', 'Chips', 'Cake')); //calling the bound function later
+display();
