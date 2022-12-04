@@ -1,12 +1,12 @@
-const getTodo = (callback) => {
-  setTimeout(() => {
-    callback({ text: 'Complete Code Example' });
-  }, 2000);
-};
-function display() {
-  getTodo((todo) => {
-    console.log(todo.text);
-  });
-}
+// (function test() {
+//   // 'use strict';
+//   var fn = function () {
+//     return this * 2;
+//   };
 
-display();
+//   console.log(fn.apply(undefined));
+//   console.log(fn.apply(null));
+//   console.log(fn.apply(1));
+// })();
+
+console.log(this);
