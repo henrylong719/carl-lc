@@ -1,27 +1,27 @@
-// class Ninja {
-//   constructor(name) {
-//     this.name = name;
-//     this.points = 100;
-//   }
+class Ninja {
+  constructor(name) {
+    this.name = name;
+    this.points = 100;
+  }
 
-//   kick(Ninja) {
-//     if (this.points <= 0 || Ninja.points <= 0) {
-//       return `Can't kick ${Ninja.name}`;
-//     }
+  kick(Ninja) {
+    if (this.points <= 0 || Ninja.points <= 0) {
+      return `Can't kick ${Ninja.name}`;
+    }
 
-//     Ninja.points = Ninja.points - 50;
-//     return `${Ninja.name}'s points are ${Ninja.points}`;
-//   }
+    Ninja.points = Ninja.points - 50;
+    return `${Ninja.name}'s points are ${Ninja.points}`;
+  }
 
-//   punch(Ninja) {
-//     if (this.points <= 0 || Ninja.points <= 0) {
-//       return `Can't punch ${Ninja.name}`;
-//     }
+  punch(Ninja) {
+    if (this.points <= 0 || Ninja.points <= 0) {
+      return `Can't punch ${Ninja.name}`;
+    }
 
-//     Ninja.points = Ninja.points - 20;
-//     return `${Ninja.name}'s points are ${Ninja.points}`;
-//   }
-// }
+    Ninja.points = Ninja.points - 20;
+    return `${Ninja.name}'s points are ${Ninja.points}`;
+  }
+}
 
 const Ninja = function (name) {
   this.name = name;
