@@ -22,6 +22,10 @@ function rightRotateTwo(arr, n) {
   return result;
 }
 
+function rightRotateThree(arr, n) {
+  return arr.splice(arr.length - n).concat(arr.splice(0, arr.length));
+}
+
 const arr = [1, 2, 3, 4, 5];
 
 console.log(rightRotateTwo(arr, 2));
