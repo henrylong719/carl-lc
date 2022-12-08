@@ -26,7 +26,7 @@ function dec2bin(dec) {
   return (dec >>> 0).toString(2);
 }
 
-function fundBinUsingQueue(number) {
+function findBinUsingQueue(number) {
   let result = [];
   let queue = new Queue();
   let s1 = '';
@@ -47,4 +47,4 @@ function fundBinUsingQueue(number) {
   return result;
 }
 
-console.log(fundBinUsingQueue(8));
+console.log(findBinUsingQueue(8));
