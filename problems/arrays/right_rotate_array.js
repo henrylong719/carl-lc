@@ -3,7 +3,6 @@ function rightRotate(arr, n) {
     const ele = arr.pop();
     arr.unshift(ele);
   }
-
   return arr;
 }
 
@@ -18,7 +17,6 @@ function rightRotateTwo(arr, n) {
   for (let j = 0; j < arr.length - n; j++) {
     result.push(arr[j]);
   }
-
   return result;
 }
 
