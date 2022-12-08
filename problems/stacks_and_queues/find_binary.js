@@ -1,5 +1,7 @@
 'use strict';
 
+const Queue = require('./queue');
+
 // const Queue = require('./queue');
 
 function findBin(number) {
@@ -24,4 +26,25 @@ function dec2bin(dec) {
   return (dec >>> 0).toString(2);
 }
 
-console.log(findBin(3));
+function fundBinUsingQueue(number) {
+  let result = [];
+  let queue = new Queue();
+  let s1 = '';
+  let s2 = '';
+
+  queue.enqueue('1');
+
+  for (let i = 0; i < number; i++) {
+    result[i] = queue.dequeue();
+
+    s1 = result[i] + '0';
+    s2 = result[i] + '1';
+
+    queue.enqueue(s1);
+    queue.enqueue(s2);
+  }
+
+  return result;
+}
+
+console.log(fundBinUsingQueue(8));
