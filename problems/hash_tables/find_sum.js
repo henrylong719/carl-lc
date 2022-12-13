@@ -23,7 +23,7 @@ function findSumTwo(arr, value) {
   let ht = new HashTable();
 
   for (let i of arr) {
-    if (ht.search(value) !== null) {
+    if (ht.search(value - i) !== null) {
       return [value - i, i];
     }
     ht.insert(value, 1);
