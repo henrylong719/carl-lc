@@ -24,3 +24,25 @@ function removeDuplicates(list) {
 
   return resultList; //return the updated list here
 }
+
+// solution two
+
+function removeDuplicatesTwo(list) {
+  let ht = new HashTable();
+  let previousNode = list.getHead();
+  let currentNode = list.getHead();
+
+  while (!list.isEmpty() && !!currentNode) {
+    if (ht.search(currentNode.data) !== null) {
+      previousNode.nextElement = currentNode.nextElement;
+      currentNode = currentNode.nextElement;
+      continue;
+    }
+
+    ht.insert(currentNode.data, 1);
+    previousNode = currentNode;
+    currentNode = currentNode.nextElement;
+  }
+
+  return list;
+}
