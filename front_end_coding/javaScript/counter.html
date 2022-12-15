@@ -5,39 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </head>
-      <body>
-        <form
-          action="https://www.greatfrontend.com/api/questions/contact-form"
-          method="post"
-        >
-          <div>
-            <label for="name-input"> name </label>
-            <input type="text" id="name-input" name="name" />
-          </div>
-          <div>
-            <label for="email-input"> email </label>
-            <input type="email" name="email-input" id="email" />
-          </div>
-          <div>
-            <label for="message-input">message </label>
-            <textarea name="message" id="message-input"> </textarea>
-          </div>
-          <div>
-            <button type="submit">Send</button>
-          </div>
-        </form>
-        <!-- You can ignore this file, it is only used by GFE to
-      intercept the form submission event. -->
-        <script src="src/index.js"></script>
-      </body>
-    </html>
-
+    <form
+      action="https://www.greatfrontend.com/api/questions/contact-form"
+      method="post"
+    >
+      <div>
+        <label for="name-input"> name </label>
+        <input type="text" id="name-input" name="name" />
+      </div>
+      <div>
+        <label for="email-input"> email </label>
+        <input type="email" name="email-input" id="email" />
+      </div>
+      <div>
+        <label for="message-input">message </label>
+        <textarea name="message" id="message-input"> </textarea>
+      </div>
+      <div>
+        <button type="submit">Send</button>
+      </div>
+    </form>
     <!-- You can ignore this file, it is only used by GFE to
       intercept the form submission event. -->
     <script src="src/index.js"></script>
