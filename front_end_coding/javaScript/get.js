@@ -13,10 +13,10 @@ const jane = {
 };
 
 function get(object, path, defaultValue) {
-  const elements = path.split('.');
+  const elements = Array.isArray(path) ? path : path.split('.');
   let result = object;
   for (let ele of elements) {
-    if (result[ele] === undefined) {
+    if (result[ele] === undefined || result[ele] === null) {
       return defaultValue || undefined;
     }
     result = result[ele];
@@ -28,3 +28,5 @@ console.log(get(john, 'profile.name.firstName')); // 'John'
 console.log(get(john, 'profile.gender')); // 'Male'
 console.log(get(jane, 'profile.name.firstName')); // undefined
 console.log(get({ a: [{ b: { c: 3 } }] }, 'a.0.b.c'));
+
+console.log(undefined === null);
