@@ -22,7 +22,7 @@ import './styles.css';
   }
 
   document.querySelector('#submitBtn').addEventListener('click', function () {
-    const inputValue = inputEle.value;
+    const inputValue = inputEle.value.trim();
     if (!inputValue) {
       alert('please input a value !');
       return;
