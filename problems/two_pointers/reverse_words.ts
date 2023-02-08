@@ -6,7 +6,6 @@ export function reverseWords(sentence: string) {
 }
 
 // reverse words using double pointer
-
 export function reverseWordsUsingDoublePointer(sentence: string) {
   const wordsArray = sentence.split(' ').filter((w) => !!w);
 
