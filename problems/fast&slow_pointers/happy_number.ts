@@ -34,3 +34,31 @@ function separateNumberAndSumSquare(n: number) {
 }
 
 console.log(isHappyNumber(19));
+
+export function isHappyNumberDoublePointer(n: number) {
+  let slow = n;
+  let fast = n;
+
+  while (true) {
+    slow = findSquareSum(slow);
+    fast = findSquareSum(findSquareSum(fast));
+
+    if (fast === slow) {
+      break;
+    }
+  }
+
+  return slow === 1;
+}
+
+function findSquareSum(n: number) {
+  let sum = 0;
+
+  while (n > 0) {
+    let digit = n % 10;
+    sum += digit * digit;
+    n = Math.floor(n / 10);
+  }
+
+  return sum;
+}
