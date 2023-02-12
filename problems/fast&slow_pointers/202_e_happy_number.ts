@@ -1,4 +1,4 @@
-function isHappy(n: number): boolean {
+export function isHappy(n: number): boolean {
   let obj = {} as any;
 
   let result = separateNumberSquareSum(n);

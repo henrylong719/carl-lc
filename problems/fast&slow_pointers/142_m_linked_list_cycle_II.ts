@@ -9,7 +9,7 @@
 
 // how to know which one is the starting node of the cycle
 
-function detectCycle(head: ListNode | null): ListNode | null {
+export function detectCycle(head: ListNode | null): ListNode | null {
   let fast = head;
   let slow = head;
 
