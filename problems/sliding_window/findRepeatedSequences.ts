@@ -29,4 +29,23 @@ export function findRepeatedSequences(s: string, k: number) {
   return Array.from(result.keys());
 }
 
+export function findRepeatedSequencesTwo(s: string, k: number) {
+  if (s.length < k) return [];
+
+  let seen = new Map();
+  let result = new Set();
+
+  for (let i = 0; i < s.length; i++) {
+    let cur = s.slice(i, i + k);
+
+    if (seen.has(cur)) {
+      result.add(cur);
+    }
+
+    seen.set(cur, 1);
+  }
+
+  return Array.from(result.keys());
+}
+
 console.log(findRepeatedSequences('AAAAACCCCCAAAAACCCCCC', 8));
