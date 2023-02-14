@@ -16,6 +16,28 @@
  *
  */
 
+export function mergeIntervalSolutionTwo(v: number[][]) {
+  if (v.length === 0) return [];
+  let result: number[][] = [];
+  result.push(v[0]);
+  for (let i = 1; i < v.length; i++) {
+    let lastAddedInterval = result[result.length - 1];
+
+    let preEnd = lastAddedInterval[1];
+
+    let curStart = v[i][0];
+
+    if (curStart <= preEnd) {
+      lastAddedInterval[1] = Math.max(preEnd, v[i][1]);
+    } else {
+      result.push(v[i]);
+    }
+  }
+
+  return result;
+}
+
+// not perfect solution
 export function mergeIntervals(v: any) {
   let result: any = [v[0]];
 
@@ -36,6 +58,7 @@ export function mergeIntervals(v: any) {
 
 import { Interval } from './interval.js';
 
+// not perfect solution
 export function mergeIntervalsSolution(v: Interval[]) {
   let result = [v[0]];
 
