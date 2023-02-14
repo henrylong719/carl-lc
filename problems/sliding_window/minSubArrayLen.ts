@@ -32,3 +32,30 @@ export function minSubArraylen(target: number, nums: number[]) {
 
   return min;
 }
+
+// better solution
+export function minSubArraylenSolution(target: number, nums: number[]) {
+  let windowSize = Infinity;
+
+  let start = 0;
+  let totalSum = 0;
+
+  for (let end = 0; end < nums.length; end++) {
+    totalSum += nums[end];
+
+    while (totalSum >= target) {
+      // get current window size
+      let size = end + 1 - start;
+
+      windowSize = Math.min(size, windowSize);
+
+      // move the slide window
+      totalSum -= nums[start];
+      start++;
+    }
+  }
+
+  if (windowSize === Infinity) return 0;
+
+  return windowSize;
+}
