@@ -77,10 +77,32 @@ export function mergeIntervalsSolution(v: Interval[]) {
   return result;
 }
 
+export function mergeIntervalLeetCodeSolution(v: number[][]) {
+  const _v = v.sort((a, b) => a[0] - b[0]);
+
+  const result = [_v[0]];
+
+  for (let i = 1; i < _v.length; i++) {
+    let lastEnd = result[result.length - 1][1];
+
+    const curStart = _v[i][0];
+
+    if (curStart <= lastEnd) {
+      // compare last end value and current end value and pick the bigger one
+      result[result.length - 1][1] = Math.max(lastEnd, _v[i][1]);
+    } else {
+      // no overlapping intervals
+      result.push(_v[i]);
+    }
+  }
+
+  return result;
+}
+
 console.log(
-  mergeIntervals([
+  mergeIntervalLeetCodeSolution([
     [1, 5],
-    [3, 7],
     [4, 6],
+    [3, 7],
   ])
 );
