@@ -1,5 +1,3 @@
-import { Interval } from './interval.js';
-
 /*
  *
  *
