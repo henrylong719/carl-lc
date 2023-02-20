@@ -61,7 +61,24 @@ export function employeeFreeTime(schedule: any[]) {
   return result;
 }
 
-employeeFreeTime([
+export function employeeFreeTimeBetterSolution(schedule: any[]): any[] {
+  const sortedSchedule = schedule.flat().sort((a, b) => a[0] - b[0]);
+  const result: any[] = [];
+
+  let preEnd = sortedSchedule[0][1];
+
+  sortedSchedule.forEach((schedule) => {
+    if (schedule[0] > preEnd) {
+      result.push([preEnd, schedule[0]]);
+    }
+
+    preEnd = Math.max(preEnd, schedule[1]);
+  });
+
+  return result;
+}
+
+employeeFreeTimeBetterSolution([
   [
     [1, 2],
     [5, 6],
