@@ -40,9 +40,10 @@ console.log(
   'intervals',
   insertInterval(
     [
+      [1, 2],
       [1, 3],
-      [6, 9],
+      [4, 10],
     ],
-    [2, 5]
+    [5, 6]
   )
 );
