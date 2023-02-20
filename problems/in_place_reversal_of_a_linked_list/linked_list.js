@@ -1,7 +1,7 @@
-import LinkedListNode from './linked_list_node.js';
+const LinkedListNode = require('./linked_list_node.js');
 
 // Template for the linked list
-class LinkedList {
+export class LinkedList {
   constructor() {
     this.head = null;
 
@@ -39,5 +39,3 @@ class LinkedList {
     };
   }
 }
-
-export default LinkedList;
