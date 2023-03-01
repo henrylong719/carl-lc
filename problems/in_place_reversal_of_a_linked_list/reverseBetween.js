@@ -13,41 +13,29 @@ import reverseLinkedList from './linked_list_reversal.js';
  */
 
 export function reverseBetween(head, left, right) {
-  if (!head || !head.next) return head;
+  let dummy = LinkedListNode(0, head);
 
-  let counter = 0;
-  let listNode = head.next;
-  let signalNode = head;
-  let reverseNode = head;
+  let leftPrev = dummy;
+  let cur = head;
 
-  while (listNode !== null) {
-    counter++;
-
-    if (counter < left) {
-      listNode = listNode.next;
-      signalNode = signalNode.next;
-      reverseNode = reverseNode.next;
-    }
-
-    // start reversing
-    if (counter >= left && counter < right) {
-      let temp = listNode;
-      listNode = listNode.next;
-      temp.next = reverseNode;
-      reverseNode = temp;
-    }
-
-    // stop reversing
-    if (counter === right) {
-      let temp = listNode;
-      listNode = listNode.next;
-      reverseNode.next = signalNode;
-      signalNode.next = temp;
-    }
-
-    if (counter > right) {
-      listNode = listNode.next;
-    }
+  // loop until cur is in "left"
+  for (let i = 0; i < left - 1; i++) {
+    leftPrev = cur;
+    cur = cur.next;
   }
-  return reverseNode;
+
+  let prev = null;
+
+  // reverse the linked list from position "left" to position "right"
+  for (let i = 0; i < right - left + 1; i++) {
+    let tempNext = cur.next;
+    cur.next = prev;
+    prev = cur;
+    cur = tempNext;
+  }
+
+  leftPrev.next.next = cur;
+  leftPrev.next = prev;
+
+  return dummy.next;
 }
