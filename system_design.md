@@ -88,6 +88,8 @@ Dig deep into two or three major components. Follow interviewer's feedback. We s
 
 
 
+
+
 * How should we partition our massive amount of adata to distribute it to multiple databases. Store all the data of a user on the same database? What issue could it cause?
 * How to handle hot users who tweet a lot or follow lots of people?
 * Since users' timeline will contain the most recent tweets, should we try to store our data so that it is optimized for scanning the latest tweets?
@@ -137,6 +139,16 @@ Our URL shortening system should meet the following requirements:
 1. The system should be highly available. (required) If the service si down, all the URL redirections will start failing.
 2. URL redirection should happen in real-time with minimal latency.
 3. Shotened links should not be guessable (not prediectable).
+
+
+
+```java
+
+
+
+```
+
+
 
 
 

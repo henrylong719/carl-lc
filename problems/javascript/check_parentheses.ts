@@ -6,6 +6,7 @@ function balancedParentheses(str: string) {
 
     if (str[i] === '{' || str[i] === '[' || str[i] === '(') {
       strArr.push(str[i]);
+
       continue;
     }
 

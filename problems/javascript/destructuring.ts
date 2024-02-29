@@ -5,6 +5,18 @@ function display() {
     collection: [, { name: secondObject }],
   } = exampleObject;
 
+
+
+
+
+
+
+
+
+
+
+
+  
   console.log(secondObject);
 }
 
