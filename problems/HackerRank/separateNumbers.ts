@@ -12,7 +12,6 @@ function separateNumbers(s: string): void {
 
     while (validString.length < s.length) {
       num++;
-      console.log('num+', num);
       validString += String(num);
     }
 
@@ -25,5 +24,3 @@ function separateNumbers(s: string): void {
 }
 
 separateNumbers('90071992547409929007199254740993');
-
-console.log('heyyyyy', 9007199254740992 + 1);
