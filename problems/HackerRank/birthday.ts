@@ -5,7 +5,7 @@ function birthday(s: number[], d: number, m: number): number {
   let result = 0;
 
   for (let window_end = 0; window_end < s.length; window_end++) {
-    window_sum += s[window_end];
+    window_sum += s[window_end]; //
 
     if (window_end - window_start === window_size - 1) {
       if (window_sum === d) {
