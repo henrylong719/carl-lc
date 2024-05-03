@@ -30,4 +30,23 @@ function climbingLeaderboard(ranked: number[], player: number[]): number[] {
   return result.reverse();
 }
 
-console.log(climbingLeaderboard([100, 50, 40, 20, 10], [5, 5, 5, 25, 50, 120]));
+function climbingLeaderboard2(ranked: number[], player: number[]): number[] {
+  const uniqueRanked = Array.from(new Set(ranked));
+
+  let result = [] as any;
+
+  let i = uniqueRanked.length - 1;
+
+  player.forEach((score) => {
+    if (i > 0 && score >= uniqueRanked[i]) {
+      i--;
+    }
+    result.push(i + 1 + 1);
+  });
+
+  return result;
+}
+
+console.log(
+  climbingLeaderboard2([100, 50, 40, 20, 10], [5, 5, 5, 20, 50, 120])
+);
