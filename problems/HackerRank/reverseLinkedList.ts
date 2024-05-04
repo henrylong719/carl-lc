@@ -40,14 +40,14 @@ class SinglyLinkedList {
   }
 }
 
-function printNodes(node: SinglyLinkedListNode | null) {
+function printNodes(node: SinglyLinkedListNode | DoublyLinkedListNode | null) {
   while (node !== null) {
     console.log(node.data);
     node = node.next;
   }
 }
 
-function reverse(llist: SinglyLinkedListNode): SinglyLinkedListNode {
+function reverse1(llist: SinglyLinkedListNode): SinglyLinkedListNode {
   let preNode = null;
   let curNode = llist as any;
 
@@ -72,6 +72,6 @@ node2.next = node3;
 node3.next = node4;
 // node4.next = node5;
 
-const node = reverse(node1);
+const node = reverse1(node1);
 
 printNodes(node);
