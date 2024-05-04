@@ -1,4 +1,4 @@
-class SinglyLinkedListNode {
+export class SinglyLinkedListNode {
   data: number;
   next: SinglyLinkedListNode | null;
 
@@ -40,7 +40,9 @@ class SinglyLinkedList {
   }
 }
 
-function printNodes(node: SinglyLinkedListNode | DoublyLinkedListNode | null) {
+export function printNodes(
+  node: SinglyLinkedListNode | DoublyLinkedListNode | null
+) {
   while (node !== null) {
     console.log(node.data);
     node = node.next;
@@ -60,18 +62,3 @@ function reverse1(llist: SinglyLinkedListNode): SinglyLinkedListNode {
 
   return preNode as SinglyLinkedListNode;
 }
-
-const node1 = new SinglyLinkedListNode(1);
-const node2 = new SinglyLinkedListNode(2);
-const node3 = new SinglyLinkedListNode(3);
-const node4 = new SinglyLinkedListNode(4);
-// const node5 = new SinglyLinkedListNode(5);
-
-node1.next = node2;
-node2.next = node3;
-node3.next = node4;
-// node4.next = node5;
-
-const node = reverse1(node1);
-
-printNodes(node);
