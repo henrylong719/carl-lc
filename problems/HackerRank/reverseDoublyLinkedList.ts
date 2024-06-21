@@ -47,3 +47,5 @@ function reverse(llist: DoublyLinkedListNode): DoublyLinkedListNode {
 
   return pre as DoublyLinkedListNode;
 }
+
+export { DoublyLinkedListNode };
