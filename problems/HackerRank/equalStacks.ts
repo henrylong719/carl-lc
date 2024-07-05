@@ -5,8 +5,6 @@ function equalStacks(h1: number[], h2: number[], h3: number[]): number {
   while (heightArr[0] !== heightArr[1] || heightArr[1] !== heightArr[2]) {
     const maxHeightIndex = getMaxHeight(heightArr);
 
-    console.log(heightArr[0], heightArr[1], heightArr[2]);
-
     if (maxHeightIndex === 0) {
       heightArr[maxHeightIndex] -= h1[curPos[maxHeightIndex]];
     } else if (maxHeightIndex === 1) {
