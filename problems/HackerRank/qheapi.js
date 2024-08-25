@@ -1,5 +1,5 @@
 class MinHeap {
-  constructor() {
+  constructor(parameters) {
     this.h = [];
   }
 
@@ -20,6 +20,7 @@ class MinHeap {
     let p = this._parent(i);
 
     // change position
+    // heapify up
     while (p !== null && x < h[p]) {
       // swap
       h[i] = h[p];
@@ -31,20 +32,20 @@ class MinHeap {
 
   remove(x) {
     let h = this.h;
-    let i = undefined;
+    let i;
 
     for (let j = 0; j < h.length; j++) {
       // find the targe element
-      if (h[j] === x) {
+      if (h[j] == x) {
         i = j;
       }
     }
 
-    // not found target element
-    if (i === undefined) return;
+    x = h.pop();
+    // target element is the last one
+    if (i == h.length) return;
 
     // get the last element
-    x = h.pop();
     h[i] = x;
 
     let p = this._parent(i);
