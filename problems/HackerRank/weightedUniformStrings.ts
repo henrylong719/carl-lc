@@ -1,43 +1,31 @@
 function weightedUniformStrings(s: string, queries: number[]): string[] {
-  // 1. find all weight
-  // 2. determine if query element in the weight array
+  let weightOjb = {} as any;
+  let windowStart = 0;
 
-  // abbcccdddd
-  let weightArr = [s[0].charCodeAt(0) - 96] as number[];
-
-  for (let windowEnd = 1; windowEnd < s.length; windowEnd++) {
-    const charWeight = s[windowEnd].charCodeAt(0) - 96;
-    let windowStart = windowEnd - 1;
+  while (windowStart < s.length) {
+    const charWeight = s[windowStart].charCodeAt(0) - 96;
     // add a new element
-    if (s[windowEnd] !== s[windowStart]) {
-      weightArr.push(charWeight);
-    }
+    weightOjb[charWeight] = 1;
 
-    // not record for now if it's uniform string
-    if (s[windowEnd] === s[windowEnd + 1]) {
-      continue;
+    // record uniform string number
+    let windowEnd = windowStart + 1;
+    let weight = charWeight;
+    while (s[windowStart] === s[windowEnd]) {
+      weight += charWeight;
+      weightOjb[weight] = 1;
+      windowEnd++;
     }
-
-    // record uniform string
-    let uniformStringWeight = charWeight;
-    while (s[windowEnd] === s[windowStart]) {
-      uniformStringWeight += charWeight;
-      weightArr.push(uniformStringWeight);
-      windowStart--;
-    }
+    windowStart = windowEnd;
   }
 
-  const result = queries.map((query) => {
-    if (weightArr.includes(query)) {
-      return 'Yes';
-    }
-    return 'No';
-  });
+  const result = queries.map((query) =>
+    weightOjb.hasOwnProperty(query) ? 'Yes' : 'No'
+  );
 
   return result;
 }
 
-console.log(weightedUniformStrings('abbcccdddd', [1, 7, 5, 4, 15]));
+console.log(weightedUniformStrings('aaabbbbcccddd', [5, 9, 7, 8, 12, 5]));
 
 // 97;
 // console.log('a'.charCodeAt(0));
