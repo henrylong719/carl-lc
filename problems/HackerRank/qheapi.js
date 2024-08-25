@@ -20,7 +20,6 @@ class MinHeap {
     let p = this._parent(i);
 
     // change position
-    // heapify up
     while (p !== null && x < h[p]) {
       // swap
       h[i] = h[p];
@@ -42,10 +41,11 @@ class MinHeap {
     }
 
     x = h.pop();
-    // target element is the last one
+    // it's the last element
     if (i == h.length) return;
 
     // get the last element
+
     h[i] = x;
 
     let p = this._parent(i);
