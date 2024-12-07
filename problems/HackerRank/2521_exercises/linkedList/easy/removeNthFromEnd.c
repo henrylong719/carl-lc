@@ -27,3 +27,28 @@ struct ListNode *removeNthFromEnd(struct ListNode *head, int n)
 
 	return dummyNode->next;
 }
+
+struct ListNode *removeNthFromEnd(struct ListNode *head, int n)
+{
+
+	struct ListNode *dummyNode = (struct ListNode *)malloc(sizeof(struct ListNode));
+	dummyNode->next = head;
+	struct ListNode *left = dummyNode;
+	struct ListNode *right = head;
+
+	while (n > 0 && right != NULL)
+	{
+		right = right->next;
+		n--;
+	}
+
+	while (right != NULL)
+	{
+		left = left->next;
+		right = right->next;
+	}
+
+	left->next = left->next->next;
+
+	return dummyNode->next;
+}
