@@ -20,3 +20,21 @@ class Solution:
             
         self.dfs(root.left, current_depth + 1)
         self.dfs(root.right, current_depth + 1)
+        
+    def minDepth2(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+
+        queue = [] 
+        queue.append([root, 1])
+
+        while len(queue):
+            node, depth = queue.pop(0)
+            if not node.left and not node.right:
+                return depth            
+            if node.left:
+                queue.append([node.left, depth + 1])
+            if node.right:
+                queue.append([node.right, depth + 1])
+
+    
