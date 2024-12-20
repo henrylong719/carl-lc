@@ -56,6 +56,35 @@ struct TreeNode* invertTree(struct TreeNode* root) {
 
 
 
+#### 563. Binary Tree Tilt
+
+```c
+
+int sum(struct TreeNode* node, int* totalTilt){
+    if(node == NULL){
+        return 0;
+    }
+
+    int leftTilt = sum(node->left, totalTilt);
+    int rightTilt = sum(node->right, totalTilt);
+
+    int tilt = abs(leftTilt - rightTilt);
+
+    *totalTilt += tilt;
+
+    return node->val + leftTilt + rightTilt;
+}
+
+
+int findTilt(struct TreeNode* root) {
+
+    int totalTilt = 0;
+    sum(root, &totalTilt);
+    return totalTilt;
+}
+
+```
+
 
 
 
