@@ -1,6 +1,5 @@
 
-
-bool isSym(struct TreeNode *p, struct TreeNode *q)
+bool dfs(struct TreeNode *p, struct TreeNode *q)
 {
 	if (p == NULL && q == NULL)
 	{
@@ -12,10 +11,10 @@ bool isSym(struct TreeNode *p, struct TreeNode *q)
 		return false;
 	}
 
-	return isSym(p->left, q->right) && isSym(p->right, q->left);
+	return dfs(p->left, q->right) && dfs(p->right, q->left);
 }
 
 bool isSymmetric(struct TreeNode *root)
 {
-	return isSym(root->left, root->right);
+	return dfs(root->left, root->right);
 }
