@@ -2,8 +2,6 @@
 
 # Leetcode
 
-## EASY
-
 ### Tree
 
 #### 101.Symmetric Tree
@@ -274,4 +272,62 @@ int getMinimumDifference(struct TreeNode *root)
 ```
 
 
+
+#### 235. Lowest Common Ancestor of a Binary Search Tree
+
+
+
+```c
+
+struct TreeNode *lowestCommonAncestor(struct TreeNode *root, struct TreeNode *p, struct TreeNode *q)
+{
+
+	struct TreeNode *cur = root;
+
+	while (cur)
+	{
+		if (p->val > cur->val && q->val > cur->val)
+		{
+			cur = cur->right;
+		}
+		else if (p->val < cur->val && q->val < cur->val)
+		{
+			cur = cur->left;
+		}
+		else
+		{
+			return cur;
+		}
+	}
+	return cur;
+}
+
+```
+
+
+
+
+
+#### 513. Find Bottom Left Tree Value
+
+
+
+```python
+
+class Solution:
+    def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
+        queue = []
+        queue.append(root)
+
+        while len(queue):
+            node = queue.pop(0)
+            if node.right:
+                queue.append(node.right)
+            if node.left:
+                queue.append(node.left)
+        
+        return node.val
+
+     
+```
 
