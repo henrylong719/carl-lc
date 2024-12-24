@@ -144,8 +144,6 @@ int rangeSumBST(struct TreeNode* root, int low, int high) {
 
 
 
-
-
 #### 230. Kth Samllest Element in a BST
 
 ```c
