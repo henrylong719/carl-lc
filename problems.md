@@ -475,3 +475,74 @@ bool isValidBST(struct TreeNode *root)
 
 ```
 
+
+
+#### 1305. All Elements  in Two Binary Search Tree
+
+```python
+
+class Solution:
+    def getAllElements(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> List[int]:
+
+        queue1 = []
+        queue2 = []
+
+        def bfs(root, queue):
+            if not root:
+                return None
+            if root.left:
+                bfs(root.left,queue)
+            queue.append(root.val)
+            if root.right:
+                bfs(root.right,queue)
+        
+        bfs(root1, queue1)
+        bfs(root2, queue2)
+
+```
+
+
+
+#### 589. N-ary Tree Preorder Traversal
+
+```python
+
+class Solution:
+    def preorder(self, root: 'Node') -> List[int]:
+
+        queue = []
+
+        def dfs(node):
+            if node == None:
+                return
+            queue.append(node.val)
+            for child in node.children:
+                dfs(child)
+        
+        dfs(root)
+        return queue
+
+```
+
+
+
+#### 590. N-ary Tree Postorder Traversal
+
+```python
+
+class Solution:
+    def postorder(self, root: 'Node') -> List[int]:
+        queue = []
+
+        def dfs(node):
+            if(node == None):
+                return
+            
+            for child in node.children:
+                dfs(child)
+            queue.append(node.val)
+        
+        dfs(root)
+        return queue
+
+```
