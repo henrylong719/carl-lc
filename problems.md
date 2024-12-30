@@ -388,3 +388,90 @@ struct TreeNode *deleteNode(struct TreeNode *current, int key)
 
 ```
 
+
+
+#### 112. Path Sum
+
+```c
+
+bool dfs(struct TreeNode *root, int targetSum, int currentSum)
+{
+
+	if (!root)
+	{
+		return false;
+	}
+
+	currentSum += root->val;
+
+	// find the leaf
+	if (root->left == NULL && root->right == NULL)
+	{
+		return currentSum == targetSum;
+	}
+
+	return dfs(root->left, targetSum, currentSum) || dfs(root->right, targetSum, currentSum);
+}
+
+bool hasPathSum(struct TreeNode *root, int targetSum)
+{
+	return dfs(root, targetSum, 0);
+}
+
+
+
+
+bool hasPathSum2(struct TreeNode *root, int targetSum)
+{
+
+	if (!root)
+	{
+		return false;
+	}
+
+	targetSum -= root->val;
+
+	if (root->left == NULL && root->right == NULL)
+	{
+		return targetSum == 0;
+	}
+
+	return hasPathSum(root->left, targetSum) || hasPathSum(root->right, targetSum);
+}
+
+```
+
+
+
+
+
+#### 98. Validate Bianry Search Tree
+
+```c
+
+
+#include <stdbool.h>
+#include <limits.h>
+
+bool isValid(struct TreeNode *root, long left, long right)
+{
+	if (root == NULL)
+	{
+		return true;
+	}
+
+	if (!(root->val > left && root->val < right))
+	{
+		return false;
+	}
+
+	return isValid(root->left, left, root->val) && isValid(root->right, root->val, right);
+}
+
+bool isValidBST(struct TreeNode *root)
+{
+	return isValid(root, LONG_MIN, LONG_MAX);
+}
+
+```
+
