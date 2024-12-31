@@ -8,7 +8,7 @@
 
 
 
-#### 167. Two Sum II - Input Array Is Sorted
+#### 167. Two Sum II - Input Array Is Sorted (31/12)
 
 ```python
 
@@ -24,8 +24,74 @@ def twoSum(self, numbers: List[int], target: int) -> List[int]:
             right -= 1
         else:
             left += 1
+            
+# Time complexity O(n) - length of numbers
+# Space complexity O(1)
 
 ```
+
+
+
+#### 15. 3Sum
+
+```python
+
+def threeSum(self, nums: List[int]) -> List[List[int]]:
+  			# time complexity O(nlog(n))
+        nums.sort()
+        n = len(nums)
+        ans = []
+
+        for i in range(n - 2):
+            x = nums[i]
+
+            # skip duplicates 
+            if i > 0 and x == nums[i-1]:
+                continue
+            
+            # optimization
+            if x + nums[i+1] + nums[i+2] > 0:
+                break
+            
+            if x + nums[-2] + nums[-1] < 0:
+                continue
+            
+            j = i + 1
+            k = n - 1
+
+            while j < k:
+                sum = x + nums[j] + nums[k]
+                if sum > 0:
+                    k -= 1
+                elif sum < 0:
+                    j += 1
+                else:
+                    ans.append([x, nums[j], nums[k]])
+                    j += 1
+                    # skip duplicates
+                    while j < k and nums[j] == nums[j-1]:
+                        j += 1
+                    k -= 1
+                    while k > j and nums[k] == nums[k+1]:
+                        k -= 1
+        return ans
+
+
+# Time complexity O(n^2)
+# Space complexity O(1)
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
