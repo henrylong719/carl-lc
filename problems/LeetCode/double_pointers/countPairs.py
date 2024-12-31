@@ -16,6 +16,7 @@ class Solution:
         
         return count
       
+      
     def countPairs2(self, nums: List[int], target: int) -> int:
         nums.sort()
         ans = 0
