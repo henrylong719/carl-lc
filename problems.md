@@ -2,6 +2,43 @@
 
 # Leetcode
 
+
+
+### Double Pointers
+
+
+
+#### 167. Two Sum II - Input Array Is Sorted
+
+```python
+
+def twoSum(self, numbers: List[int], target: int) -> List[int]:
+    left = 0
+    right = len(numbers) - 1
+
+    while(True):
+        current = numbers[left] + numbers[right]
+        if current == target:
+            return [left + 1, right + 1 ]
+        if current > target:
+            right -= 1
+        else:
+            left += 1
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Tree
 
 #### 101.Symmetric Tree
