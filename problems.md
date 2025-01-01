@@ -241,7 +241,7 @@ def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
 
 
 
-#### 611. Valid Triangle Number
+#### 611. Valid Triangle Number (31/12)
 
 ```python
 
@@ -292,6 +292,32 @@ def triangleNumber2(self, nums: List[int]) -> int:
 # Time complexity: O(n^2)
 # Space complexity: O(1)
 
+```
+
+
+
+#### 11. Container With Most Water (1/1)
+
+```python
+
+def maxArea(self, height: List[int]) -> int:
+      left = 0
+      right = len(height) - 1
+      ans = 0
+
+      while left < right:
+          area = (right - left) * (min(height[left], height[right]))
+          ans = max(ans, area)
+
+          if height[left] < height[right]:
+              left += 1
+          else:
+              right -= 1
+      return ans
+
+# Time complexity O(n)
+# Space complexity O(1)
+    
 ```
 
 
