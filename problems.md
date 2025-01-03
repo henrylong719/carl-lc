@@ -2,8 +2,6 @@
 
 # Leetcode
 
-
-
 ### Double Pointers
 
 
@@ -338,6 +336,11 @@ def trap(self, height: List[int]) -> int:
 
     sur_max = [0] * n
     sur_max[-1] = height[n-1]
+    
+    # range(start, stop, step)
+    # start: The loop starts at n-2.
+    # stop: The loop stops before -1. This means it will include 0 as the last value.
+    # step: -1 indicates that the loop decrements by 1 on each iteration.
 
     for i in range(n-2, -1, -1):
         sur_max[i] = max(sur_max[i+1], height[i])
@@ -374,6 +377,429 @@ def trap2(self, height: List[int]) -> int:
 # Space complexity: O(1)
       
 ```
+
+
+
+### Sliding Window
+
+#### 209. Minimum Size Subarray Sum (1/1)
+
+
+
+```python
+
+def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+		sum = 0
+		window_size = inf
+		window_start = 0
+
+		for window_end in range(len(nums)):
+				
+				sum += nums[window_end]
+
+				while sum - nums[window_start] >= target:
+						sum -= nums[window_start]
+						window_start += 1
+				
+				if sum >= target:
+						window_size = min(window_size, window_end - window_start + 1)
+
+		return window_size if sum >= target else 0
+
+# Time complexity: O(n)
+# Space complexity: O(1)
+
+```
+
+
+
+#### 3. Longest Substring Without Repeating Characters (1/1)
+
+```python
+
+from collections import Counter
+
+
+def lengthOfLongestSubstring(self, s: str) -> int:
+
+		ans = 0
+		left = 0
+		map = Counter()
+
+		for right, c in enumerate(s):
+				
+				map[c] += 1
+
+				while map[c] > 1:
+						map[s[left]] -= 1
+						left += 1
+				
+				ans = max(ans, right - left + 1)
+		
+		return ans
+  
+# Time complexity O(n)
+# Space complexity O(128) | O(1) | O(len(set(s)))
+
+```
+
+
+
+#### 713. Subarray Product Less Than K (1/1)
+
+```python
+
+def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
+		if k <= 1:
+				return 0
+
+		prod = 1
+		ans = 0
+		left = 0
+
+		for right, x in enumerate(nums):
+				prod *= x
+
+				while prod >= k:
+						prod /= nums[left]
+						left += 1
+				
+				ans += right - left + 1
+		
+		return ans
+  
+# Time complexity: O(n)
+# Space complexity: O(1)
+
+```
+
+
+
+#### 2958. Length of Longest Subarray With at Most K Frequency (1/1)
+
+```python
+
+from collections import Counter
+
+
+def maxSubarrayLength(self, nums: List[int], k: int) -> int:
+		left = 0
+		map = Counter()
+		ans = 0
+
+		for right, i in enumerate(nums):
+				
+				map[i] += 1
+
+				while map[i] > k:
+						map[nums[left]] -= 1
+						left += 1
+				
+				ans = max(ans, right - left + 1)
+
+		return ans
+
+
+# Time complexity O(n)
+# Space complexity O(set(nums))
+
+```
+
+
+
+#### 2730. Find the Longest Semi-Repetitive Substring (1/1)
+
+```python
+
+def longestSemiRepetitiveSubstring(self, s: str) -> int:
+		lastRepeatIndex = -1
+		ans = 0
+		left = 0
+
+    # edge cases
+		if len(s) == 1:
+				return 1
+
+		for right in range(1, len(s)):
+				if s[right] == s[right -1 ]:
+						if lastRepeatIndex != -1:
+								left = lastRepeatIndex
+						lastRepeatIndex = right
+
+				ans = max(ans, right - left + 1)
+
+		
+		return ans
+  
+# Time complexity O(n)
+# Space complexity O(1)
+
+```
+
+
+
+#### 2779. Maximum Beauty of an Array After Applying Operation (2/1)
+
+```python
+
+def maximumBeauty(self, nums: List[int], k: int) -> int:
+		nums.sort()
+		ans = 0
+		left = 0
+
+		for right,y in enumerate(nums):
+				while y - nums[left] > 2 * k:
+						left += 1
+				ans = max(ans, right - left + 1)
+				
+		return ans
+
+  
+	# Time complexity: O(nlog(n))
+  # Space complexity: O(1)
+  
+```
+
+
+
+#### 1004. Max Consecutive Ones III (2/1)
+
+```python
+
+
+def longestOnes(self, nums: List[int], k: int) -> int:
+		ans = 0
+		left = 0
+		count0 = 0
+
+		for right, i in enumerate(nums):
+				
+				# add 1 and 0 into the window and count the num of 0
+				count0 += 1 - i
+
+				# shrink the window
+				while count0 > k:
+						count0 -= 1 - nums[left]
+						left += 1
+				
+				ans = max(ans, right - left + 1)
+
+		return ans
+  
+  # Time complexity: O(n)
+  # Space complexity: O(1)
+
+
+```
+
+
+
+#### 2962. Count Subarrays Where Max Element Apprears at Least K Times (2/1)
+
+```python
+
+def countSubarrays(self, nums: List[int], k: int) -> int:
+		maxEle = max(nums)
+		left = 0
+		ans = 0
+		max_count = 0
+		n = len(nums)
+
+		for right, x in enumerate(nums):
+				if x == maxEle:
+						max_count += 1
+				
+				while max_count >= k:
+						ans += n - right
+						if nums[left] == maxEle:
+								max_count -= 1
+						left += 1
+						
+		return ans
+  
+  
+ 	# Time complexity: O(n)
+  # Space complexity: O(1)
+
+```
+
+
+
+#### 1658. Minimum Operation to Reduce X to Zero (2/1)
+
+```python
+
+def minOperations(self, nums: List[int], x: int) -> int:
+		target = sum(nums) - x
+
+		if target < 0: return -1
+
+		ans = -1
+		left = 0
+		s = 0
+
+		for right, x in enumerate(nums):
+				s += x
+				
+				# shrink the array
+				while s > target:
+						s -= nums[left]
+						left += 1
+				
+				if s == target:
+						ans = max(ans, right - left + 1)
+		
+		return -1 if ans < 0 else len(nums) - ans
+
+
+ 	# Time complexity: O(n)
+  # Space complexity: O(1)
+  
+```
+
+
+
+#### 2302. Count Subarrays With Score Less Than k (2/1)
+
+```python
+
+def countSubarrays(self, nums: List[int], k: int) -> int:
+
+			ans = 0
+			left = 0
+			sum = 0
+
+			for right, x in enumerate(nums):
+
+					sum += x
+					
+					while sum * (right - left + 1) >= k:
+							sum -= nums[left]
+							left += 1
+					
+					ans += right - left + 1
+			
+			return ans
+    
+  # Time complexity: O(n)
+  # Space complexity: O(1)
+    
+```
+
+
+
+#### 76*. Minimum Window Substring (3/1)
+
+```python
+
+def minWindow(self, s: str, t: str) -> str:
+
+		charCount = Counter(t)
+		left = 0
+		minStrLen = len(s) + 1
+		ans = ''
+
+		for right, x in enumerate(s):
+				charCount[x] -= 1
+
+				# all char in t are included
+				while max(charCount.values()) == 0:
+						# find min substring                
+						if right - left + 1 < minStrLen:
+								minStrLen = right - left + 1
+								ans = s[left: right + 1]
+						
+						charCount[s[left]] += 1
+						left += 1
+
+		return ans
+  
+  
+def minWindow2(self, s: str, t: str) -> str:
+    ans_left, ans_right = -1, len(s)
+    s_count = Counter()
+    t_count = Counter(t)
+    left = 0
+
+    for right, x in enumerate(s):
+        s_count[x] += 1
+
+        while s_count >= t_count:
+            if right - left < ans_right - ans_left:
+                ans_left, ans_right = left, right
+
+            s_count[s[left]] -= 1
+            left += 1
+
+    return '' if ans_left == -1 else s[ans_left : ans_right + 1]
+
+# Time complexity: O(n * k)
+
+# The critical part is the check while max(charCount.values()) == 0:. Each time we do this check, it costsO(k), because max(...) runs in time proportional to the number of keys (distinct characters) in charCount.
+
+# Spece complexity: O(n + k) or O(n)
+# k distinct characters
+
+# https://leetcode.cn/problems/minimum-window-substring/solutions/2713911/liang-chong-fang-fa-cong-o52mn-dao-omnfu-3ezz/
+
+```
+
+
+
+#### 1234*. Replace the Substring for Balanced String 
+
+
+
+
+
+### Binary Search
+
+
+
+#### 34. Find First and Last Position of Element in Sorted Array (3/1)
+
+
+
+```python
+
+def lower_bound (self, nums: List[int], target: int) -> List[int]:
+
+		left, right = 0, len(nums) - 1
+
+		while left <= right:
+
+				mid = (left + right) // 2
+
+				if target <= nums[mid]:
+						right = mid - 1
+				else:
+						left = mid + 1
+
+		return left
+
+def searchRange(self, nums: List[int], target: int) -> List[int]:
+		start = self.lower_bound(nums, target)
+		if start == len(nums) or nums[start] != target:
+				return [-1,-1]
+		end = self.lower_bound(nums, target + 1) - 1
+		return [start, end]
+
+
+  
+# Time complexity: O(log(n))
+# Spece complexity: O(1)
+
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
