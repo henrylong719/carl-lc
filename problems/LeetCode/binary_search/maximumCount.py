@@ -16,4 +16,4 @@ def lower_bound(nums: List[int], target: int) -> int:
 		return left
 
 
-print(lower_bound([-3,-2,-1,0,0,0],1))
+print(lower_bound([-3,-2,-1,0,0,0,1],1))
