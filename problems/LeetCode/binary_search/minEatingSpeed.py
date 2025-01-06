@@ -1,41 +1,17 @@
-from math import ceil
-from typing import List
-
-
-
-def calTime(piles: List[int], speed: int) -> int:
-
-		ans = 0
-
-		for piel in piles:
-				ans += ceil(piel / speed)
-    
-		print(ans)
-		return ans
-
-def minEatingSpeed(piles: List[int], h: int) -> int:
+def minEatingSpeed(self, piles: List[int], h: int) -> int:
 
 		piles.sort()
+		n = len(piles)
+		left = 0
+		right = max(piles)
 
-		# min k
-		left  = 1
-		# max k
-		right = piles[len(piles) - 1]
-
-		while left < right:
+		while left + 1 < right:
 
 				mid = (left + right) // 2
 
-				t = calTime(piles, mid)
-
-				if t >= h:
-						return mid
-				elif t < h:
-					right = mid - 1
+				if sum((p - 1) // mid for p in piles) <= h - n:
+						right = mid
 				else:
-					left = mid + 1
+						left = mid
 		
-		return left
-
-
-print(minEatingSpeed([30,11,23,4,20], 6))
+		return right
