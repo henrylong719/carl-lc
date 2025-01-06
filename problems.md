@@ -793,15 +793,289 @@ def searchRange(self, nums: List[int], target: int) -> List[int]:
 
 
 
+#### 2529. Maximum Count of Positive Integer and Negative Integer (3/1)
+
+```python
+
+def lower_bound(self, nums: List[int], target: int) -> int:
+    left, right = 0, len(nums) - 1
+
+    while left <= right:
+
+        mid = (left + right) // 2
+
+        if target <= nums[mid]:
+            right = mid - 1
+        else:
+            left = mid + 1
+
+    return left
+
+def maximumCount(self, nums: List[int]) -> int:
+
+    neg = self.lower_bound(nums, 0)
+    pos = len(nums) - self.lower_bound(nums, 1)
+
+    return max(neg, pos)
+  
+# Time complexity: O(log(n))
+# Spece complexity: O(1)
+
+# The rule of lower_bound
+# if the target is in nums, return lower bound of the target
+# if the target is not in nums, return the lower bound of the num which is larger than the  target; if there is no such larger number, return the length of the array
+
+```
+
+
+
+#### 2300. Successful Pairs of Spells and Potions (3/1)
+
+```python
+
+def lower_bound(self, nums: List[int], target: int) -> int:
+    left, right = 0, len(nums) - 1 
+
+    while left <= right:
+
+        mid = (left + right) // 2
+
+        if target <= nums[mid]:
+            right = mid - 1
+        else:
+            left = mid + 1
+
+    return left
+
+def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
+    potions.sort()
+    ans = []
+    n = len(potions)
+
+    for i in spells:
+        val = ceil(success / i)
+        low = self.lower_bound(potions, val)
+        ans.append(n - low)
+
+    return ans
+
+
+
+# Time complexity: O((n + m)log m)
+# m: length of potions, sorting: O(mlogm)
+# n times binary search and O(log(m) each time
+# mlog(m) + nlog(m) = (m + n)log(m)
+
+# Space complexity: O(1)
+
+
+```
+
+
+
+#### 2563. Count the Number of Fair Pairs (3/1)
+
+```python
+
+
+from bisect import bisect_left, bisect_right
+
+
+def countFairPairs(self, nums: List[int], lower: int, upper: int) -> int:
+		nums.sort()
+		n = len(nums)
+		ans = 0
+
+		# lower - nums[j] <= nums[i] <= upper - nums[j]
+
+		for j, x in enumerate(nums):
+
+				right = bisect_right(nums, upper - nums[j], 0, j)
+				left = bisect_left(nums, lower - nums[j], 0, j)
+				ans += right - left
+
+		return ans
+
+
+# Time complexity: O(nlog(n))
+# Spece complexity: O(1)
+
+
+# The bisect_right() method is provided by the bisect module, which returns the right-most index to insert the given element while maintaining the sorted order.
+# https://www.educative.io/answers/what-is-bisectbisectright-in-python
+
+
+```
+
+
+
+#### 2080. Range Frequency Queries (3/1)
+
+```python
+
+
+from bisect import bisect_left, bisect_right
+from collections import defaultdict
+from typing import List
+
+
+def bisect_right(a, x, lo=0, hi=None, *, key=None):
+    """Return the index where to insert item x in list a, assuming a is sorted.
+
+    The return value i is such that all e in a[:i] have e <= x, and all e in
+    a[i:] have e > x.  So if x already appears in the list, a.insert(i, x) will
+    insert just after the rightmost x already there.
+
+    Optional args lo (default 0) and hi (default len(a)) bound the
+    slice of a to be searched.
+
+    A custom key function can be supplied to customize the sort order.
+    """
+
+    if lo < 0:
+        raise ValueError('lo must be non-negative')
+    if hi is None:
+        hi = len(a)
+    # Note, the comparison uses "<" to match the
+    # __lt__() logic in list.sort() and in heapq.
+    if key is None:
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if x < a[mid]:
+                hi = mid
+            else:
+                lo = mid + 1
+    else:
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if x < key(a[mid]):
+                hi = mid
+            else:
+                lo = mid + 1
+    return lo
+
+	def bisect_left(a, x, lo=0, hi=None, *, key=None):
+    """Return the index where to insert item x in list a, assuming a is sorted.
+
+    The return value i is such that all e in a[:i] have e < x, and all e in
+    a[i:] have e >= x.  So if x already appears in the list, a.insert(i, x) will
+    insert just before the leftmost x already there.
+
+    Optional args lo (default 0) and hi (default len(a)) bound the
+    slice of a to be searched.
+
+    A custom key function can be supplied to customize the sort order.
+    """
+
+    if lo < 0:
+        raise ValueError('lo must be non-negative')
+    if hi is None:
+        hi = len(a)
+    # Note, the comparison uses "<" to match the
+    # __lt__() logic in list.sort() and in heapq.
+    if key is None:
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if a[mid] < x:
+                lo = mid + 1
+            else:
+                hi = mid
+    else:
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if key(a[mid]) < x:
+                lo = mid + 1
+            else:
+                hi = mid
+    return lo 
+  
+  
+class RangeFreqQuery:
+
+    def __init__(self, arr: List[int]):
+        pos = defaultdict(list)
+
+        for i, x in enumerate(arr):
+            pos[x].append(i)
+        
+        self.pos = pos
+        
+    def query(self, left: int, right: int, value: int) -> int:
+        arr = self.pos[value]
+        return bisect_right(arr, right) - bisect_left(arr, left)
+      
+      
+      
+  # Time Complexity:
+  # Initialization: O(n)
+  # Query: O(log(n)))
+  
+  # Space Complexity: O(n)
+  
+   
+```
+
+
+
+#### 2080. H-Index II (6/1)
+
+```python
+
+
+def hIndex(self, citations: List[int]) -> int:
+
+    # Have at least n papers cited 
+
+    left = 1
+    right = len(citations) - 1
+
+    while left <= right:
+
+        mid = (left + right) // 2
+
+        if citations[-mid] >= mid:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return right
+  
+# Time complexity: O(log(n))
+# Spece complexity: O(1)
+
+# https://leetcode.cn/problems/h-index-ii/solutions/2504326/tu-jie-yi-tu-zhang-wo-er-fen-da-an-si-ch-d15k/
+```
 
 
 
 
 
+#### 875. Koko Eating Bananas (6/1)
 
+```python
 
+def minEatingSpeed(self, piles: List[int], h: int) -> int:
 
+		piles.sort()
+		n = len(piles)
+		left = 0
+		right = max(piles)
 
+		while left + 1 < right:
+
+				mid = (left + right) // 2
+
+				if sum((p - 1) // mid for p in piles) <= h - n:
+						right = mid
+				else:
+						left = mid
+		
+		return right
+  
+  # Time complexity: O(log(n))
+	# Spece complexity: O(1)
+  
+```
 
 
 
