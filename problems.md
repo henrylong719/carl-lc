@@ -1072,14 +1072,14 @@ def minEatingSpeed(self, piles: List[int], h: int) -> int:
 		
 		return right
   
-  # Time complexity: O(log(n))
+  # Time complexity: O(nlog(n))
 	# Spece complexity: O(1)
   
 ```
 
 
 
-#### Minimum Time to Complete Trips
+#### Minimum Time to Complete Trips (7/1)
 
 ```python
 
@@ -1098,10 +1098,51 @@ def minimumTime(self, time: List[int], totalTrips: int) -> int:
 		
 		return right
   
-  # Time complexity: O(log(n))
+  
+  def minimumTime(self, time: List[int], totalTrips: int) -> int:
+		min_t = min(time)
+		avg = (totalTrips - 1) // len(time) + 1
+		left = min(time) * avg - 1
+		right = min(min_t * totalTrips, max(time) * avg)
+
+		while left + 1 < right:
+				mid = (left + right) // 2
+
+				if sum(mid // t for t in time) >= totalTrips:
+						right = mid 
+				else:
+						left = mid
+		
+		return right
+  
+  # Time complexity: O(nlog(n))
 	# Spece complexity: O(1)
+  # https://leetcode.cn/problems/minimum-time-to-complete-trips/solutions/1295955/er-fen-da-an-python-yi-xing-gao-ding-by-xwvs8/
   
 ```
+
+
+
+#### 2439. Minimize Maximum of Array
+
+```python
+
+def minimizeArrayValue(self, nums: List[int]) -> int:
+		ans = total = nums[0]
+
+		for i in range(1, len(nums)):
+				total += nums[i]
+				ans = max(ans, ceil(total / (i + 1)))
+		
+		return ans
+
+
+  # Time complexity: O(n)
+  # Space complexity: O(1)
+  
+```
+
+
 
 
 
