@@ -1123,7 +1123,7 @@ def minimumTime(self, time: List[int], totalTrips: int) -> int:
 
 
 
-#### 2439. Minimize Maximum of Array
+#### 2439. Minimize Maximum of Array (7/1)
 
 ```python
 
@@ -1141,6 +1141,55 @@ def minimizeArrayValue(self, nums: List[int]) -> int:
   # Space complexity: O(1)
   
 ```
+
+
+
+#### 2517*. Maximum Tasiness of Candy Basket 
+
+```python
+
+
+
+```
+
+
+
+#### 2861*. Maximum Number of Alloys
+
+
+
+### Binary Search II
+
+#### 162. Find Peak Element (7/1)
+
+```python
+
+def findPeakElement(self, nums: List[int]) -> int:
+    left = 0
+    right = len(nums) - 1
+
+    while left <= right:
+        mid = left + (right - left) // 2
+
+        # left side having peak
+        if mid > 0 and nums[mid] < nums[mid - 1]:
+            right = mid - 1
+        # right side having peak
+        elif mid < len(nums) - 1 and nums[mid] < nums[mid + 1]:
+            left = mid + 1
+        else:
+            return mid
+
+  
+  # Time complexity: O(log(n)
+  # Space complexity: O(1)
+          
+
+```
+
+
+
+
 
 
 
