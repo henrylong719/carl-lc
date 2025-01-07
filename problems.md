@@ -1079,6 +1079,32 @@ def minEatingSpeed(self, piles: List[int], h: int) -> int:
 
 
 
+#### Minimum Time to Complete Trips
+
+```python
+
+def minimumTime(self, time: List[int], totalTrips: int) -> int:
+		min_t = min(time)
+		left = min_t - 1
+		right = min_t * totalTrips
+
+		while left + 1 < right:
+				mid = (left + right) // 2
+
+				if sum(mid // t for t in time) >= totalTrips:
+						right = mid 
+				else:
+						left = mid
+		
+		return right
+  
+  # Time complexity: O(log(n))
+	# Spece complexity: O(1)
+  
+```
+
+
+
 
 
 ### Tree
