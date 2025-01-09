@@ -1,4 +1,3 @@
-
 def reverseList(self, head: ListNode) -> ListNode:
 
 		prev = None
@@ -12,35 +11,38 @@ def reverseList(self, head: ListNode) -> ListNode:
 		
 		return prev
 
-def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-
-		revL1 = self.reverseList(l1)
-		revL2 = self.reverseList(l2)
-
+def addTwoList(self, revL1: ListNode, revL2: ListNode) -> ListNode:
 		carry = 0
 		dummyNode = ListNode()
 		cur = dummyNode
 
 		while revL1 or revL2 or carry:
 
-				s = 0
+				res = 0
 
 				if revL1:
-						s += revL1.val
+						res = res + revL1.val
 						revL1 = revL1.next
 				
 				if revL2:
-						s += revL2.val
+						res = res + revL2.val
 						revL2 = revL2.next
 				
-				s += carry
+				res += carry
 
-				carry = s // 10
-				s %= 10
-						
-				cur.next = ListNode(val = s)
+				carry = res // 10
+				res = res % 10
+
+				cur.next = ListNode(res)
 				cur = cur.next
 
-		ans = self.reverseList(dummyNode.next)
+		return dummyNode.next
+
+def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+		revL1 = self.reverseList(l1)
+		revL2 = self.reverseList(l2)
+
+		revL3 = self.addTwoList(revL1, revL2)
+		ans = self.reverseList(revL3)
 
 		return ans
