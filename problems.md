@@ -1479,7 +1479,96 @@ def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
 
 
 
+#### 24. Swap Nodes in Pairs (9/1)
 
+```python
+
+def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    dummyNode = ListNode(next = head)
+    prev = dummyNode
+    cur = head
+
+    while cur and cur.next:
+        nextPair = cur.next.next
+        second = cur.next
+
+        # swap
+        second.next = cur
+        cur.next = nextPair
+        prev.next = second
+
+        prev = cur
+        cur = nextPair
+
+    return dummyNode.next
+  
+	# Time complexity: O(n)  
+	# Space complexity: O(1)
+  
+```
+
+
+
+
+
+#### 445. Add Two Numbers II
+
+```python
+
+def reverseList(self, head: ListNode) -> ListNode:
+
+		prev = None
+		cur = head
+
+		while cur:
+				next = cur.next
+				cur.next = prev
+				prev = cur
+				cur = next
+		
+		return prev
+
+def addTwoList(self, revL1: ListNode, revL2: ListNode) -> ListNode:
+		carry = 0
+		dummyNode = ListNode()
+		cur = dummyNode
+
+		while revL1 or revL2 or carry:
+
+				res = 0
+
+				if revL1:
+						res = res + revL1.val
+						revL1 = revL1.next
+				
+				if revL2:
+						res = res + revL2.val
+						revL2 = revL2.next
+				
+				res += carry
+
+				carry = res // 10
+				res = res % 10
+
+				cur.next = ListNode(res)
+				cur = cur.next
+
+		return dummyNode.next
+
+def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+		revL1 = self.reverseList(l1)
+		revL2 = self.reverseList(l2)
+
+		revL3 = self.addTwoList(revL1, revL2)
+		ans = self.reverseList(revL3)
+
+		return ans
+  
+  # Time complexity: O(n + m)
+  # len(L1) = n, len(L2) = m
+  # Space complexity: O(n + m)
+  
+```
 
 
 
