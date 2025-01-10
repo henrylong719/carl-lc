@@ -1564,6 +1564,7 @@ def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optio
 
 		return ans
   
+  # key: reverse and add them up!
   # Time complexity: O(n + m)
   # len(L1) = n, len(L2) = m
   # Space complexity: O(n + m)
@@ -1623,6 +1624,7 @@ def doubleIt(self, head: Optional[ListNode]) -> Optional[ListNode]:
 		return ans
 
   
+  # key: reverse and double it!
   
 	# Time complexity: O(n)
   # Space complexity: O(n)
@@ -1630,6 +1632,55 @@ def doubleIt(self, head: Optional[ListNode]) -> Optional[ListNode]:
 ```
 
 
+
+### Linked List (fast and slow pointer)
+
+#### 876. Middle of the Linked List (10/1)
+
+```python
+
+def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+		fast = head
+		slow = head
+
+		while fast and fast.next:
+				slow = slow.next
+				fast = fast.next.next
+
+		return slow
+  
+  # Time complexity: O(n)
+  # Space complexity: O(1)
+
+```
+
+
+
+#### 141. Linked List Cycle (10/1)
+
+```python
+
+def hasCycle(self, head: Optional[ListNode]) -> bool:
+		if not head: return False
+
+		fast = head
+		slow = head
+
+		while fast and fast.next:
+				fast = fast.next.next
+				slow = slow.next
+
+				if fast == slow:
+						return True
+				
+		return False
+  
+  
+  # Time complexity: O(n)
+  # Space complexity: O(1)
+
+
+```
 
 
 
