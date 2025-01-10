@@ -1684,6 +1684,42 @@ def hasCycle(self, head: Optional[ListNode]) -> bool:
 
 
 
+#### 142. Linked List Cycle II (10/1)
+
+```python
+
+def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+		if not head: return None
+
+		fast = head
+		slow = head
+
+		while fast and fast.next:
+				fast = fast.next.next
+				slow = slow.next
+
+				if fast == slow:
+						fast = head
+						while fast != slow:
+								fast = fast.next
+								slow = slow.next
+						
+						return fast
+		
+		return None
+  
+  
+  # key: jumping back to head when fast meets slow
+  # https://github.com/henrylong719/carl-lc/blob/main/Images/142_m_linked_list_cycle_II.png
+  
+  # Time complexity: O(n)
+  # Space complexity: O(1)
+  
+
+```
+
+
+
 
 
 
