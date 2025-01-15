@@ -2008,6 +2008,46 @@ def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNod
 
 
 
+#### 3217. Delete Nodes From Linked List Present in Array (15/1)
+
+`Hint: Add all elements of nums into a Set.`
+
+```python
+
+def modifiedList(self, nums: List[int], head: Optional[ListNode]) -> Optional[ListNode]:
+		dummyNode = ListNode(next = head)
+		cur = dummyNode
+		nums = set(nums)
+
+		while cur.next:
+
+				if cur.next.val in nums:
+						cur.next = cur.next.next
+				else:
+						cur = cur.next
+		
+		return dummyNode.next
+
+
+
+# Time complexity: O(n + m) 
+# n: lengh of nums, m: lengh of the linked list
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
