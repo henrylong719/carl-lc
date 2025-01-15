@@ -1825,6 +1825,48 @@ def isPalindrome(self, head: Optional[ListNode]) -> bool:
 
 
 
+### Linked List (Delete)
+
+#### 237. Delete Node in a Linked List (15/1)
+
+`Hint: How to become another person in the world? Two steps.`
+
+`One, change your appreance to whom you want to be`
+
+`Two, kill that person`
+
+
+
+```python
+
+def deleteNode(self, node):
+    """
+    :type node: ListNode
+    :rtype: void Do not return anything, modify node in-place instead.
+    """
+    node.val = node.next.val
+    node.next = node.next.next
+
+
+# Time complexity: O(1)
+# Space complexity: O(1)
+
+```
+
+
+
+#### 19. Remove Nth Node From End of List (15/1)
+
+
+
+```python
+
+
+
+```
+
+
+
 
 
 
