@@ -1940,6 +1940,44 @@ def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
 
 
 
+#### 82. Remove Duplicates from Sorted List II (15/1)
+
+
+
+`Hint: Moving cur.next pointer unitl a distinct node`
+
+
+
+```python
+
+def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    if not head: return None
+
+    dummyNode = ListNode(next = head)
+
+    cur = dummyNode
+
+    while cur.next and cur.next.next:
+        val = cur.next.val
+
+        # find repetitive
+        if val == cur.next.next.val:
+            # moving cur.next pointer until a distinctive element
+            while cur.next and cur.next.val == val:
+                cur.next = cur.next.next
+        else:
+            cur = cur.next
+
+    return dummyNode.next  
+  
+  
+    
+  # Time complexity: O(n)
+	# Space complexity: O(1)
+  
+
+```
+
 
 
 
