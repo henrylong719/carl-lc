@@ -1909,6 +1909,37 @@ def removeNthFromEnd2(self, head: Optional[ListNode], n: int) -> Optional[ListNo
 
 
 
+#### 83. Remove Duplicates from Sorted List (15/1)
+
+
+
+`Hint: keep updating cur.next until find the distinctive one`
+
+
+
+```python
+
+def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    if not head: return None
+
+    cur = head
+
+    while cur.next:
+        if cur.next.val == cur.val:
+            cur.next = cur.next.next
+        else:
+            cur = cur.next
+
+    return head
+  
+  
+  # Time complexity: O(n)
+	# Space complexity: O(1)
+  
+```
+
+
+
 
 
 
