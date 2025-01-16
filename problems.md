@@ -2098,7 +2098,7 @@ def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
 		head.next = node
 		return head
   
-    # Time complexity: O(n)
+  # Time complexity: O(n)
 	# Space complexity: O(n)
   
 ```
@@ -2106,6 +2106,56 @@ def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
 
 
 ### Tree
+
+#### 104. Maximum Depth of Binary Tree (16/1)
+
+`Hint: bfs or recursion`
+
+
+
+````python
+
+def maxDepth1(self, root: Optional[TreeNode]) -> int:
+		if not root: return 0
+
+		ans = 1
+		queue = deque([(ans, root)])
+
+		while queue:
+				depth, node = queue.popleft()
+				if node:
+						ans = max(ans, depth)
+						queue.append([depth + 1, node.left])
+						queue.append([depth + 1, node.right])
+		
+		return ans
+
+  # Time complexity: O(n)
+	# Space complexity: O(n) in the worst case (when the tree is very unbalanced and most nodes end up in the queue at the same level).
+  
+  
+
+def maxDepth2(self, root: Optional[TreeNode]) -> int:
+
+		if not root:
+				return 0
+
+		l_depth = self.maxDepth(root.left)
+		r_depth = self.maxDepth(root.right)
+
+		return 1 + max(l_depth, r_depth)
+  
+    
+  # Time complexity: O(n)
+	# Space complexity: O(n)
+  
+  
+
+````
+
+
+
+
 
 #### 100. Same Tree (15/1)
 
