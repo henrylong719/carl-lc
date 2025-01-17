@@ -2155,9 +2155,254 @@ def maxDepth2(self, root: Optional[TreeNode]) -> int:
 
 
 
+#### 111. Minimum Depth. of Binary Tree (16/1)
 
 
-#### 100. Same Tree (15/1)
+
+`Hint: bfs or recursion dfs`
+
+`Find the leave then return`
+
+```python
+
+def minDepth1(self, root: Optional[TreeNode]) -> int:
+		if not root: return 0
+
+		queue = deque([(1, root)])
+
+		while queue:
+				depth, node = queue.popleft()
+
+				if not node.left and not node.right:
+						return depth
+				if node.left:
+						queue.append((depth + 1, node.left))
+				if node.right:
+						queue.append((depth + 1, node.right))
+      
+      
+def minDepth2(self, root: Optional[TreeNode]) -> int:
+		ans = inf
+
+		def dfs(node: Optional[TreeNode], cnt: int) -> None:
+				if not node:
+						return
+				
+				nonlocal ans
+				cnt += 1
+				if cnt >= ans:
+						return 
+
+				if node.left is node.right:
+					
+						ans = min(cnt, ans)
+						return
+				
+				dfs(node.left, cnt)
+				dfs(node.right, cnt)
+
+		dfs(root, 0)
+		
+		return ans if root else 0
+  
+  
+    # Time complexity: O(n)
+	# Space complexity: O(n)
+  
+  
+```
+
+
+
+#### 112. Path Sum (16/1)
+
+`Hint: minus tagetSum`
+
+````python
+
+def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+		if not root:
+				return False
+		
+		targetSum -= root.val
+
+		if not root.left and not root.right:
+				return targetSum == 0
+
+		return self.hasPathSum(root.left, targetSum) or self.hasPathSum(root.right, targetSum)
+  
+  # Time complexity: O(n)
+	# Space complexity: O(n)
+  
+````
+
+
+
+#### 129. Sum Root to Leaf Numbers (16/1)
+
+`Hint: dfs`
+
+```python
+
+def sumNumbers1(self, root: Optional[TreeNode]) -> int:
+
+		ans = 0
+
+		def dfs(node: Optional[TreeNode], currentSum: str) -> None:
+				if not node:
+						return
+				
+				currentSum += str(node.val)
+
+				if not node.left and not node.right:
+						nonlocal ans
+						ans += int(currentSum)
+						return
+				
+				dfs(node.left, currentSum)
+				dfs(node.right, currentSum)
+		
+		dfs(root, '')
+
+		return ans
+
+
+def sumNumbers(self, root: Optional[TreeNode]) -> int:
+
+		ans = 0
+
+		def dfs(node: Optional[TreeNode], currentSum: int) -> None:
+				if not node:
+						return
+				
+				currentSum = currentSum * 10 + node.val
+
+				if not node.left and not node.right:
+						nonlocal ans
+						ans += currentSum
+						return
+				
+				dfs(node.left, currentSum)
+				dfs(node.right, currentSum)
+		
+		dfs(root, 0)
+
+		return ans
+  
+  
+  # Time complexity: O(n)
+	# Space complexity: O(n)
+  
+```
+
+
+
+#### 1448. Count Good Nodes in Binary Tree (17/1)
+
+
+
+```python
+
+def goodNodes(self, root: TreeNode) -> int:
+
+		ans = 0
+
+		def dfs(node: TreeNode, pathMax: int) -> None:
+				if not node:
+						return
+				
+				if node.val >= pathMax:
+						nonlocal ans
+						ans += 1
+						pathMax = node.val
+
+				dfs(node.left, pathMax)
+				dfs(node.right, pathMax)
+		
+		dfs(root, -inf)
+		
+		return ans
+
+  
+  # Time complexity: O(n)
+	# Space complexity: O(n)
+
+```
+
+
+
+
+
+#### 987. Vertical Order Traversal of a Binary Tree (17/1)
+
+`Hint: use defaultdict`
+
+
+
+```python
+
+def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
+
+		d = defaultdict(list)
+
+		def dfs(node: Optional[TreeNode], row: int, col: int) -> None:
+				if not node:
+						return
+				
+				d[col].append({
+						'row': row,
+						'val': node.val
+				})
+
+				dfs(node.left, row + 1, col - 1)
+				dfs(node.right, row +1, col + 1)
+
+		dfs(root,0, 0)
+
+		sorted_dict = dict(sorted(d.items()))
+
+		ans = []
+
+		for x in sorted_dict:
+				sorted_dict[x].sort(key=lambda x: (x['row'], x['val']))
+				ans.append([item['val'] for item in sorted_dict[x]]) 
+				
+		return ans
+  
+  
+def verticalTraversal2(self, root: Optional[TreeNode]) -> List[List[int]]:
+
+		col_map = defaultdict(list)
+
+		def dfs(node: Optional[TreeNode], row: int, col: int) -> None:
+				if not node:
+						return
+				
+				col_map[col].append((row,node.val))
+
+				dfs(node.left, row + 1, col - 1)
+				dfs(node.right, row +1, col + 1)
+
+		dfs(root,0, 0)
+
+		ans = []
+
+		for col in sorted(col_map.keys()):
+				col_map[col].sort(key=lambda x: (x[0], x[1]))
+				ans.append([val for _, val in col_map[col]])
+		return ans
+  
+  
+  # Time complexity: O(n)(DFS)+O(n)(inserts)+O(nlogn)(sort columns)+O(nlogn)(sort rows within columns)=O(nlogn).
+  
+  # Space complexity: O(n)
+  
+
+```
+
+
+
+#### 100. Same Tree (17/1)
 
 
 
@@ -2176,8 +2421,43 @@ def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
 
 		return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
   
+   # Time complexity: O(min(m,n)
+	# Space complexity: O(min(m,n)
+  
+  
   
 ```
+
+
+
+
+
+#### 101. Symmetric Tree (17/1)
+
+`Hint: check same tree`
+
+````python
+
+def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+
+		def isSymmeTrees(left: Optional[TreeNode], right: Optional[TreeNode]) -> bool:
+
+				if not left and not right:
+						return True
+				
+				if (not left or not right) or (left.val != right.val):
+						return False
+				
+				return isSymmeTrees(left.left, right.right) and isSymmeTrees(left.right, right.left)
+
+		
+		return isSymmeTrees(root.left, root.right)
+  
+  # Time complexity: O(n)
+	# Space complexity: O(n)
+  
+
+````
 
 
 
