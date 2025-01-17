@@ -2551,6 +2551,35 @@ def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
 
 
 
+#### 226. Invert Binary Tree (17/1)
+
+`Hint: use temp and then swap`
+
+```python
+
+def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+		if not root:
+				return None
+
+		
+		# temp = root.left
+		# root.left = root.right
+		# root.right = temp
+
+		root.left, root.right = root.right, root.left
+
+		self.invertTree(root.left)
+		self.invertTree(root.right)
+
+		return root
+
+
+  # Time complexity: O(n)
+	# Space complexity: O(n)
+
+
+```
+
 
 
 
