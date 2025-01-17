@@ -2430,8 +2430,6 @@ def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
 
 
 
-
-
 #### 101. Symmetric Tree (17/1)
 
 `Hint: check same tree`
@@ -2463,16 +2461,91 @@ def isSymmetric(self, root: Optional[TreeNode]) -> bool:
 
 
 
+#### 110. Balanced Binary Tree (17/1)
 
 
 
+`Hint: use a tuple to record [isBalanced, currentDepth]`
 
 
 
+````python
+
+def isBalanced(self, root: Optional[TreeNode]) -> bool:
+
+		def getHeight(node: Optional[TreeNode] ) -> int:
+				if not node:
+						return 0
+
+				left_height = getHeight(node.left)
+
+				if left_height == -1:
+						return -1
+				
+				right_height = getHeight(node.right)
+
+				if right_height == -1 or abs(left_height - right_height) > 1:
+						return -1
+				
+				return max(left_height, right_height) + 1
+		
+		return getHeight(root) != -1
+
+
+def isBalanced2(self, root: Optional[TreeNode]) -> bool:
+
+		def dfs(node: Optional[TreeNode]):
+				if not node:
+						return [True, 0]
+
+				left, right = dfs(node.left), dfs(node.right)
+
+				balanced = left[0] and right[0] and abs(left[1] - right[1]) <= 1
+
+				return [balanced, max(left[1],right[1]) + 1]
+
+		return dfs(root)[0]
+
+
+  # Time complexity: O(n)
+	# Space complexity: O(n)
+
+````
 
 
 
+#### 199. Binary Tree Right Side View (17/1)
 
+
+
+`Hint: depth == Len(ans)`
+
+
+
+```python
+
+def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+		ans = []
+
+		def dfs(node: Optional[TreeNode], depth: int) -> None:
+				if not node:
+						return 
+				
+				if depth == len(ans):
+						ans.append(node.val)
+
+				dfs(node.right, depth + 1)
+				dfs(node.left, depth + 1)
+
+		dfs(root, 0)
+
+		return ans
+  
+  # Time complexity: O(n)
+	# Space complexity: O(n)
+  
+
+```
 
 
 
