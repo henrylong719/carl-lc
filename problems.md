@@ -2809,6 +2809,33 @@ class Solution:
 
 
 
+#### 938. Range Sum of BST (10/1)
+
+
+
+`Hint: greater than high goes to left, smaller than low goes to right`
+
+
+
+```python
+
+def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+		if root is None:
+				return 0
+
+		if root.val > high:
+				return self.rangeSumBST(root.left, low, high)
+		
+		if root.val < low:
+				return self.rangeSumBST(root.right, low, high)
+
+		return root.val + self.rangeSumBST(root.left, low, high) + self.rangeSumBST(root.right, low, high)
+  
+  # Time complexity: O(n)
+  # Space complexity: O(n)
+  
+```
+
 
 
 
