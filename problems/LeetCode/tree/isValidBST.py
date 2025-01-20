@@ -33,21 +33,21 @@ class Solution:
       return True
     
     
-    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+def isValidBST(self, root: Optional[TreeNode]) -> bool:
 
-        def dfs(node: Optional[TreeNode]) -> tuple:
-            
-            if not node:
-                return inf, -inf
+		def dfs(node: Optional[TreeNode]) -> tuple:
+				
+				if not node:
+						return inf, -inf
 
-            min_left, max_left = dfs(node.left)
-            min_right, max_right = dfs(node.right)
+				min_left, max_left = dfs(node.left)
+				min_right, max_right = dfs(node.right)
 
-            x = node.val
+				x = node.val
 
-            if x <= max_left or x >= min_right:
-                return -inf, inf
-            
-            return min(min_left, x), max(max_right, x)
+				if x <= max_left or x >= min_right:
+						return -inf, inf
+				
+				return min(min_left, x), max(max_right, x)
 
-        return dfs(root)[1] != inf
+		return dfs(root)[1] != inf
