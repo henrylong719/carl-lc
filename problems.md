@@ -3006,11 +3006,42 @@ def maxSumBST(self, root: Optional[TreeNode]) -> int:
         return root
       
       
+  # Time complexity: O(n)
+  # Space complexity: O(n)
+  
+      
 ```
 
 
 
 
+
+#### 106. Construct Binary Tree from Inorder and Postorder Traversal (21/1)
+
+`Hint: find the root element index in inorder array and use recursion`
+
+```python
+
+def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+		if not inorder or not postorder:
+				return None
+
+		index = {x: i for i, x in enumerate(inorder)}
+				
+		n = len(postorder)
+		
+		root = TreeNode(postorder[n - 1])
+		mid = index[postorder[n - 1]]
+		
+		root.left = self.buildTree(inorder[:mid], postorder[:mid])
+		root.right = self.buildTree(inorder[mid+1:], postorder[mid:n-1])
+
+		return root
+  
+  # Time complexity: O(n)
+  # Space complexity: O(n)
+  
+```
 
 
 
