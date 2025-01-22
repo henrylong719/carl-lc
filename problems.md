@@ -3124,6 +3124,64 @@ def constructFromPrePost(self, preorder: List[int], postorder: List[int]) -> Opt
 
 
 
+#### 236. Lowest Common Ancestor of a Binary Tree (22/1)
+
+
+
+```python
+
+def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+		if not root:
+				return None
+		
+		if root is p or root is q:
+				return root
+		
+		l = self.lowestCommonAncestor(root.left, p, q)
+		r = self.lowestCommonAncestor(root.right, p, q)
+
+		if l and r:
+				return root
+		
+		return l or r
+
+    
+  # Time complexity: O(n)
+  # Space complexity: O(n)
+  
+  
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
