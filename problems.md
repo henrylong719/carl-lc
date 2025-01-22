@@ -2976,7 +2976,7 @@ def maxSumBST(self, root: Optional[TreeNode]) -> int:
 
 
 
-#### 105. Construct Binary Tree from Preorder and Inorder Traversal (21/1)
+#### 105*. Construct Binary Tree from Preorder and Inorder Traversal (21/1)
 
 
 
@@ -3006,8 +3006,8 @@ def maxSumBST(self, root: Optional[TreeNode]) -> int:
         return root
       
       
-  # Time complexity: O(n)
-  # Space complexity: O(n)
+  # Time complexity: O(n^2)
+  # Space complexity: O(n^2)
   
       
 ```
@@ -3016,7 +3016,7 @@ def maxSumBST(self, root: Optional[TreeNode]) -> int:
 
 
 
-#### 106. Construct Binary Tree from Inorder and Postorder Traversal (21/1)
+#### 106*. Construct Binary Tree from Inorder and Postorder Traversal (21/1)
 
 `Hint: find the root element index in inorder array and use recursion`
 
@@ -3038,14 +3038,48 @@ def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNo
 
 		return root
   
-  # Time complexity: O(n)
-  # Space complexity: O(n)
+  # Time complexity: O(n^2)
+  # Space complexity: O(n^2)
   
 ```
 
 
 
 
+
+#### 889*. Construct Binary Tree from Preorder and Postorder Traversal (22/1)
+
+`Hint: always assume left_root = index[preorder[1]]`
+
+```python
+
+def constructFromPrePost(self, preorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+
+		if not preorder or not postorder:
+				return None
+
+		index = {x: i for i, x in enumerate(postorder)}
+
+		root = TreeNode(preorder[0])
+
+		if len(preorder) == 1:
+				return root
+
+		left_root = index[preorder[1]]
+
+		root.left = self.constructFromPrePost(preorder[1:left_root + 2],
+		                                      postorder[:left_root + 1])
+		root.right = self.constructFromPrePost(preorder[left_root + 2:],
+		                                       postorder[left_root + 1:-1])
+
+		return root
+  
+  
+  # Time complexity: O(n^2)
+  # Space complexity: O(n^2)
+  
+  
+```
 
 
 
