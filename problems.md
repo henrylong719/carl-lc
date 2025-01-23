@@ -3186,15 +3186,168 @@ def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -
 
 
 
+ 
+
+#### 1123. Lowest Common Ancestor of Deepest Leaves (23/1)
+
+
+
+```python
+
+def lcaDeepestLeaves(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+		ans = None
+		max_depth = -1
+
+		def dfs(node: Optional[TreeNode], depth: int) -> int:
+				if not node:
+						return -1
+
+				nonlocal ans, max_depth
+				if not node.left and not node.right:
+						if depth > max_depth:
+								max_depth = depth
+								ans = node                
+						return depth
+						
+				l = dfs(node.left, depth + 1)
+				r = dfs(node.right, depth + 1)
+
+				if l == r == max_depth:
+						ans = node
+				
+				return max(l, r)
+
+		dfs(root, 0)
+		return ans
+  
+  # Time complexity: O(n)
+  # Space complexity: O(n)
+  
+```
+
+
+
+#### 102. Binary Tree Level Order Traversal (23/1)
+
+
+
+```python
+
+def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+
+		if not root: return []
+
+		ans = []
+		queue = []
+		queue = deque([(0, root)])
+		dic = defaultdict(list)
+
+		while len(queue):
+				depth, node = queue.popleft()
+				dic[depth].append(node.val)
+
+				if node.left:
+						queue.append([depth + 1, node.left])
+				if node.right:
+						queue.append([depth + 1, node.right])
+
+		for value in dic:
+				ans.append(dic[value])
+		
+		return ans
+
+
+def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+		if not root: return []
+
+		ans = []
+		q = deque([root])
+
+		while q:
+
+				vals = []
+
+				for _ in range(len(q)):
+						node = q.popleft()
+						vals.append(node.val)
+						if node.left: q.append(node.left)
+						if node.right: q.append(node.right)
+				
+				ans.append(vals)
+
+		return ans
+  
+    
+  # Time complexity: O(n)
+  # Space complexity: O(n)
+  
+```
 
 
 
 
 
+#### 103. Binary Treee Zigzag Level Order Traversal (23/1)
+
+
+
+```python
+
+def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+
+		if not root: return []
+		ans = []
+		q = deque([root])
+
+		while q:
+				vals = []
+				for _ in range(len(q)):
+						node = q.popleft() 
+						vals.append(node.val)
+						if node.left: q.append(node.left)
+						if node.right: q.append(node.right)
+				
+				if len(ans) % 2 != 0:
+						vals.reverse()
+						
+				ans.append(vals)
+
+		return ans
+  
+  
+  # Time complexity: O(n)
+  # Space complexity: O(n)
+  
+  
+```
 
 
 
 
+
+#### 513. Find Bottom Left Tree Value (23/1)
+
+
+
+```python
+
+def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
+
+		ans = None
+		q = deque([root])
+
+		while q:
+				node = q.popleft()
+				ans = node.val
+				if node.right: q.append(node.right)
+				if node.left: q.append(node.left)
+
+		return ans
+  
+  # Time complexity: O(n)
+  # Space complexity: O(n)
+  
+```
 
 
 
