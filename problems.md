@@ -3410,6 +3410,29 @@ def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
   # Time complexity: O(n)
   # Space complexity: O(n)
   
+  def connect2(self, root: 'Optional[Node]') -> 'Optional[Node]':
+		node = root
+
+		while node:
+				# next line nodes
+				nxt = dummy = Node()
+				while node:
+						if node.left:
+								nxt.next = node.left
+								nxt = node.left
+						if node.right:
+								nxt.next = node.right
+								nxt = node.right
+						node = node.next
+				# move to next line
+				node = dummy.next
+		
+		return root
+  
+    
+  # Time complexity: O(n)
+  # Space complexity: O(1)
+  
 ```
 
 
@@ -3447,6 +3470,43 @@ def connect(self, root: 'Node') -> 'Node':
   # Time complexity: O(n)
   # Space complexity: O(1)
   
+  
+```
+
+
+
+#### 2415. Reverse Odd Levels of Binary Tree (26/1) 
+
+`HInt: use bfs, only change value not node itself`
+
+```python
+
+def reverseOddLevels(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+
+		q = deque([root])
+		depth = 0
+
+		while q:
+				# swap
+				if depth & 1:
+						left, right = 0, len(q) - 1 
+						while left < right:
+								q[left].val, q[right].val = q[right].val, q[left].val
+								left += 1
+								right -= 1
+	
+				for _ in range(len(q)):
+						node = q.popleft()
+						if node.left: q.append(node.left)
+						if node.right: q.append(node.right)
+				depth += 1 
+		
+		return root
+  
+  
+    
+  # Time complexity: O(n)
+  # Space complexity: O(n)
   
 ```
 
