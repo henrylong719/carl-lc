@@ -3504,9 +3504,24 @@ def reverseOddLevels(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
 		return root
   
   
+  def reverseOddLevels(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+
+		def bfs(node1: Optional[TreeNode], node2: Optional[TreeNode], isOdd: bool) -> None:
+				if not node1: return
+
+				if isOdd: node1.val, node2.val = node2.val, node1.val
+
+				bfs(node1.left, node2.right, not isOdd)
+				bfs(node1.right, node2.left, not isOdd)
+
+		bfs(root.left, root.right, True)
+
+		return root
+  
     
   # Time complexity: O(n)
   # Space complexity: O(n)
+  
   
 ```
 
