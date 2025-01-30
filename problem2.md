@@ -141,3 +141,54 @@ class Solution:
 
 ```
 
+
+
+#### 2698*. Find the Punishment Number of an Integer (30/1)
+
+
+
+
+
+#### 77. Combination (30/1)
+
+`Hint: Pick k number from [1,..,n]`
+
+```python
+
+def combine(self, n: int, k: int) -> List[List[int]]:
+		ans = []
+		comb = []
+
+		def dfs(i: int):
+
+				d = k - len(comb)
+
+				if i < d:
+						return
+
+				if (len(comb) == k):
+						ans.append(comb.copy())
+						return
+
+				for j in range(i, 0, -1):
+						comb.append(j)
+						dfs(j - 1)
+						comb.pop()
+
+		dfs(n)
+		return ans
+  
+  
+  # Time complexity: O(k * comb(n,k))
+  # Space complexity: O(k)
+  
+```
+
+
+
+
+
+
+
+
+
