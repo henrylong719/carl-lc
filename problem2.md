@@ -229,5 +229,49 @@ def combinationSum3(self, k: int, n: int) -> List[List[int]]:
 
 
 
+#### 22. Generate Parentheses (7/2)
+
+
+
+```python
+
+def generateParenthesis(self, n: int) -> List[str]:
+		
+		# openN == closeN == n, add to ans
+
+		# openN < n, add '('
+
+		# closeN < openN, add ')'
+
+		ans = []
+		stack = []
+
+		def backtrack(openN: int, closeN: int) -> None:
+				if openN == closeN == n:
+						ans.append(''.join(stack))
+						return
+				
+				if openN < n:
+						stack.append('(')
+						backtrack(openN + 1, closeN)
+						stack.pop()
+
+				if closeN < openN:
+						stack.append(')')
+						backtrack(openN, closeN + 1)
+						stack.pop()
+
+		backtrack(0,0)
+		return ans
+  
+  
+  # Time complexity: O(n* C(2n, n)), due to the limitation of the rule, it's O(Cn * n) (Catalan number)
+  
+  # Space complexity: O(n)
+  
+  
+  
+```
+
 
 
