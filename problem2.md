@@ -480,6 +480,32 @@ def minimumMoves(self, grid: List[List[int]]) -> int:
 
 
 
+#### 198. House Robber (12/2)
+
+```python
+
+def rob(self, nums: List[int]) -> int:
+	rob1, rob2 = 0, 0
+
+	# [rob1, rob2, n, n+1, n+2, ...]
+	for n in nums:
+		temp = max(rob1 + n, rob2)
+		rob1 = rob2
+		rob2 = temp
+	
+	return rob2
+
+
+
+	# Time complexity: O(n) 
+  # Space complexity: O(1)
+
+```
+
+
+
+
+
 
 
 
