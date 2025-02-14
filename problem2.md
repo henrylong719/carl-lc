@@ -482,6 +482,8 @@ def minimumMoves(self, grid: List[List[int]]) -> int:
 
 #### 198. House Robber (12/2)
 
+`Hint: up to this point, what's the maximum I can get`
+
 ```python
 
 def rob(self, nums: List[int]) -> int:
@@ -556,6 +558,19 @@ def minCostClimbingStairs(self, cost: List[int]) -> int:
 				cost[i] +=  min(cost[i+1], cost[i+2])
 		
 		return min(cost[0], cost[1])
+  
+  
+  def minCostClimbingStairs2(self, cost: List[int]) -> int:
+
+		prev2 = prev1 = 0
+		n = len(cost)
+
+		for i in range(2, n + 1):
+				temp = min(prev1 + cost[i-1], prev2 + cost[i - 2])
+				prev2 = prev1 
+				prev1 = temp
+
+		return prev1
   
   # Time complexity: O(n) 
   # Space complexity: O(1)
