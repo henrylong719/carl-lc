@@ -719,8 +719,25 @@ def minPathSum(self, grid: List[List[int]]) -> int:
 		return ans[0][0]
   
   
-  # Time complexity: O(m * n)
-  # Space complexity: O(m * n)
+  
+# from top to bottom
+def minPathSum(self, grid: List[List[int]]) -> int:
+
+		@cache
+		def dfs(r: int, c: int):
+				if r == 0 and c == 0:
+						return grid[r][c]
+				
+				if r < 0 or c < 0:
+						return inf
+				
+				return min(dfs(r - 1, c), dfs(r, c - 1)) + grid[r][c]
+
+		return dfs(len(grid) - 1, len(grid[0]) - 1)
+  
+  
+  # Time complexity: O(r * c)
+  # Space complexity: O(r * c)
   
   
 ```
