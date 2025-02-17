@@ -796,6 +796,8 @@ def plusMinus(arr):
 
 
 
+#### Mini-Max Sum (17/2)
+
 
 
 ```python
@@ -821,13 +823,48 @@ def miniMaxSum2(arr):
     
     print(min_sum, max_sum)
     
- 	# Time complexity: O(n) sorting
+ 	# Time complexity: O(n)
   # Spece complexity: O(1)
     
     
 ```
 
 
+
+#### Time Conversion (17/2)
+
+```python
+
+def timeConversion(s):
+    # Get AM or PM
+    time_format = s[-2:] 
+    hours = s[:2]
+    rest = s[2:-2]
+    
+    # AM
+    if time_format == "AM":
+        # 12:01:00 AM
+        if hours == "12":
+            return "00" + rest
+        # 07:01:00 AM
+        else:
+            return hours + rest
+    # PM
+    else:
+        # 12:01:00 PM
+        if hours == "12":
+            return hours + rest
+        # 07:05:00 PM
+        else:
+            new_hours = str(int(hours) + 12)
+            return new_hours + rest
+        
+        
+  # Time complexity: O(1)
+  # Spece complexity: O(1)
+        
+        
+```
 
 
 
