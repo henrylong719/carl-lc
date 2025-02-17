@@ -763,6 +763,63 @@ def minPathSum(self, grid: List[List[int]]) -> int:
 
 
 
+# HackerRank
+
+### Week 1
+
+
+
+#### Plus Minus (17/2)
+
+```python
+
+
+def plusMinus(arr):
+    n = len(arr)
+    
+    pos = sum(1 for num in arr if num > 0)
+    neg = sum(1 for num in arr if num < 0)
+    zero = n - pos - neg
+    
+    print(pos/n)
+    print(neg/n)
+    print(zero/n)
+
+
+    
+  # Time complexity: O(n)
+  # Spece complexity: O(1)
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
