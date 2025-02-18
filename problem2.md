@@ -901,6 +901,31 @@ def breakingRecords(scores):
 
 
 
+#### *Divisible Sum Pairs (18/2)
+
+```python
+
+def divisibleSumPairs(n, k, ar):
+    remainder_map ={}
+    ans = 0
+    
+    for num in ar:
+        remainder = num % k
+        complement = (k - remainder) % k
+        
+        if complement in remainder_map:
+            ans += remainder_map[complement]
+        
+        remainder_map[remainder] = remainder_map.get(remainder, 0) + 1
+        
+    return ans
+  
+  # Time complexity: O(n)
+  # Spece complexity: O(k) (store at most k keys)
+  
+
+```
+
 
 
 
