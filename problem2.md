@@ -1016,6 +1016,20 @@ def gradingStudents(grades):
 
 
 
+#### *Flipping bits (20/2)
+
+```python
+
+def flippingBits(n):
+    return (2 ** 32 - 1) - n
+
+    # Time complexity: O(1)
+   # Space complexity: O(1) 
+  
+```
+
+
+
 
 
 
