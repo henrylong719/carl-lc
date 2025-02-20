@@ -946,7 +946,7 @@ def matchingStrings(strings, queries):
         
     return ans
   
-    # Time complexity: O(n + m)
+   # Time complexity: O(n + m)
   # Spece complexity: O(n + m)
   
 ```
@@ -954,6 +954,33 @@ def matchingStrings(strings, queries):
 
 
 
+
+#### Lonely Integer (20/2)
+
+
+
+```python
+
+def lonelyinteger(a):
+    
+    count_map = {}
+    
+    for num in a:
+        count_map[num] = count_map.get(num, 0) + 1
+        
+    
+    for k, v in count_map.items():
+        if v == 1:
+            return k
+          
+          
+def lonelyinteger2(a):
+    return 2 * sum(set(a)) - sum(a)
+          
+   # Time complexity: O(n)
+   # Space complexity: O(n)
+    
+```
 
 
 
