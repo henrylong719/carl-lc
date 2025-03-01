@@ -1143,11 +1143,51 @@ def pangrams(s):
     return "pangram" if min(alphabet) >= 1 else "not pangram"
   
    # Time complexity: O(n)
-   # Space complexity: O(k) k = 26 
+   # Space complexity: O(1)
   
 ```
 
 
+
+#### *Mars Exploration (24/2)
+
+
+
+```python
+
+def marsExploration(s):
+    
+    times = len(s) // 3
+    correct_s = "SOS" * times
+    ans = 0
+    
+    for i in range(len(s)):
+        if correct_s[i] != s[i]:
+            ans += 1
+    
+    return ans
+  
+   # Time complexity: O(n)
+   # Space complexity: O(n)
+  
+  
+def marsExploration2(s):
+    ans = 0
+    
+    for i in range(0, len(s), 3):
+        if s[i] != "S": 
+            ans += 1
+        if s[i+1] != "O": 
+            ans += 1
+        if s[i+2] != "S": 
+            ans += 1
+        
+    return ans
+  
+    # Time complexity: O(n)
+   # Space complexity: O(1)
+  
+```
 
 
 
