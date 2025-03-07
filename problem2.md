@@ -955,6 +955,10 @@ def matchingStrings(strings, queries):
 
 
 
+### Week 2
+
+
+
 #### Lonely Integer (20/2)
 
 
@@ -1185,6 +1189,67 @@ def marsExploration2(s):
     return ans
   
     # Time complexity: O(n)
+   # Space complexity: O(1)
+  
+```
+
+
+
+### Week 3
+
+#### Permuting Two Arrays (7/3)
+
+```python
+
+def twoArrays(k, A, B):
+    if len(A) != len(B): 
+        return 'NO'
+
+    A.sort()
+    # o(nlogn)
+    B.sort()
+    # O(n)
+    B.reverse()
+    
+    for i in range(len(A)):
+        if A[i] + B[i] < k:
+            return 'NO'
+    
+    return 'YES'
+  
+   # Time complexity: O(nlogn) (sorting)
+   # Space complexity: O(1)
+  
+```
+
+
+
+#### Birthday (7/3)
+
+```python
+
+def birthday(s, d, m):
+    
+    window_size = 0
+    windown_sum = 0
+    window_start = 0
+    ans = 0
+    
+    for i in range(len(s)):
+        window_size += 1
+        windown_sum += s[i]
+        
+        if window_size == m:
+            if windown_sum == d:
+                ans += 1
+            
+            windown_sum -= s[window_start]
+            window_start += 1
+            window_size -= 1
+        
+    return ans
+  
+   # Time complexity: O(n) 
    # Space complexity: O(1)
   
 ```
