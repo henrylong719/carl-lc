@@ -1256,3 +1256,44 @@ def birthday(s, d, m):
 
 
 
+#### *Sales by Match (7/3)
+
+```python
+
+def sockMerchant(n, ar):
+    
+    count_map = {}
+    ans = 0
+    
+    for ele in ar:
+        count_map[ele] = count_map.get(ele, 0) + 1
+        
+    for key, value in count_map.items():
+        ans += value // 2
+    
+    return ans
+  
+   # Time complexity: O(n) 
+   # Space complexity: O(n)
+  
+  def sockMerchant2(n, ar):
+    # 10 10 10 10 20 20 20 30 50 
+    
+    ar.sort()
+    ans = 0
+    i = 0
+    
+    while i + 1 < n:
+        if ar[i] == ar[i + 1]:
+            ans += 1
+            i += 1
+        i += 1
+        
+    return ans
+  
+    
+   # Time complexity: O(nlogn) 
+   # Space complexity: O(1)
+  
+```
+
