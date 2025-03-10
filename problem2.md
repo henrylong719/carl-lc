@@ -1406,3 +1406,48 @@ def pageCount(n, p):
   
 ```
 
+
+
+
+
+#### *Picking Numbers (10/3)
+
+
+
+```python
+
+def pickingNumbers(a):
+    window_start = 0
+    ans = 0
+    a.sort()
+    
+    for window_end in range(1, len(a)):
+        if a[window_end] - a[window_start] <= 1:
+            ans = max(ans, window_end - window_start + 1)
+        # it's not looping the array again, thus not O(n^2)
+        while a[window_end] - a[window_start] > 1:
+            window_start += 1
+            
+    return ans
+  
+ 	# Time complexity: O(nlogn)
+  # Space complexity: O(1)
+  
+
+
+def pickingNumbers2(a):
+    freq = [0] * 101
+    
+    for num in a:
+        freq[num] += 1
+        
+    return max(freq[i] + freq[i+1] for i in range(100))
+  
+    
+  # Time complexity: O(n)
+  # Space complexity: O(1) (range is small (101))
+  
+```
+
+
+
