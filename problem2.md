@@ -1451,3 +1451,66 @@ def pickingNumbers2(a):
 
 
 
+#### Left Rotation (10/3)
+
+```python
+
+def rotateLeft(d, arr):
+    # d = d % len(arr) (1 <= d <= n)
+    return arr[d:] + arr[0:d]
+  
+  # Time complexity: O(n)
+  # Space complexity: O(n)
+  
+  
+  # Slicing:
+	# arr[d:] takes O(n - d)
+	# arr[0:d] takes O(d)
+	# Together, they cover O(n) time.
+	# Concatenation: Combining the two slices is O(n).
+  
+  # The slicing operations create new lists, and the final concatenated list is of size n. Therefore, the space complexity is O(n).
+  
+```
+
+
+
+
+
+#### Number Line Jumps (10/3)
+
+
+
+```python
+
+def kangaroo(x1, v1, x2, v2):
+    # Write your code here
+    # x1 + zv1 = x2 + zv2
+    # z(v1 - v2) = x2 - x1
+    # z = (x2 - x1) / (v1 - v2)
+    
+    if v1 == v2:
+        if x2 == x1:
+            return 'YES'
+        return 'NO'
+
+    z = (x2 - x1) / (v1 - v2)
+    
+    if z.is_integer() and z > 0:
+        return 'YES'
+    return 'NO'
+  
+  
+  # Time complexity: O(1)
+  # Space complexity: O(1)
+  
+```
+
+
+
+
+
+
+
+
+
