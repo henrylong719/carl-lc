@@ -1578,5 +1578,44 @@ def closestNumbers(arr):
 
 
 
+#### *Tower Breakers (14/3)
 
+
+
+```python
+
+def towerBreakers(n, m):
+    if m == 1 or n % 2 == 0:
+        return 2
+    return 1
+  
+  # Time complexity: O(1)
+  # Space complexity: O(1)
+
+```
+
+
+
+
+
+#### Minimum Absolute Difference in an Array (14/3)
+
+
+
+```python
+
+def minimumAbsoluteDifference(arr):
+    arr.sort()
+    min_diff = arr[1] - arr[0]
+    
+    for i in range(1, len(arr) - 1):
+        min_diff = min(min_diff, arr[i + 1] - arr[i])
+        
+    return min_diff
+  
+  
+  # Time complexity: O(nlog(n))
+  # Space complexity: O(1)
+  
+```
 

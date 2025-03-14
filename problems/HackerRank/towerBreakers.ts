@@ -1,5 +1,5 @@
 function towerBreakers(n: number, m: number): number {
-  if (n % 2 === 0) return 2;
+  if (m === 1 || n % 2 === 0) return 2;
   return 1;
 }
 
