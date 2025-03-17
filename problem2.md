@@ -1408,6 +1408,8 @@ def pageCount(n, p):
 
 
 
+### Week 4
+
 
 
 #### *Picking Numbers (10/3)
@@ -1650,6 +1652,51 @@ def caesarCipher(s, k):
   # Space complexity: O(1)
   
 ```
+
+
+
+### Week 5
+
+#### Max Min (17/3)
+
+
+
+```python
+
+def maxMin(k, arr):
+    arr.sort()
+    window_start = 0
+    ans = float("inf")
+    
+    for window_end in range(1, len(arr)):    
+        if window_end - window_start + 1 == k:
+            ans = min(ans, arr[window_end] - arr[window_start])
+            window_start += 1
+    return ans
+  
+    
+  # Time complexity: O(nlog(n))
+  # Space complexity: O(1)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
