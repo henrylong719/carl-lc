@@ -1,5 +1,6 @@
 function dynamicArray(n: number, queries: number[][]): number[] {
   const arr = Array.from({ length: n }, () => []) as any;
+
   const ans = [];
   let lastAnswer = 0;
 
@@ -17,3 +18,5 @@ function dynamicArray(n: number, queries: number[][]): number[] {
   }
   return ans;
 }
+
+dynamicArray(3, [[12], [3]]);
