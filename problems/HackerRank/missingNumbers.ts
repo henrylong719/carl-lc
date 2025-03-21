@@ -6,7 +6,7 @@ function missingNumbers(arr: number[], brr: number[]): number[] {
   let counter = 0;
 
   for (let i = 0; i < brr.length; i++) {
-    if (arr[counter] !== brr[i]) {
+    if (counter > arr.length || arr[counter] !== brr[i]) {
       set.add(brr[i]);
       continue;
     }
