@@ -1904,7 +1904,56 @@ def gridChallenge2(grid):
 
 
 
+#### Sansa and XOR (22/3)
 
+
+
+```python
+
+def sansaXor(arr):
+    n = len(arr)
+    ans = 0
+    win_start = 0
+    
+    for win_size in range(1, n + 1):
+        xor = 0
+        for win_end in range(n):
+            xor ^= arr[win_end]
+            if win_end - win_start + 1 == win_size:
+                ans ^= xor
+                # remove element from current window
+                xor ^= arr[win_start]
+                win_start += 1
+        win_start = 0 
+        
+        
+    return ans
+  
+  # solution not passes
+  # Time complexity: O(n^2) 
+  # Space complexity: O(1)
+
+
+  # key here (3 ^ 3 = 0)
+  # 3,4,5
+  #3, 4, 5,  3,4,  4,5  3,4,5
+def sansaXor(arr):
+
+    if len(arr) % 2 == 0:
+        return 0
+    
+    ans = 0
+    
+    for i, ele in enumerate(arr):
+        if (i + 1) % 2 != 0:
+            ans ^= ele
+            
+    return ans  
+  
+  
+  # Time complexity: O(n)
+  # Space complexity: O(1)
+```
 
 
 
