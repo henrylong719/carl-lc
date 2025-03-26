@@ -2009,7 +2009,7 @@ def balancedSums(arr):
 
 
 
-#### Sum vs XOR (26/3)
+#### *Sum vs XOR (26/3)
 
 
 
@@ -2065,6 +2065,34 @@ def counterGame(n):
   # Time complexity: O(log(n))
   # Space complexity: O(1)
 
+```
+
+
+
+#### *Recursive Digit Sum (26/3)
+
+
+
+```python
+
+def superDigit(n, k):
+    
+    sum = 0
+    
+    for char in n:
+        sum += int(char)
+        
+    sum *= k
+    
+    if sum <= 9:
+        return sum
+    
+    return superDigit(str(sum), 1)
+  
+  
+  # Time complexity: O(l) (l:number of digits in the initial string n)
+  # Space complexity: O(log(l))
+  
 ```
 
 
