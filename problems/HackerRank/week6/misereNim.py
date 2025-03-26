@@ -1,0 +1,2 @@
+def misereNim(s):
+    

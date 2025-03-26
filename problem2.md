@@ -2009,3 +2009,65 @@ def balancedSums(arr):
 
 
 
+#### Sum vs XOR (26/3)
+
+
+
+```python
+
+
+# The condition n + x = n ^ x holds only when there are no carry-over bits in the addition of n and x. That happens only when n and x do not have 1s in the same bit position. So, for each bit in n that is 0, we can freely choose either 0 or 1 in that position in x (because it won’t cause a carry).
+
+def sumXor(n):
+    if n == 0:
+        return 1
+    
+    count = 0
+    while n:
+        if n % 2 == 0:
+            count += 1
+        
+        n = n // 2
+    
+    return 2 ** count
+  
+  
+  # Time complexity: O(log(n))
+  # Space complexity: O(1)
+  
+  
+```
+
+
+
+#### *Counter game (26/3)
+
+
+
+```python
+
+def counterGame(n):
+    count = 0
+    while n > 1:
+        power = math.log(n) / math.log(2)
+        
+        if power == int(power):
+            n = n / 2
+            
+        else:
+            n = n - 2 ** int(power)
+        
+        count += 1
+    
+    return "Louise" if count % 2 == 1 else "Richard"
+  
+  
+  # Time complexity: O(log(n))
+  # Space complexity: O(1)
+
+```
+
+
+
+
+
