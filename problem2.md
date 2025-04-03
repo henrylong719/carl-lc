@@ -2137,5 +2137,61 @@ def formingMagicSquare(s):
 
 
 
+#### *Gaming Array 1 (3/4)
+
+
+
+```python
+
+def finMax(arr, end):
+    
+    max_ele = arr[0]
+    max_idx = 0
+    
+    for i in range(end):
+        if arr[i] > max_ele:
+            max_ele = arr[i]
+            max_idx = i
+            
+    return max_idx
+
+def gamingArray(arr):
+    
+    # Bob Flase, Andy True
+    flag = False
+    end_idx = len(arr)
+    
+    while (end_idx > 0):
+        
+        max_idx = finMax(arr, end_idx)
+        end_idx = max_idx
+        
+        if end_idx > 0:
+            flag = not flag
+        
+    return 'BOB' if flag is False else 'ANDY'
+  
+	# Time complexity: O(n^2)  not valid
+  # Space complexity: O(l)
+  
+  
+def gamingArray(arr):
+    counter = 0
+    max = 0
+    
+    for i in arr:
+        if i > max:
+            max = i
+            counter += 1
+    
+    return "ANDY" if counter % 2 == 0 else "BOB"
+  
+  # Time complexity: O(n)
+  # Space complexity: O(l)
+  
+```
+
+
+
 
 
