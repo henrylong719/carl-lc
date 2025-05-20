@@ -19,7 +19,6 @@ def climbingLeaderboard(ranked, player):
         
         ans.append(pos + 1 + 1)		
 
-            
     return ans
         
         
