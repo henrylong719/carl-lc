@@ -2227,3 +2227,72 @@ def misereNim(s):
 
 
 
+### Week 7
+
+
+
+#### *New Year Chaos
+
+```python
+
+def minimumBribes(q):
+
+    bribes = 0    
+    
+    for i, p in enumerate(q):
+        if p - (i+1) > 2:
+            print("Too chaotic")
+            return
+    
+    for i, p in enumerate(q):
+        for j in range(max(p-2, 0), i):
+            if (q[j] > p):
+                bribes += 1
+                
+    
+    print(bribes)
+    
+```
+
+
+
+#### Insert a node at a specfic position in a linked list
+
+```python
+
+def insertNodeAtPosition(llist, data, position):
+    if not llist or position == 0:
+        newNode = SinglyLinkedListNode(data)
+        newNode.next = llist
+        return newNode
+        
+    llist.next = insertNodeAtPosition(llist.next, data, position - 1)
+    
+    return llist
+  
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
