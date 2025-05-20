@@ -38,7 +38,7 @@ function climbingLeaderboard2(ranked: number[], player: number[]): number[] {
   let i = uniqueRanked.length - 1;
 
   player.forEach((score) => {
-    if (i > 0 && score >= uniqueRanked[i]) {
+    while (i >= 0 && score >= uniqueRanked[i]) {
       i--;
     }
     result.push(i + 1 + 1);

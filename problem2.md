@@ -2274,6 +2274,37 @@ def insertNodeAtPosition(llist, data, position):
 
 
 
+#### *Climbing the Leaderboard
+
+```python
+
+def climbingLeaderboard(ranked, player):
+    
+    uniqueRanks = list(set(ranked))
+    
+    uniqueRanks.sort()
+    
+    uniqueRanks.reverse()
+    
+    pos = len(uniqueRanks) - 1
+    
+    ans = []
+    
+    for i in range(len(player)):
+        
+        score = player[i]
+        
+        while pos >= 0 and score >= uniqueRanks[pos]:
+            pos -= 1
+        
+        ans.append(pos + 1 + 1)        
+            
+    return ans
+  
+```
+
+
+
 
 
 
