@@ -15,4 +15,4 @@ function icecreamParlor(m: number, arr: number[]): number[] {
   return [];
 }
 
-console.log(icecreamParlor(6, [1, 3, 4, 5, 6]));
+console.log(icecreamParlor(4, [2, 2, 4, 3]));

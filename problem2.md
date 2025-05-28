@@ -2381,6 +2381,8 @@ def isValid(s):
 
 
 
+### Week 8
+
 
 
 #### Merge two sorted linked lists
@@ -2432,6 +2434,29 @@ def mergeLists(head1, head2):
 ```
 
 
+
+#### Ice Cream Parlor
+
+
+
+```python
+
+def icecreamParlor(m, arr):
+    
+    seen = {}
+    
+    for i, price in enumerate(arr):
+        
+        need = m - price
+        
+        if need in seen:
+            return [seen[need] + 1, i + 1]
+            
+        seen[price] = i
+    
+    return []
+  
+```
 
 
 
