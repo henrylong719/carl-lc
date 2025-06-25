@@ -762,7 +762,7 @@ def minWindow2(self, s: str, t: str) -> str:
 
 ```python
 
-def lower_bound (self, nums: List[int], target: int) -> List[int]:
+def lower_bound (self, nums: List[int], target: int) -> int:
 
 		left, right = 0, len(nums) - 1
 
@@ -3569,7 +3569,6 @@ def replaceValueInTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
   # Space complexity: O(n)
 
 ```
-
 
 
 
