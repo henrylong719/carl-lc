@@ -3,9 +3,7 @@ function maxProfit(prices: number[]): number {
   let best = 0;
 
   for (let i = 1; i <= prices.length; i++) {
-    if (prices[i - 1] < lowest) {
-      lowest = prices[i - 1];
-    }
+    if (prices[i - 1] < lowest) lowest = prices[i - 1];
 
     best = Math.max(best, prices[i - 1] - lowest);
   }
