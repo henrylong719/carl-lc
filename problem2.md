@@ -1412,6 +1412,8 @@ def pageCount(n, p):
 
 
 
+
+
 #### *Picking Numbers (10/3)
 
 
@@ -1513,8 +1515,6 @@ def kangaroo(x1, v1, x2, v2):
 
 
 #### **Separate the Numbers (10/3)
-
-
 
 ```python
 
@@ -1905,8 +1905,6 @@ def gridChallenge2(grid):
 
 
 #### *Sansa and XOR (22/3)
-
-
 
 ```python
 
