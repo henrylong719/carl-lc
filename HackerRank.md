@@ -809,7 +809,7 @@ def icecreamParlor(m, arr):
 
 
 
-### Divisible Sum Pairs (17/9)
+#### Divisible Sum Pairs (17/9)
 
 ```python
 def divisibleSumPairs(n, k, ar):
@@ -829,4 +829,6 @@ def divisibleSumPairs(n, k, ar):
   # Space complexity: O(k)
   
 ```
+
+
 
