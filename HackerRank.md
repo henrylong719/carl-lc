@@ -865,3 +865,15 @@ function getMoneySpent(keyboards, drives, b) {
   //  Space complexity: O(1)
 
 ```
+
+
+
+#### Save The Prisoner (2/10)**
+
+```typescript
+function saveThePrisoner(n: number, m: number, s: number): number {
+  return ((s - 1 + m - 1) % n) + 1;
+}
+
+```
+
