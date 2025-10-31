@@ -137,3 +137,51 @@ function majorityElement(nums: number[]): number {
 };
 ```
 
+
+
+### [189. Rotate Array](https://leetcode.com/problems/rotate-array/) (31/10)
+
+```typescript
+function rotate(nums: number[], k: number): void {
+  let _k = k % nums.length;
+
+  let arr = [...nums.slice(-_k), ...nums.slice(0, nums.length - _k)];
+
+  for (let i = 0; i < nums.length; i++) {
+    nums[i] = arr[i];
+  }
+}
+
+```
+
+
+
+**Better approach**
+
+```typescript
+
+function reverse(nums: number[], l: number, r: number) {
+    while (l < r) {
+        let tmp = nums[l];
+        nums[l] = nums[r];
+        nums[r] = tmp;
+        l++;
+        r--;
+    }
+}
+
+function rotate(nums: number[], k: number): void {
+
+    let n = nums.length;
+    if (n === 0) return;
+
+    let _k = (k % n);
+    if (_k === 0) return;
+
+    reverse(nums, 0, n-1);
+    reverse(nums, 0, _k-1);
+    reverse(nums, _k, n-1)
+};
+
+```
+
