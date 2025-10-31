@@ -25,3 +25,17 @@ function removeDuplicates2(nums: number[]): number {
 }
 
 removeDuplicates2([0, 0, 1, 1, 1, 1, 2, 3, 3]);
+
+// better solution
+function removeDuplicates3(nums: number[]): number {
+  let nextElement = 2;
+
+  for (let i = 2; i < nums.length; i++) {
+    if (nums[i] !== nums[nextElement - 2]) {
+      nums[nextElement] = nums[i];
+      nextElement++;
+    }
+  }
+
+  return nextElement;
+}
