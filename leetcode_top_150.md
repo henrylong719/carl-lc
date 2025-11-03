@@ -185,3 +185,74 @@ function rotate(nums: number[], k: number): void {
 
 ```
 
+
+
+### [121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) (3/Nov)
+
+```typescript
+
+function maxProfit(prices: number[]): number {
+    if (prices.length === 0) return 0;
+
+    let lowest = prices[0];
+    let best = 0;
+
+    for (let price of prices){
+        if (price < lowest) {
+            lowest = price;
+            continue;
+        } 
+        best = Math.max(best, price - lowest);
+    }
+
+    return best;
+};
+
+```
+
+### [122. Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) (3/Nov)
+
+```typescript
+
+function maxProfit(prices: number[]): number {
+  let n = prices.length;
+
+  if (n === 0) return 0;
+
+  // dynamic programming
+
+  let dp = new Array(n).fill(0);
+
+  for (let i = 1; i < n; i++) {
+    dp[i] = dp[i - 1];
+    for (let j = i - 1; j >= 0; j--) {
+      if (prices[i] > prices[j]) {
+        const diff = prices[i] - prices[j];
+        dp[i] = Math.max(dp[i], dp[j] + diff);
+      }
+    }
+  }
+  return dp[n - 1];
+}
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
