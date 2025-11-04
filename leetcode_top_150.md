@@ -187,7 +187,7 @@ function rotate(nums: number[], k: number): void {
 
 
 
-### [121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) (3/Nov)
+### [121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) (3/11)
 
 ```typescript
 
@@ -210,7 +210,7 @@ function maxProfit(prices: number[]): number {
 
 ```
 
-### [122. Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) (3/Nov)
+### [122. Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) (3/11)
 
 ```typescript
 
@@ -240,7 +240,36 @@ function maxProfit(prices: number[]): number {
 
 
 
+### [13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/) (4/11)
 
+```typescript
+
+function romanToInt(s: string): number {
+  const dic = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
+  } as Record<string, number>;
+
+  let num = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    if (!!s[i + 1] && dic[s[i + 1]] > dic[s[i]]) {
+      num += dic[s[i + 1]] - dic[s[i]];
+      i++;
+      continue;
+    }
+    num += dic[s[i]];
+  }
+
+  return num;
+}
+
+```
 
 
 
