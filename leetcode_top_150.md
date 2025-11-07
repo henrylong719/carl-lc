@@ -269,9 +269,69 @@ function romanToInt(s: string): number {
   return num;
 }
 
+
+// better solution
+
+function romanToInt2(s: string): number {
+  const dic = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
+  } as const;
+
+  let total = 0;
+  let prev = 0;
+
+  for (let i = s.length - 1; i >= 0; i--) {
+    let current = dic[s[i] as keyof typeof dic];
+    total += current >= prev ? current : -current;
+    prev = current;
+  }
+  return total;
+}
+
 ```
 
 
+
+### *[12. Integer to Roman](https://leetcode.com/problems/integer-to-roman/) (7/11)
+
+```typescript
+function intToRoman2(num: number): string {
+  const valueSymbols: [number, string][] = [
+    [1000, 'M'],
+    [900, 'CM'],
+    [500, 'D'],
+    [400, 'CD'],
+    [100, 'C'],
+    [90, 'XC'],
+    [50, 'L'],
+    [40, 'XL'],
+    [10, 'X'],
+    [9, 'IX'],
+    [5, 'V'],
+    [4, 'IV'],
+    [1, 'I'],
+  ];
+
+  let res = '';
+
+  for (let [value, symbol] of valueSymbols) {
+    if (num === 0) break;
+
+    const count = Math.floor(num / value);
+    res += symbol.repeat(count);
+    num -= value * count;
+  }
+
+  return res;
+}
+
+```
 
 
 
