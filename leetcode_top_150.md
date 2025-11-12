@@ -364,11 +364,261 @@ function lengthOfLastWord2(s: string): number {
 
 
 
+### [*55. Jump Game](https://leetcode.com/problems/jump-game/) (10/11)
+
+```typescript
+function canJump(nums: number[]): boolean {
+  let pos = nums.length - 1;
+  let jump = true;
+
+  while (pos !== 0 && jump) {
+    jump = false;
+    for (let i = pos - 1; i >= 0; i--) {
+      if (nums[i] >= pos - i) {
+        pos = i;
+        jump = true;
+      }
+    }
+  }
+   return pos === 0;
+}
+
+function canJump(nums: number[]): boolean {
+
+    let goal = nums.length-1;
+
+    for (let i = nums.length - 2; i >= 0; i--) {
+        if (nums[i] + i >= goal) {
+            goal = i;
+        }
+    }
+
+    return goal === 0;
+};
+
+// Time complexity: O(n)
+// Space complexity: O(1)
+
+```
+
+
+
+### [45. Jump Game II](https://leetcode.com/problems/jump-game-ii/) (10/11)
+
+```typescript
+
+function jump(nums: number[]): number {
+  let pos = nums.length - 1;
+
+  let steps = 0;
+
+  while (pos !== 0) {
+    let maxPos = pos;
+
+    for (let i = pos - 1; i >= 0; i--) {
+      if (nums[i] >= pos - i) {
+        maxPos = i;
+      }
+    }
+
+    pos = maxPos;
+    steps++;
+  }
+
+  return steps;
+}
+
+```
+
+
+
+### [14. Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/) (10/11)
+
+```typescript
+function longestCommonPrefix(strs: string[]): string {
+  let ans = '';
+
+  for (let i = 0; i < strs[0].length; i++) {
+    let isCommon = true;
+    const char = strs[0][i];
+
+    for (let j = 1; j < strs.length; j++) {
+      if (!strs[j][i] || strs[j][i] !== char) {
+        isCommon = false;
+        return ans;
+      }
+    }
+
+    if (isCommon) {
+      ans += char;
+    }
+  }
+
+  return ans;
+}
+
+```
+
+
+
+### [151. Reverse Words in a String](https://leetcode.com/problems/reverse-words-in-a-string/) (10/11)
+
+```typescript
+
+function reverseWords(s: string): string {
+  let end = s.length - 1;
+  let ans = '';
+
+  while (end >= 0) {
+    let wordEnd = end;
+
+    while (wordEnd >= 0 && s[wordEnd] === ' ') {
+      wordEnd--;
+    }
+
+    let wordStart = wordEnd;
+
+    while (wordStart >= 0 && s[wordStart] !== ' ') {
+      wordStart--;
+    }
+
+    const word = s.slice(wordStart + 1, wordEnd + 1);
+    ans += word + ' ';
+
+    end = wordStart;
+  }
+
+  return ans.trim();
+}
+
+```
 
 
 
 
 
+### [274. H-Index](https://leetcode.com/problems/h-index/) (11/11)
+
+```typescript
+
+function hIndex(citations: number[]): number {
+  const sortedCitations = citations.sort((a, b) => b - a);
+
+  let l = 0;
+  let r = sortedCitations.length - 1;
+  let ans = 0;
+
+  while (l <= r) {
+    const mid = Math.floor((l + r) / 2);
+    const curr = sortedCitations[mid];
+
+    // number of citations greater than current
+    const num = mid + 1;
+
+    if (curr >= num) {
+      ans = num;
+      l = mid + 1;
+    } else {
+      r = mid - 1;
+    }
+  }
+
+  return ans;
+}
+
+```
+
+
+
+### [28. Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) (11/11)
+
+```typescript
+function strStr(haystack: string, needle: string): number {
+  let ans = -1;
+
+  for (let i = 0; i < haystack.length; i++) {
+    if (haystack[i] === needle[0]) {
+      ans = i;
+
+      for (let j = 0; j < needle.length; j++) {
+        if (!haystack[i + j] || haystack[i + j] !== needle[j]) {
+          ans = -1;
+          break;
+        }
+      }
+
+      if (ans !== -1) {
+        return ans;
+      }
+    }
+  }
+  return ans;
+}
+
+// O(m*n)
+
+```
+
+
+
+### [*238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) (12/11)
+
+```typescript
+
+function productExceptSelf(nums: number[]): number[] {
+  const n = nums.length;
+  const prefix = new Array(n).fill(1);
+  const surfix = new Array(n).fill(1);
+
+  for (let i = 1; i < nums.length; i++) {
+    prefix[i] = prefix[i - 1] * nums[i - 1];
+  }
+
+  for (let j = nums.length - 2; j >= 0; j--) {
+    surfix[j] = surfix[j + 1] * nums[j + 1];
+  }
+
+  const ans = new Array(n).fill(1);
+
+  for (let k = 0; k < nums.length; k++) {
+    ans[k] = prefix[k] * surfix[k];
+  }
+
+  return ans;
+}
+
+// Time complexity: O(n)
+// Space complexity: O(n)
+
+function productExceptSelf2(nums: number[]): number[] {
+  const n = nums.length;
+
+  let ans = new Array(n).fill(1);
+
+  // create prefix
+  let cur = 1;
+  for (let i = 0; i < n; i++) {
+    ans[i] = ans[i] * cur;
+    cur = cur * nums[i];
+  }
+
+  // multiply prefix ans suffix
+  cur = 1;
+  for (let j = n - 1; j >= 0; j--) {
+    ans[j] = ans[j] * cur;
+    cur = cur * nums[j];
+  }
+
+  return ans;
+}
+
+// Time complexity: O(n)
+// Space complexity: O(1) (exclude output array)
+
+console.log(productExceptSelf([1, 2, 3, 4]));
+
+
+```
 
 
 
