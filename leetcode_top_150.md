@@ -738,3 +738,132 @@ function isIsomorphic2(s: string, t: string): boolean {
 
 ```
 
+
+
+### [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) (16/11)
+
+```typescript
+function lengthOfLongestSubstring2(s: string): number {
+  let ans = 0;
+  let obj = {} as Record<string, number>;
+  let windowStart = 0;
+
+  for (let windowEnd = 0; windowEnd < s.length; windowEnd++) {
+    if (!obj.hasOwnProperty(s[windowEnd])) {
+      ans = Math.max(ans, windowEnd - windowStart + 1);
+    } else {
+      // find repetition
+      const idx = obj[s[windowEnd]] + 1;
+      while (windowStart < idx) {
+        delete obj[s[windowStart]];
+        windowStart++;
+      }
+    }
+
+    obj[s[windowEnd]] = windowEnd;
+  }
+
+  return ans;
+}
+
+function lengthOfLongestSubstring3(s: string): number {
+  let ans = 0;
+  let obj = {} as Record<string, number>;
+  let windowStart = 0;
+
+  for (let windowEnd = 0; windowEnd < s.length; windowEnd++) {
+    if (!obj.hasOwnProperty(s[windowEnd])) {
+      obj[s[windowEnd]] = 1;
+    } else {
+      obj[s[windowEnd]]++;
+    }
+
+    while (obj[s[windowEnd]] > 1) {
+      obj[s[windowStart]]--;
+      windowStart++;
+    }
+
+    ans = Math.max(ans, windowEnd - windowStart + 1);
+  }
+
+  return ans;
+}
+
+// Time complexity: O(n)
+// Space complexity: O(n)
+
+```
+
+
+
+### [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) (14/11)
+
+```typescript
+function minSubArrayLen(target: number, nums: number[]): number {
+  let windowStart = 0;
+  let ans = Infinity;
+
+  let count = 0;
+
+  for (let windowEnd = 0; windowEnd < nums.length; windowEnd++) {
+    count += nums[windowEnd];
+
+    while (count >= target) {
+      ans = Math.min(ans, windowEnd - windowStart + 1);
+      count -= nums[windowStart];
+      windowStart++;
+    }
+  }
+
+  return ans === Infinity ? 0 : ans;
+}
+
+// Time complexity: O(n)
+// Space complexity: O(1)
+
+function minSubArrayLen2(target: number, nums: number[]): number {
+  const n = nums.length;
+  let ans = Infinity;
+
+  const prefix = new Array(n + 1).fill(0);
+
+  for (let i = 1; i < prefix.length; i++) {
+    prefix[i] = nums[i - 1] + prefix[i - 1];
+  }
+
+  function lowerBound(target: number) {
+    let low = 0;
+    let high = prefix.length - 1;
+    let ans = prefix.length;
+
+    while (low <= high) {
+      const mid = low + Math.floor((high - low) / 2);
+
+      if (prefix[mid] >= target) {
+        high = mid - 1;
+        ans = mid;
+      } else {
+        low = mid + 1;
+      }
+    }
+
+    return ans;
+  }
+
+  for (let i = 0; i < nums.length; i++) {
+    const targetNum = prefix[i] + target;
+    const l = lowerBound(targetNum);
+
+    if (l < prefix.length) {
+      ans = Math.min(ans, l - i);
+    }
+  }
+
+  return ans === Infinity ? 0 : ans;
+}
+
+// Time complexity: O(nlog(n))
+// Space complexity: O(n)
+
+```
+
