@@ -298,7 +298,7 @@ function romanToInt2(s: string): number {
 
 
 
-### *[12. Integer to Roman](https://leetcode.com/problems/integer-to-roman/) (7/11)
+### **[12. Integer to Roman](https://leetcode.com/problems/integer-to-roman/) (7/11)
 
 ```typescript
 function intToRoman2(num: number): string {
@@ -408,25 +408,29 @@ function canJump(nums: number[]): boolean {
 ```typescript
 
 function jump(nums: number[]): number {
-  let pos = nums.length - 1;
 
-  let steps = 0;
+    let pos = nums.length - 1;
+    let steps = 0;
 
-  while (pos !== 0) {
-    let maxPos = pos;
+    while (pos !== 0) {
 
-    for (let i = pos - 1; i >= 0; i--) {
-      if (nums[i] >= pos - i) {
-        maxPos = i;
-      }
+        let farthest = pos;
+
+        for (let i = pos - 1; i >= 0; i--) {
+            if (nums[i] >= pos - i) {
+                farthest = i;
+            }
+        }
+
+        pos = farthest;
+        steps ++;
     }
 
-    pos = maxPos;
-    steps++;
-  }
+    return steps;
+};
 
-  return steps;
-}
+// Time complexity: O(n)
+// Space complexity: O(1)
 
 ```
 
@@ -621,4 +625,403 @@ console.log(productExceptSelf([1, 2, 3, 4]));
 ```
 
 
+
+### *[125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) (13/11)
+
+```typescript
+
+// read the question carefully
+function isPalindrome(s: string): boolean {
+
+    // clear non alphabets
+    const alphaNumeric = s.replace(/[^0-9a-zA-Z]/g, '');
+
+    let l = 0;
+    let r = alphaNumeric.length - 1;
+
+    while (l < r) {
+        if (alphaNumeric[l].toLowerCase() !== alphaNumeric[r].toLowerCase()) {
+            return false;
+        }
+        l++;
+        r--;
+    }
+
+    return true;
+};
+
+// Time complexity(O(n))
+// Space complexity (O(1)
+```
+
+
+
+### [**134. Gas Station](https://leetcode.com/problems/gas-station/) (13/11)
+
+
+
+`Hint:`
+
+If you start from station A and stuck at B, then you can't get to B from any station between A and B.
+
+
+
+```typescript
+function canCompleteCircuit(gas: number[], cost: number[]): number {   
+
+    // make sure solution exists
+    if (gas.reduce((acc, cur) => acc += cur) < cost.reduce((acc,cur) => acc += cur)) {
+        return -1;
+    }
+
+    let start = 0;
+    let currentGas = 0;
+
+
+    // If you start from station A and stuck at B, then you can't get to B from 
+    // any station between A and B.
+    for (let i = 0; i < gas.length; i++) {
+
+        currentGas += gas[i] - cost[i];
+
+        if (currentGas < 0) {
+            currentGas = 0;
+            start = i+1;
+        }
+    }
+
+    return start;
+};
+
+// Time complexity(O(n))
+// Space complexity (O(1)
+
+```
+
+
+
+### **[6. Zigzag Conversion](https://leetcode.com/problems/zigzag-conversion/)(13/11)
+
+`Hint:`
+
+Row array and switch idx
+
+```typescript
+
+function convert(s: string, numRows: number): string {
+  // make sure numRows === 1
+  if (numRows === 1 || numRows >= s.length) {
+    return s;
+  }
+
+  const rows: string[] = new Array(numRows).fill('');
+
+  let idx = 0;
+  // down: 1, up: -1
+  let d = 1;
+
+  for (let char of s) {
+    rows[idx] += char;
+
+    if (idx === 0) {
+      d = 1;
+    } else if (idx === numRows - 1) {
+      d = -1;
+    }
+
+    idx += d;
+  }
+
+  return rows.join('');
+}
+
+// Time complexity: O(n)
+// Space complexity: O(n)
+
+```
+
+
+
+### [392. Is Subsequence](https://leetcode.com/problems/is-subsequence/) (14/11)
+
+```typescript
+
+function isSubsequence(s: string, t: string): boolean {
+  let idx = 0;
+
+  for (let i = 0; i < t.length; i++) {
+    if (t[i] === s[idx]) {
+      idx++;
+    }
+  }
+
+  return idx === s.length;
+}
+
+function isSubsequence2(s: string, t: string): boolean {
+  let sp = 0;
+  let tp = 0;
+
+  while (sp < s.length && tp < t.length) {
+    if (s[sp] === t[tp]) {
+      sp++;
+    }
+    tp++;
+  }
+
+  return sp === s.length;
+}
+
+// Time complexity: O(n)
+// Space complexity: O(1)
+
+```
+
+
+
+
+
+### [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) (14/11)
+
+```typescript
+
+function twoSum(numbers: number[], target: number): number[] {
+  let pl = 0;
+  let pr = numbers.length - 1;
+
+  while (pl < pr) {
+    if (numbers[pl] + numbers[pr] === target) {
+      return [pl + 1, pr + 1];
+    }
+
+    if (numbers[pl] + numbers[pr] < target) {
+      pl++;
+    } else {
+      pr--;
+    }
+  }
+  return [];
+}
+
+// Time complexity: O(n)
+// Space complexity: O(1)
+
+```
+
+
+
+### [11. Container With Most Water](https://leetcode.com/problems/container-with-most-water/)(14/11)
+
+```typescript
+
+function maxArea(height: number[]): number {
+  let ans = 0;
+  let l = 0;
+  let r = height.length - 1;
+
+  while (l < r) {
+    const area = Math.min(height[l], height[r]) * (r - l);
+    ans = Math.max(ans, area);
+
+    if (height[l] < height[r]) {
+      l++;
+    } else {
+      r--;
+    }
+  }
+  return ans;
+}
+
+// Time complexity: O(n)
+// Space complexity: O(1)
+
+```
+
+
+
+### *[15. 3Sum](https://leetcode.com/problems/3sum/) (14/11)
+
+```typescript
+function threeSum(nums: number[]): number[][] {
+  let sorted = nums.sort((a, b) => a - b);
+  let ans = [] as number[][];
+
+  for (let i = 0; i < sorted.length; i++) {
+    // Remove duplicates
+    if (i !== 0 && sorted[i] === sorted[i - 1]) {
+      continue;
+    }
+    twoSum(sorted, i + 1, -sorted[i], ans);
+  }
+
+  return ans;
+}
+
+function twoSum(
+  sorted: number[],
+  left: number,
+  target: number,
+  ans: number[][]
+) {
+  let right = sorted.length - 1;
+
+  while (left < right) {
+    if (sorted[left] + sorted[right] === target) {
+      ans.push([-target, sorted[left], sorted[right]]);
+      left++;
+      right--;
+
+      // Remove duplicates
+      while (left < right && sorted[left] === sorted[left - 1]) {
+        left++;
+      }
+
+      while (left < right && sorted[right] === sorted[right + 1]) {
+        right--;
+      }
+    } else if (sorted[left] + sorted[right] < target) {
+      left++;
+    } else {
+      right--;
+    }
+  }
+}
+
+// Time complexity: O(n^2) +O(nlog(n)) = O(n^2)
+// Space complexity: O(n)
+
+```
+
+
+
+
+
+### [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) (14/11)
+
+```typescript
+function minSubArrayLen(target: number, nums: number[]): number {
+  let windowStart = 0;
+  let ans = Infinity;
+
+  let count = 0;
+
+  for (let windowEnd = 0; windowEnd < nums.length; windowEnd++) {
+    count += nums[windowEnd];
+
+    while (count >= target) {
+      ans = Math.min(ans, windowEnd - windowStart + 1);
+      count -= nums[windowStart];
+      windowStart++;
+    }
+  }
+
+  return ans === Infinity ? 0 : ans;
+}
+
+// Time complexity: O(n)
+// Space complexity: O(1)
+
+function minSubArrayLen2(target: number, nums: number[]): number {
+  const n = nums.length;
+  let ans = Infinity;
+
+  const prefix = new Array(n + 1).fill(0);
+
+  for (let i = 1; i < prefix.length; i++) {
+    prefix[i] = nums[i - 1] + prefix[i - 1];
+  }
+
+  function lowerBound(target: number) {
+    let low = 0;
+    let high = prefix.length - 1;
+    let ans = prefix.length;
+
+    while (low <= high) {
+      const mid = low + Math.floor((high - low) / 2);
+
+      if (prefix[mid] >= target) {
+        high = mid - 1;
+        ans = mid;
+      } else {
+        low = mid + 1;
+      }
+    }
+
+    return ans;
+  }
+
+  for (let i = 0; i < nums.length; i++) {
+    const targetNum = prefix[i] + target;
+    const l = lowerBound(targetNum);
+
+    if (l < prefix.length) {
+      ans = Math.min(ans, l - i);
+    }
+  }
+
+  return ans === Infinity ? 0 : ans;
+}
+
+// Time complexity: O(nlog(n))
+// Space complexity: O(n)
+
+```
+
+
+
+### *[3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) (16/11)
+
+
+
+```typescript
+function lengthOfLongestSubstring2(s: string): number {
+  let ans = 0;
+  let obj = {} as Record<string, number>;
+  let windowStart = 0;
+
+  for (let windowEnd = 0; windowEnd < s.length; windowEnd++) {
+    if (!obj.hasOwnProperty(s[windowEnd])) {
+      ans = Math.max(ans, windowEnd - windowStart + 1);
+    } else {
+      // find repetition
+      const idx = obj[s[windowEnd]] + 1;
+      while (windowStart < idx) {
+        delete obj[s[windowStart]];
+        windowStart++;
+      }
+    }
+
+    obj[s[windowEnd]] = windowEnd;
+  }
+
+  return ans;
+}
+
+function lengthOfLongestSubstring3(s: string): number {
+  let ans = 0;
+  let obj = {} as Record<string, number>;
+  let windowStart = 0;
+
+  for (let windowEnd = 0; windowEnd < s.length; windowEnd++) {
+    if (!obj.hasOwnProperty(s[windowEnd])) {
+      obj[s[windowEnd]] = 1;
+    } else {
+      obj[s[windowEnd]]++;
+    }
+
+    while (obj[s[windowEnd]] > 1) {
+      obj[s[windowStart]]--;
+      windowStart++;
+    }
+
+    ans = Math.max(ans, windowEnd - windowStart + 1);
+  }
+
+  return ans;
+}
+
+// Time complexity: O(n)
+// Space complexity: O(n)
+
+```
 

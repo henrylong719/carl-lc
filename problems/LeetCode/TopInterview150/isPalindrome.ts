@@ -1,4 +1,4 @@
-function isPalindrome(s: string): boolean {
+function isPalindrome2(s: string): boolean {
   // clear non alphabets and numbers
   const alphaNumeric = s.replace(/[^0-9a-zA-Z]/g, '');
 
