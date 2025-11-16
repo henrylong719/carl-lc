@@ -622,3 +622,8 @@ console.log(productExceptSelf([1, 2, 3, 4]));
 
 
 
+### [383. Ransom Note](https://leetcode.com/problems/ransom-note/) (16/11)
+
+```typescript
+```
+
