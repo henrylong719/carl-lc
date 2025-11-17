@@ -8,7 +8,7 @@ function wordPattern(pattern: string, s: string): boolean {
 
   for (let i = 0; i < pattern.length; i++) {
     // for test cases like "dog constructor constructor dog"
-    // constructor will be a function
+    // constructor will be a function and in any js object
 
     if (!patternObj.hasOwnProperty(pattern[i])) {
       patternObj[pattern[i]] = i;
@@ -38,7 +38,7 @@ function wordPattern2(pattern: string, s: string): boolean {
 
   for (let i = 0; i < pattern.length; i++) {
     // for test cases like "dog constructor constructor dog"
-    // constructor will be a function
+    // constructor will be a function and in any js object
 
     if (!patternObj.has(pattern[i])) {
       patternObj.set(pattern[i], i);
