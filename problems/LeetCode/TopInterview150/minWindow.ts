@@ -47,3 +47,56 @@ function withPosValue(obj: Record<string, number>) {
   }
   return false;
 }
+
+// Time complexity: O(n^2)
+// Space complexity: O(n)
+
+function minWindow2(s: string, t: string): string {
+  if (s.length < t.length) return '';
+
+  let need: Record<string, number> = {};
+
+  for (const char of t) {
+    need[char] = (need[char] ?? 0) + 1;
+  }
+
+  let windowStart = 0;
+  let bestStart = 0;
+  let bestLen = Infinity;
+  let needCount = t.length;
+
+  for (let windowEnd = 0; windowEnd < s.length; windowEnd++) {
+    const char = s[windowEnd];
+
+    if (char in need) {
+      if (need[char] > 0) {
+        needCount--;
+      }
+      need[char]--;
+    }
+
+    while (needCount === 0) {
+      const windowLen = windowEnd - windowStart + 1;
+      if (windowLen < bestLen) {
+        bestLen = windowLen;
+        bestStart = windowStart;
+      }
+
+      let leftChar = s[windowStart];
+
+      if (leftChar in need) {
+        need[leftChar]++;
+        if (need[leftChar] > 0) {
+          needCount++;
+        }
+      }
+
+      windowStart++;
+    }
+  }
+
+  return bestLen === Infinity ? '' : s.slice(bestStart, bestStart + bestLen);
+}
+
+// Time complexity: O(m+n)
+// Space complexity: O(n)
