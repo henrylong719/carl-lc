@@ -9,6 +9,7 @@ function wordPattern(pattern: string, s: string): boolean {
   for (let i = 0; i < pattern.length; i++) {
     // for test cases like "dog constructor constructor dog"
     // constructor will be a function
+
     if (!patternObj.hasOwnProperty(pattern[i])) {
       patternObj[pattern[i]] = i;
     }
@@ -17,7 +18,37 @@ function wordPattern(pattern: string, s: string): boolean {
       wordsObj[words[i]] = i;
     }
 
+    console.log(wordsObj);
+    console.log(patternObj);
+
     if (patternObj[pattern[i]] !== wordsObj[words[i]]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function wordPattern2(pattern: string, s: string): boolean {
+  const words = s.split(' ');
+
+  if (pattern.length !== words.length) return false;
+
+  const patternObj = new Map<string, number>();
+  const wordsObj = new Map<string, number>();
+
+  for (let i = 0; i < pattern.length; i++) {
+    // for test cases like "dog constructor constructor dog"
+    // constructor will be a function
+
+    if (!patternObj.has(pattern[i])) {
+      patternObj.set(pattern[i], i);
+    }
+
+    if (!wordsObj.has(words[i])) {
+      wordsObj.set(words[i], i);
+    }
+
+    if (patternObj.get(pattern[i]) !== wordsObj.get(words[i])) {
       return false;
     }
   }
@@ -56,4 +87,4 @@ function wordPattern1(pattern: string, s: string): boolean {
 // Time complexity: O(k+m) = O(n) (split and for loop)
 // Space complexity: O(k+m) = O(n) (split and obj)
 
-console.log(wordPattern('abba', 'dog constructor constructor dog'));
+console.log(wordPattern2('abba', 'dog constructor constructor dog'));
