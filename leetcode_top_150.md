@@ -1401,3 +1401,29 @@ console.log(wordPattern('abba', 'dog constructor constructor dog'));
 
 ```
 
+
+
+### [1. Two Sum](https://leetcode.com/problems/two-sum/) (18/11)
+
+it cannot be sorted
+
+```typescript
+
+function twoSum(nums: number[], target: number): number[] {
+  const dic: Record<number, number> = {};
+
+  for (let i = 0; i < nums.length; i++) {
+    const need = target - nums[i];
+
+    // if it's string, using hasOwnProperty
+    if (need in dic) {
+      return [dic[need], i];
+    }
+    dic[nums[i]] = i;
+  }
+
+  return [];
+}
+
+```
+
