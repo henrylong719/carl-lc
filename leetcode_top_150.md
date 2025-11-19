@@ -1715,7 +1715,7 @@ function groupAnagrams3(strs: string[]): string[][] {
 
 
 
-### [128. Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/) (19/11)
+### ***[128. Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/) (19/11)
 
 
 
@@ -1738,6 +1738,117 @@ function longestConsecutive(nums: number[]): number {
   }
   return longest;
 }
+
+// Time compleixty: O(n)
+// Space complexity: O(n)
+
+
+```
+
+
+
+### [228. Summary Ranges](https://leetcode.com/problems/summary-ranges/) (19/11)
+
+```typescript
+
+function summaryRanges(nums: number[]): string[] {
+  let idx = 0;
+  let ans = [];
+
+  while (idx < nums.length) {
+    const num = nums[idx];
+    let count = 1;
+
+    while (num + count === nums[idx + count]) {
+      count++;
+    }
+
+    if (count === 1) {
+      ans.push(String(num));
+    } else {
+      ans.push(String(num) + '->' + String(num + count - 1));
+    }
+
+    idx += count;
+  }
+
+  return ans;
+}
+
+function summaryRanges2(nums: number[]): string[] {
+  let i = 0;
+  let ans = [];
+
+  while (i < nums.length) {
+    const start = nums[i];
+
+    while (i + 1 < nums.length && nums[i + 1] === nums[i] + 1) {
+      i++;
+    }
+
+    const end = nums[i];
+
+    if (start === end) {
+      ans.push(`${start}`);
+    } else {
+      ans.push(`${start}->${end}`);
+    }
+    i++;
+  }
+
+  return ans;
+}
+
+// Time compleixty: O(n)
+// Space complexity: O(1) or O(n) inclusing output
+
+```
+
+
+
+### ***[36. Valid Sudoku](https://leetcode.com/problems/valid-sudoku/)(19/11)
+
+```typescript
+
+
+function isValidSudoku2(board: string[][]): boolean {
+  const rows: Set<string>[] = [];
+  const cols: Set<string>[] = [];
+  const boxes: Set<string>[] = [];
+
+  for (let i = 0; i < 9; i++) {
+    rows.push(new Set());
+    cols.push(new Set());
+    boxes.push(new Set());
+  }
+
+  for (let r = 0; r < 9; r++) {
+    for (let c = 0; c < 9; c++) {
+      if (board[r][c] === '.') {
+        continue;
+      }
+
+      const val = board[r][c];
+
+      const boxIdx = Math.floor(r / 3) * 3 + Math.floor(c / 3);
+
+      if (rows[r].has(val) || cols[c].has(val) || boxes[boxIdx].has(val)) {
+        return false;
+      }
+
+      rows[r].add(val);
+      cols[c].add(val);
+      boxes[boxIdx].add(val);
+    }
+  }
+
+  return true;
+}
+
+// Time compleixty: O(9*9) = O(1)
+// Space complexity: rows(81) + cols(81) + boxes(81) = 243
+// O(243) = O(1)
+
 
 ```
 
