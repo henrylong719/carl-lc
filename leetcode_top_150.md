@@ -2014,3 +2014,37 @@ function findMinArrowShots(points: number[][]): number {
 
 
 
+### [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) (9/12)
+
+```typescript
+
+function isValid(s: string): boolean {
+  const map = {
+    '(': ')',
+    '{': '}',
+    '[': ']',
+  };
+
+  const stack = [];
+
+  for (let char of s) {
+    if (Object.keys(map).includes(char)) {
+      stack.push(char);
+      continue;
+    }
+
+    const lastEle = stack.pop();
+
+    if (char !== map[lastEle as keyof typeof map]) {
+      return false;
+    }
+  }
+
+  return stack.length === 0;
+}
+
+// Time complexity: O(n))
+// Space complexity: O(n)
+
+```
+
