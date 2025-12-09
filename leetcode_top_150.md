@@ -2074,3 +2074,42 @@ function simplifyPath(path: string): string {
 // Space complexity: O(n)
 ```
 
+
+
+### 150. [ Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) (9/11)
+
+
+
+```typescript
+function evalRPN(tokens: string[]): number {
+  const stack = [];
+  const operators = ['+', '-', '*', '/'];
+
+  for (let s of tokens) {
+    if (s === '+') {
+      stack.push(stack.pop() + stack.pop());
+    } else if (s === '-') {
+      const second = stack.pop();
+      const first = stack.pop();
+      stack.push(first - second);
+    } else if (s === '*') {
+      const second = stack.pop();
+      const first = stack.pop();
+      stack.push(first * second);
+    } else if (s === '/') {
+      const second = stack.pop();
+      const first = stack.pop();
+      stack.push(parseInt(String(first / second)));
+    } else {
+      stack.push(parseInt(s));
+    }
+  }
+
+  return stack[0];
+}
+
+// Time complexity: O(n))
+// Space complexity: O(n)
+
+```
+
