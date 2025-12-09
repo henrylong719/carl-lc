@@ -2048,3 +2048,29 @@ function isValid(s: string): boolean {
 
 ```
 
+
+
+### [71. Simplify Path](https://leetcode.com/problems/simplify-path/) (9/12)
+
+```typescript
+
+function simplifyPath(path: string): string {
+    const stack = [];
+    const pathArray = path.split('/').filter((a)=> !!a && a !== '.');
+
+    for (let p of pathArray) {
+        if (p === '..') {
+            stack.pop();
+            continue;
+        } 
+        stack.push(p);
+    }
+
+    return '/' + stack.join('/');
+};
+
+
+// Time complexity: O(n))
+// Space complexity: O(n)
+```
+
