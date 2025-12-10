@@ -17,3 +17,28 @@ function rotate(matrix: number[][]): void {
     }
   }
 }
+
+// Time complexity O(n^2)
+// Space complexity O(n^2)
+
+function rotate2(matrix: number[][]): void {
+  const n = matrix.length;
+
+  // get transpose matrix;
+  for (let row = 0; row < n; row++) {
+    for (let col = 0; col < row; col++) {
+      [matrix[row][col], matrix[col][row]] = [
+        matrix[col][row],
+        matrix[row][col],
+      ];
+    }
+  }
+
+  // reverse each row
+  for (let row = 0; row < n; row++) {
+    matrix[row].reverse();
+  }
+}
+
+// Time complexity O(n^2)
+// Space complexity O(1)
