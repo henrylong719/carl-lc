@@ -1,67 +1,34 @@
 function spiralOrder(matrix: number[][]): number[] {
-  let bottomLeftPtr = { row: 0, col: 0 };
-  let bottomRightPtr = { row: 0, col: matrix[0].length - 1 };
-  let topRightPtr = { row: matrix.length - 1, col: matrix[0].length - 1 };
-  let topLeftPtr = { row: matrix.length - 1, col: 0 };
+  const rows = matrix.length;
+  const cols = matrix[0].length;
 
+  let x = 0;
+  let y = 0;
+
+  // start with moving right
+  let dx = 1;
+  let dy = 0;
+
+  let INVALID_NUM = 101;
   let ans = [];
-  let totalLen = matrix.length * matrix[0].length;
 
-  while (ans.length < totalLen) {
-    let bottomLeft = { ...bottomLeftPtr };
-    let bottomRight = { ...bottomRightPtr };
-    let topRight = { ...topRightPtr };
-    let topLeft = { ...topLeftPtr };
+  while (ans.length < rows * cols) {
+    const val = matrix[y][x];
+    ans.push(val);
+    matrix[y][x] = INVALID_NUM;
 
-    while (bottomLeft.col <= bottomRight.col && ans.length < totalLen) {
-      ans.push(matrix[bottomLeft.row][bottomLeft.col]);
-      bottomLeft.col += 1;
+    // check if current step is out of bound or a repetitive step
+
+    if (
+      !(x + dx < cols && x + dx >= 0 && y + dy < rows && y + dy >= 0) ||
+      matrix[y + dy][x + dx] === INVALID_NUM
+    ) {
+      [dx, dy] = [-dy, dx];
     }
 
-    bottomRight.row += 1;
-    while (bottomRight.row <= topRight.row && ans.length < totalLen) {
-      ans.push(matrix[bottomRight.row][bottomRight.col]);
-      bottomRight.row += 1;
-    }
-
-    topRight.col -= 1;
-    while (topRight.col >= topLeft.col && ans.length < totalLen) {
-      ans.push(matrix[topRight.row][topRight.col]);
-      topRight.col -= 1;
-    }
-
-    topLeft.row -= 1;
-    while (topLeft.row > bottomLeft.row && ans.length < totalLen) {
-      ans.push(matrix[topLeft.row][topLeft.col]);
-      topLeft.row -= 1;
-    }
-
-    bottomLeftPtr = {
-      row: (bottomLeftPtr.row += 1),
-      col: (bottomLeftPtr.col += 1),
-    };
-
-    bottomRightPtr = {
-      row: (bottomRightPtr.row += 1),
-      col: (bottomRightPtr.col -= 1),
-    };
-
-    topRightPtr = {
-      row: (topRightPtr.row -= 1),
-      col: (topRightPtr.col -= 1),
-    };
-
-    topLeftPtr = {
-      row: (topLeftPtr.row -= 1),
-      col: (topLeftPtr.col += 1),
-    };
+    x += dx;
+    y += dy;
   }
 
   return ans;
 }
-
-spiralOrder([
-  [1, 2, 3, 4],
-  [5, 6, 7, 8],
-  [9, 10, 11, 12],
-]);
