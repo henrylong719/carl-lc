@@ -2382,7 +2382,56 @@ function setZeroes2(matrix: number[][]): void {
 // Time complexity: O(m*n)
 // Space complexity: O(1)
 
+
+
+// dodge but inspired by 289. Game of Life
+function setZeroes(matrix: number[][]): void {
+
+    const rows = matrix.length;
+    const cols = matrix[0].length;
+
+    for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col ++) {
+
+            if (matrix[row][col] === 0) {
+
+                for (let c = 0; c < cols; c++) {
+                    if (matrix[row][c] !== 0) {
+                        matrix[row][c]  = null;
+                    }
+                }
+
+                for (let r = 0; r < rows; r++) {
+                    if (matrix[r][col] !== 0) {
+                        matrix[r][col] = null;
+                    }
+                }
+            }
+        }
+    }
+
+    for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+            if (matrix[row][col] === null) {
+                matrix[row][col] = 0;
+            }
+        }
+    }
+};
+
+// time complexity: O(m*n * (m+n))
+// Space compleixty: O(1)
+
 ```
 
 
+
+### 289. [Game of Life](https://leetcode.com/problems/game-of-life/) (11/12)
+
+
+
+```typescript
+
+
+```
 
