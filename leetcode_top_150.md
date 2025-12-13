@@ -2952,3 +2952,48 @@ function partition2(head: ListNode | null, x: number): ListNode | null {
 
 
 
+### ** [146. LRU Cache](https://leetcode.com/problems/lru-cache/) (13/12)
+
+```typescript
+
+class LRUCache {
+  capacity: number;
+  map: Map<number, number>;
+
+  constructor(capacity: number) {
+    this.capacity = capacity;
+    this.map = new Map();
+  }
+
+  get(key: number): number {
+    if (!this.map.has(key)) return -1;
+    const value = this.map.get(key) as number;
+    // move the key to the top
+    this.shiftKeyToEnd(key, value);
+    return value as number;
+  }
+
+  put(key: number, value: number): void {
+    if (this.map.has(key)) {
+      this.shiftKeyToEnd(key, value);
+    } else {
+      this.map.set(key, value);
+    }
+
+    if (this.map.size > this.capacity) {
+      // evict the least recently used key
+      const firstKey = this.map.keys().next().value as number;
+      this.map.delete(firstKey);
+    }
+  }
+
+  shiftKeyToEnd(key: number, value: number): void {
+    this.map.delete(key);
+    this.map.set(key, value);
+  }
+}
+
+// get and put O(1)
+
+```
+
