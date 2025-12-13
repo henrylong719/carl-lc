@@ -27,3 +27,6 @@ function reverseBetween(
 
   return dummy.next;
 }
+
+// Time complexity: O(n)
+// Space complexity: O(1)
