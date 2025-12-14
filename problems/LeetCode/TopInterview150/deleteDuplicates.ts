@@ -24,6 +24,9 @@ function deleteDuplicates(head: ListNode | null): ListNode | null {
   return dummy.next;
 }
 
+// Time complexity: O(n)
+// Space complexity: O(n)
+
 function deleteDuplicates2(head: ListNode | null): ListNode | null {
   let dummy = new ListNode(0, head);
   let cur = dummy;
@@ -70,3 +73,6 @@ function deleteDuplicates3(head: ListNode | null): ListNode | null {
 
   return dummy.next;
 }
+
+// Time complexity: O(n)
+// Space complexity: O(1)
