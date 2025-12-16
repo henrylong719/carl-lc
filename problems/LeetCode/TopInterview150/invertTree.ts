@@ -12,4 +12,4 @@ function invertTree(root: TreeNode | null): TreeNode | null {
 }
 
 // Time complexity: O(n)
-// Space complexity: O(n)
+// Space complexity: O(h), worse case O(n)
