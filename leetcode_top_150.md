@@ -298,7 +298,7 @@ function romanToInt2(s: string): number {
 
 
 
-### *[12. Integer to Roman](https://leetcode.com/problems/integer-to-roman/) (7/11)
+### *[12. Integer to Roman](https://leetcode.com/problems/integer-to-roman/) (7/11, 15/12)
 
 ```typescript
 function intToRoman2(num: number): string {
@@ -364,7 +364,7 @@ function lengthOfLastWord2(s: string): number {
 
 
 
-### [*55. Jump Game](https://leetcode.com/problems/jump-game/) (10/11)
+### [*55. Jump Game](https://leetcode.com/problems/jump-game/) (10/11, 15/12)
 
 ```typescript
 function canJump(nums: number[]): boolean {
@@ -559,7 +559,7 @@ function strStr(haystack: string, needle: string): number {
 
 
 
-### ***[6. Zigzag Conversion](https://leetcode.com/problems/zigzag-conversion/)
+### ** [6. Zigzag Conversion](https://leetcode.com/problems/zigzag-conversion/) (11/11 ***** , 15/12 ******)
 
 ```typescript
 function convert(s: string, numRows: number): string {
@@ -589,15 +589,64 @@ function convert(s: string, numRows: number): string {
   return rows.join('');
 }
 
+
+
+function convert2(s: string, numRows: number): string {
+  // consider edge cases first
+  if (numRows === 1 || numRows >= s.length) return s;
+
+  let arr = [];
+
+  for (let i = 0; i < numRows; i++) {
+    arr[i] = [];
+    for (let j = 0; j < s.length; j++) {
+      arr[i][j] = '';
+    }
+  }
+
+  let row = 0;
+  let col = 0;
+  let isDown = true;
+
+  for (const char of s) {
+    arr[row][col] = char;
+
+    if (row === 0) {
+      isDown = true;
+    }
+
+    if (row === numRows - 1) {
+      isDown = false;
+    }
+
+    if (isDown === true) {
+      row = row + 1;
+    } else {
+      row = row - 1;
+      // use this if not checking numRow in the top
+      // row = Math.max(row - 1, 0);
+      col = col + 1;
+    }
+  }
+
+  let ans = '';
+
+  for (let i = 0; i < numRows; i++) {
+    ans += arr[i].join('');
+  }
+
+  return ans;
+}
+
+
+// Time complexity: O(n)
+// Space complexity: O(n^2)
+
 ```
 
 
 
-
-
-
-
-### [*238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) (12/11)
+### [238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) (12/11*, 15/12)
 
 ```typescript
 
@@ -651,6 +700,30 @@ function productExceptSelf2(nums: number[]): number[] {
 // Time complexity: O(n)
 // Space complexity: O(1) (exclude output array)
 
+
+function productExceptSelf(nums: number[]): number[] {
+
+    let n = nums.length;
+
+    const ans = new Array(n).fill(1);
+
+    // get suffix into ans
+    for (let i = n - 2; i >= 0; i --) {
+        ans[i] = ans[i+1] * nums[i+1]; 
+    }
+
+    let prefix = 1;
+    for (let i = 0; i < n; i++) {
+        ans[i] = prefix * ans[i];
+        prefix *= nums[i];
+    }
+
+    return ans;
+};
+
+// Time complexity: O(n)
+// Space complexity: O(1) (exclude output array)
+
 console.log(productExceptSelf([1, 2, 3, 4]));
 
 
@@ -660,7 +733,7 @@ console.log(productExceptSelf([1, 2, 3, 4]));
 
 
 
-### *[125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) (13/11)
+### *[125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) (13/11, 15/12)
 
 ```typescript
 function isPalindrome2(s: string): boolean {
@@ -685,7 +758,7 @@ function isPalindrome2(s: string): boolean {
 
 
 
-### *** [134. Gas Station](https://leetcode.com/problems/gas-station/) (13/11)
+### *** [134. Gas Station](https://leetcode.com/problems/gas-station/) (13/11, 16/12)
 
 `Hint:`
 
@@ -834,7 +907,7 @@ function maxArea(height: number[]): number {
 
 
 
-### **[15. 3Sum ](https://leetcode.com/problems/3sum/)(14/11)
+### ***[15. 3Sum ](https://leetcode.com/problems/3sum/)(14/11, 16/12)
 
 ```typescript
 function threeSum(nums: number[]): number[][] {
@@ -3125,8 +3198,6 @@ function rotateRight(head: ListNode | null, k: number): ListNode | null {
 
 
 
-
-
 ### [104. Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) (15/12)
 
 ```typescript
@@ -3180,7 +3251,41 @@ function maxDepthBfs(root: TreeNode | null): number {
 
 
 
+### [100. Same Tree](https://leetcode.com/problems/same-tree/) (16/12)
 
+```typescript
+function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
+  if (!p && !q) return true;
 
+  if (!p || !q || p.val !== q.val) {
+    return false;
+  }
 
+  return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+}
+
+// Time comlexity: O(n)
+// Space complexity: O(h), worse case O(n)
+
+function isSameTreeBfs(p: TreeNode | null, q: TreeNode | null): boolean {
+  const queue: Array<[TreeNode | null, TreeNode | null]> = [[p, q]];
+
+  while (queue.length) {
+    const [a, b] = queue.shift();
+
+    if (!a && !b) continue;
+
+    if (!a || !b || a.val !== b.val) return false;
+
+    queue.push([a.left, b.left]);
+    queue.push([a.right, b.right]);
+  }
+
+  return true;
+}
+
+// Time comlexity: O(n)
+// Space complexity: O(w), worse case O(n)
+
+```
 
