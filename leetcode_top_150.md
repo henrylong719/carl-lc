@@ -3289,3 +3289,32 @@ function isSameTreeBfs(p: TreeNode | null, q: TreeNode | null): boolean {
 
 ```
 
+
+
+### [*226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/) (16/12)
+
+```typescript
+
+function invertTree(root: TreeNode | null): TreeNode | null {
+  if (!root) {
+    return root;
+  }
+
+  [root.left, root.right] = [root.right, root.left];
+
+  invertTree(root.left);
+  invertTree(root.right);
+
+  return root;
+}
+
+// Time complexity: O(n)
+// Space complexity: O(n)
+
+
+```
+
+
+
+
+
