@@ -3384,5 +3384,80 @@ function isSymmetric(root: TreeNode | null): boolean {
 
 
 
+### **[114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/) (17/12)
+
+```typescript
+
+function dfs(root: TreeNode, arr: number[]): void {
+  if (!root) {
+    return;
+  }
+  arr.push(root.val);
+  dfs(root.left, arr);
+  dfs(root.right, arr);
+}
+
+function flatten(root: TreeNode | null): void {
+  if (!root) return;
+
+  const arr = [] as number[];
+  dfs(root, arr);
+
+  for (let i = 1; i < arr.length; i++) {
+    root.right = new TreeNode(arr[i]);
+    root.left = null;
+    root = root.right;
+  }
+}
+
+// Time complexity: O(n)
+// Space complexity: O(n)
+
+function dfs(root: TreeNode | null, prev: { state: TreeNode | null }) {
+  if (!root) {
+    return;
+  }
+
+  dfs(root.right, prev);
+  dfs(root.left, prev);
+
+  root.right = prev.state;
+  root.left = null;
+  prev.state = root;
+}
+
+function flatten(root: TreeNode | null): void {
+  if (!root) return;
+
+  const prev = { state: null };
+
+  dfs(root, prev);
+}
+
+// Time complexity: O(n)
+// Space complexity: O(h)
+
+```
+
+
+
+### *[112. Path Sum](https://leetcode.com/problems/path-sum/) (17/12)
+
+```typescript
+
+function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
+  if (!root) return false;
+
+  targetSum -= root.val;
+  if (targetSum === 0 && !root.left && !root.right) return true;
+
+  return hasPathSum(root.left, targetSum) || hasPathSum(root.right, targetSum);
+}
+
+// Time complexity: O(n)
+// Space complexity: O(h) worse case O(n)
+
+```
+
 
 
