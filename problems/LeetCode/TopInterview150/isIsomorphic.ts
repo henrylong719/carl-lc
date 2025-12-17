@@ -47,3 +47,35 @@ function isIsomorphic2(s: string, t: string): boolean {
 
 // Time complexity: O(n)
 // Space complexity: O(n)
+
+function isIsomorphic(s: string, t: string): boolean {
+  if (s.length !== t.length) return false;
+
+  const mapS = new Map<string, string>();
+  const mapT = new Map<string, string>();
+
+  for (let i = 0; i < s.length; i++) {
+    let valueS = '';
+    let valueT = '';
+
+    if (mapS.has(s[i])) {
+      valueS = mapS.get(s[i]);
+    } else {
+      mapS.set(s[i], t[i]);
+    }
+
+    if (mapT.has(t[i])) {
+      valueT = mapT.get(t[i]);
+    } else {
+      mapT.set(t[i], s[i]);
+    }
+
+    if ((valueS || valueT) && (valueS !== t[i] || valueT !== s[i]))
+      return false;
+  }
+
+  return true;
+}
+
+// Time complexity: O(n)
+// Space complexity: O(n)

@@ -1023,7 +1023,11 @@ function canConstruct2(ransomNote: string, magazine: string): boolean {
 
 
 
-### *[205. Isomorphic Strings](https://leetcode.com/problems/isomorphic-strings/) (16/11)
+### *[205. Isomorphic Strings](https://leetcode.com/problems/isomorphic-strings/) (16/11, 17/12)
+
+`hint:`
+
+`use index`
 
 ```typescript
 
@@ -1076,6 +1080,40 @@ function isIsomorphic2(s: string, t: string): boolean {
 
 // Time complexity: O(n)
 // Space complexity: O(n)
+
+
+function isIsomorphic(s: string, t: string): boolean {
+  if (s.length !== t.length) return false;
+
+  const mapS = new Map<string, string>();
+  const mapT = new Map<string, string>();
+
+  for (let i = 0; i < s.length; i++) {
+    let valueS = '';
+    let valueT = '';
+
+    if (mapS.has(s[i])) {
+      valueS = mapS.get(s[i]);
+    } else {
+      mapS.set(s[i], t[i]);
+    }
+
+    if (mapT.has(t[i])) {
+      valueT = mapT.get(t[i]);
+    } else {
+      mapT.set(t[i], s[i]);
+    }
+
+    if ((valueS || valueT) && (valueS !== t[i] || valueT !== s[i]))
+      return false;
+  }
+
+  return true;
+}
+
+// Time complexity: O(n)
+// Space complexity: O(n)
+
 
 
 ```
@@ -1211,7 +1249,7 @@ function minSubArrayLen2(target: number, nums: number[]): number {
 
 
 
-### **[76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) (17/11)
+### **[76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) (17/11, 17/12)
 
 ```typescript
 
@@ -1325,7 +1363,7 @@ function minWindow2(s: string, t: string): string {
 
 
 
-### *[242. Valid Anagram](https://leetcode.com/problems/valid-anagram/) (17/11)
+### *[242. Valid Anagram](https://leetcode.com/problems/valid-anagram/) (17/11, 17/12)
 
 ```typescript
 
