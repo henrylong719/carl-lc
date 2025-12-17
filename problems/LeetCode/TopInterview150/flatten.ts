@@ -46,3 +46,27 @@ function flatten(root: TreeNode | null): void {
 
 // Time complexity: O(n)
 // Space complexity: O(h)
+
+function flatten(root: TreeNode | null): void {
+  if (!root) return;
+
+  let prev = null;
+
+  function dfs(root: TreeNode | null) {
+    if (!root) {
+      return;
+    }
+
+    dfs(root.right);
+    dfs(root.left);
+
+    root.right = prev;
+    root.left = null;
+    prev = root;
+  }
+
+  dfs(root);
+}
+
+// Time complexity: O(n)
+// Space complexity: O(h)

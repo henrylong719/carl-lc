@@ -3434,6 +3434,28 @@ function flatten(root: TreeNode | null): void {
   dfs(root, prev);
 }
 
+
+function flatten(root: TreeNode | null): void {
+  if (!root) return;
+
+  let prev = null;
+
+  function dfs(root: TreeNode | null) {
+    if (!root) {
+      return;
+    }
+
+    dfs(root.right);
+    dfs(root.left);
+
+    root.right = prev;
+    root.left = null;
+    prev = root;
+  }
+
+  dfs(root);
+}
+
 // Time complexity: O(n)
 // Space complexity: O(h)
 
@@ -3460,4 +3482,56 @@ function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
 ```
 
 
+
+### *[129. Sum Root to Leaf Numbers](https://leetcode.com/problems/sum-root-to-leaf-numbers/) (17/12)
+
+```typescript
+function dfs(root: TreeNode | null, str: string, total: { sum: number }) {
+  if (!root) {
+    return;
+  }
+
+  str += String(root.val);
+
+  if (!root.left && !root.right) {
+    total.sum += Number(str);
+  }
+
+  dfs(root.left, str, total);
+  dfs(root.right, str, total);
+}
+
+function sumNumbers(root: TreeNode | null): number {
+  let total = { sum: 0 };
+  dfs(root, '', total);
+  return total.sum;
+}
+
+function sumNumbers2(root: TreeNode | null): number {
+  let currentSum = 0;
+
+  const dfs = (root: TreeNode | null, str: string) => {
+    if (!root) {
+      return;
+    }
+
+    str += String(root.val);
+
+    if (!root.left && !root.right) {
+      currentSum += Number(str);
+    }
+
+    dfs(root.left, str);
+    dfs(root.right, str);
+  };
+
+  dfs(root, '');
+
+  return currentSum;
+}
+
+// Time complexity: O(n)
+// Space compleixty: O(h)
+
+```
 
