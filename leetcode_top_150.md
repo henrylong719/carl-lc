@@ -1413,11 +1413,11 @@ function isAnagram2(s: string, t: string): boolean {
 
 
 
-### [*290. Word Pattern](https://leetcode.com/problems/word-pattern/) (17/11)
+### [**290. Word Pattern](https://leetcode.com/problems/word-pattern/) (17/11, 19/12)
 
 
 
-use `hasOwnProperty` for string :)
+use `hasOwnProperty` for obj with string key :)
 
 ```typescript
 
@@ -1540,7 +1540,7 @@ function twoSum(nums: number[], target: number): number[] {
 
 
 
-### **[202. Happy Number](https://leetcode.com/problems/happy-number/) (18/11)
+### **[202. Happy Number](https://leetcode.com/problems/happy-number/) (18/11, 19/12)
 
 
 
@@ -3532,6 +3532,172 @@ function sumNumbers2(root: TreeNode | null): number {
 
 // Time complexity: O(n)
 // Space compleixty: O(h)
+
+```
+
+
+
+### ** [173. Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/) (19/12)
+
+
+
+```typescript
+
+class BSTIterator {
+  private pointer = 0;
+  private inOrderTree = [];
+
+  constructor(root: TreeNode | null) {
+    this.inOrderTraverse(root);
+  }
+
+  inOrderTraverse(root: TreeNode | null): void {
+    if (!root) {
+      return;
+    }
+
+    this.inOrderTraverse(root.left);
+    this.inOrderTree.push(root.val);
+    this.inOrderTraverse(root.right);
+  }
+
+  next(): number {
+    const val = this.inOrderTree[this.pointer];
+    this.pointer++;
+    return val;
+  }
+
+  hasNext(): boolean {
+    if (this.pointer < this.inOrderTree.length) {
+      return true;
+    }
+    return false;
+  }
+}
+
+// next() O(1)
+// hasNext() O(1)
+// Space complexity: O(n)
+
+class BSTIterator2 {
+  private stack = [];
+  private pointer = null;
+
+  constructor(root: TreeNode | null) {
+    this.pointer = root;
+  }
+
+  next(): number {
+    while (this.pointer) {
+      this.stack.push(this.pointer);
+      this.pointer = this.pointer.left;
+    }
+
+    const n = this.stack.pop();
+    this.pointer = n.right;
+    return n.val;
+  }
+
+  hasNext(): boolean {
+    return this.pointer || this.stack.length > 0;
+  }
+}
+
+// hasNext O(1)
+// Amorized time per next() O(1)
+// total pushes = n total pops = n totalWork O(n)
+// some calls do "extra work", but that extra work is "paid for" by the fact those
+// nodes won't be pushed again later
+
+```
+
+
+
+### ** [222. Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/) (19/12)
+
+
+
+`hint`
+
+`use << `
+
+```typescript
+
+function countNodes(root: TreeNode | null): number {
+  if (!root) return 0;
+
+  const leftDepth = (node: TreeNode | null) => {
+    let depth = 0;
+
+    while (node) {
+      depth++;
+      node = node.left;
+    }
+
+    return depth;
+  };
+
+  const left = leftDepth(root.left);
+  const right = leftDepth(root.right);
+
+  if (left === right) {
+    // left tree is a complete binary tree
+    return (1 << left) + countNodes(root.right);
+  } else {
+    // right tree is a complete binary tree
+    return (1 << right) + countNodes(root.left);
+  }
+}
+
+/**
+ *  Depth complete binary tree depth log(n)
+ *
+ *
+ *	leftDepth(root.left) O(h)
+ *  leftDepth(root.right) O(h)
+ *  recurse only one subtree
+ *  O(h)
+ *	O(h) * O(h) = O(log(n)^2)
+ *
+ */
+
+// Time complexity:  O(log(n))
+// Space compleixty: O(h) = O(log(n))
+
+const leftDepth = (node: TreeNode | null) => {
+  let depth = 0;
+
+  while (node) {
+    depth++;
+    node = node.left;
+  }
+
+  return depth;
+};
+
+function countNodes2(root: TreeNode | null): number {
+  if (!root) return 0;
+
+  let ans = 0;
+
+  while (root) {
+    const left = leftDepth(root.left);
+    const right = leftDepth(root.right);
+
+    if (left === right) {
+      ans += 1 << left;
+      root = root.right;
+    } else {
+      ans += 1 << right;
+      root = root.left;
+    }
+  }
+
+  return ans;
+}
+
+// Time comleixity: O(log(n))
+// Space compleixty: O(1)
 
 ```
 
