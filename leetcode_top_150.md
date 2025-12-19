@@ -3767,7 +3767,36 @@ function connect2(root: _Node | null): _Node | null {
 // Space compleixity: O(n)
 
 
+function connect3(root: _Node | null): _Node | null {
+  if (!root) return root;
 
+  let cur = root;
+
+  while (cur) {
+    const dummy = new _Node();
+    let nxt = dummy;
+
+    while (cur) {
+      if (cur.left) {
+        nxt.next = cur.left;
+        nxt = nxt.next;
+      }
+
+      if (cur.right) {
+        nxt.next = cur.right;
+        nxt = nxt.next;
+      }
+      // move to the right subtree
+      cur = cur.next;
+    }
+    // move to the next level
+    cur = dummy.next;
+  }
+  return root;
+}
+
+// Time complexity: O(n)
+// Space compleixity: O(1)
 
 ```
 
