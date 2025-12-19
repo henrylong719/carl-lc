@@ -3701,3 +3701,73 @@ function countNodes2(root: TreeNode | null): number {
 
 ```
 
+
+
+### **[117. Populating Next Right Pointers in Each Node II](https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/) (19/12)
+
+```typescript
+
+function connect(root: _Node | null): _Node | null {
+  if (!root) return root;
+
+  let queue = [];
+  queue.push(root);
+
+  while (queue.length) {
+    const tmp = [];
+
+    for (let i = 0; i < queue.length; i++) {
+      if (i + 1 < queue.length) {
+        queue[i].next = queue[i + 1];
+      }
+
+      if (queue[i].left) {
+        tmp.push(queue[i].left);
+      }
+
+      if (queue[i].right) {
+        tmp.push(queue[i].right);
+      }
+    }
+
+    queue = [...tmp];
+  }
+  return root;
+}
+
+function connect2(root: _Node | null): _Node | null {
+  if (!root) return root;
+
+  let queue = [];
+  queue.push(root);
+
+  while (queue.length) {
+    const len = queue.length;
+
+    for (let i = 0; i < len; i++) {
+      if (i + 1 < len) {
+        queue[i].next = queue[i + 1];
+      }
+
+      if (queue[i].left) {
+        queue.push(queue[i].left);
+      }
+
+      if (queue[i].right) {
+        queue.push(queue[i].right);
+      }
+    }
+
+    queue = queue.slice(len, queue.length);
+  }
+  return root;
+}
+
+// Time complexity: O(n)
+// Space compleixity: O(n)
+
+
+
+
+```
+
