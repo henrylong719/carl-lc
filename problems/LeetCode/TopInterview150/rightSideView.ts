@@ -1,42 +1,43 @@
 function rightSideView(root: TreeNode | null): number[] {
   if (!root) return [];
 
-  let queue = [root];
-  const ans = [];
+  let queue: TreeNode[] = [root];
+  const ans: number[] = [];
 
   while (queue.length) {
-    const levelNodes = [];
+    const nextLevelNodes: TreeNode[] = [];
 
     for (let i = 0; i < queue.length; i++) {
       const node = queue[i];
 
+      // first node in this level (because we traverse right-to-left)
       if (i === 0) {
         ans.push(node.val);
       }
 
       if (node.right) {
-        levelNodes.push(node.right);
+        nextLevelNodes.push(node.right);
       }
 
       if (node.left) {
-        levelNodes.push(node.left);
+        nextLevelNodes.push(node.left);
       }
     }
 
-    queue = [...levelNodes];
+    queue = nextLevelNodes;
   }
 
   return ans;
 }
 
-// Time compleity: O(n)
-// Space compleixty: O(n)
-
-function rightSideView2(root: TreeNode | null): number[] {
+/**
+ * BFS (version B): single queue + level boundary (less allocation / typically better space in practice)
+ */
+function rightSideView_BFS_SingleQueue(root: TreeNode | null): number[] {
   if (!root) return [];
 
-  let queue = [root];
-  const ans = [];
+  let queue: TreeNode[] = [root];
+  const ans: number[] = [];
 
   while (queue.length) {
     const len = queue.length;
@@ -44,24 +45,42 @@ function rightSideView2(root: TreeNode | null): number[] {
     for (let i = 0; i < len; i++) {
       const node = queue[i];
 
-      if (i === 0) {
-        ans.push(node.val);
-      }
+      // first node in this level (because we traverse right-to-left)
+      if (i === 0) ans.push(node.val);
 
-      if (node.right) {
-        queue.push(node.right);
-      }
-
-      if (node.left) {
-        queue.push(node.left);
-      }
+      if (node.right) queue.push(node.right);
+      if (node.left) queue.push(node.left);
     }
 
-    queue = queue.slice(len, queue.length);
+    // remove the nodes we just processed
+    queue = queue.slice(len);
   }
 
   return ans;
 }
 
-// Time compleity: O(n)
-// Space compleixty: O(1)
+// Time complexity: O(n)
+// Space complexity: O(w), worse case O(n)
+
+/**
+ * DFS: right-first preorder
+ */
+function rightSideView_DFS(root: TreeNode | null): number[] {
+  const ans: number[] = [];
+
+  const dfs = (node: TreeNode | null, level: number) => {
+    if (!node) return;
+
+    // first time reaching this level => rightmost node
+    if (ans.length === level) ans.push(node.val);
+
+    dfs(node.right, level + 1);
+    dfs(node.left, level + 1);
+  };
+
+  dfs(root, 0);
+  return ans;
+}
+
+// Time complexity: O(n)
+// Space complexity: O(h), worse case O(n)
