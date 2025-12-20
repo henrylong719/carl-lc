@@ -1677,7 +1677,7 @@ O(log(n))
 
 
 
-### *[219. Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii/)(18/11)
+### *[219. Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii/)(18/11, 20/12)
 
 ```typescript
 
@@ -1723,7 +1723,15 @@ function containsNearbyDuplicate2(nums: number[], k: number): boolean {
 
 
 
-### ***[49. Group Anagrams](https://leetcode.com/problems/group-anagrams/)
+### **[49. Group Anagrams](https://leetcode.com/problems/group-anagrams/) (18/11, 21/12)
+
+`Hint`
+
+1. sorting string using .split('').sort().join('')
+2. using array to count letters
+3. can join count bucket using a special char '#' to distinguish different strings 
+
+
 
 ```typescript
 
@@ -1785,8 +1793,8 @@ function groupAnagrams2(strs: string[]): string[][] {
   return Object.values(ans);
 }
 
-// Time complexity: O(n*log(n))
-// Space complexity: O(m*n)
+// Time complexity: O(n*klog(k))
+// Space complexity: O(n*k)
 
 function groupAnagrams3(strs: string[]): string[][] {
   let ans: Record<string, string[]> = {};
@@ -3986,6 +3994,17 @@ function levelOrder(root: TreeNode | null): number[][] {
 
 // Time complexity: O(n)
 // Space complexity: O(n)
+
+```
+
+
+
+
+
+### ***[236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) (20/12)
+
+```typescript
+
 
 ```
 
