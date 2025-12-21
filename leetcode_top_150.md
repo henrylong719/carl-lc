@@ -4073,3 +4073,69 @@ function zigzagLevelOrder(root: TreeNode | null): number[][] {
 
 ```
 
+
+
+
+
+### *[530. Minimum Absolute Difference in BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/) (21/12)
+
+```typescript
+
+function getMinimumDifference(root: TreeNode | null): number {
+  let min = Infinity;
+  let pre = -Infinity;
+
+  // inorder traverse
+  const dfs = (root: TreeNode | null) => {
+    if (!root) return;
+
+    dfs(root.left);
+    min = Math.min(min, root.val - pre);
+    pre = root.val;
+    dfs(root.right);
+  };
+
+  dfs(root);
+
+  return min;
+}
+
+// Time compleixty: O(n)
+// Space complexity: O(h)
+
+```
+
+
+
+### **[230. Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) (21/12)
+
+```typescript
+
+function kthSmallest(root: TreeNode | null, k: number): number {
+  let ans = 0;
+
+  const dfs = (root: TreeNode | null) => {
+    if (!root) return;
+    dfs(root.left);
+    k--;
+    if (k === 0) {
+      ans = root.val;
+      return;
+    }
+    dfs(root.right);
+  };
+
+  dfs(root);
+  return ans;
+}
+
+// Time complexity O(h + k)
+// You visit:
+// the nodes along the path down to the leftmost area: about O(h)
+// plus the next k visited nodes in sorted order: about O(k)
+// worst case k = n;
+
+// Space complexity: O(h)
+
+```
+
