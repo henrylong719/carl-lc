@@ -1834,7 +1834,11 @@ function groupAnagrams3(strs: string[]): string[][] {
 
 
 
-### ***[128. Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/) (19/11)
+### ***[128. Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/) (19/11, 22/11)
+
+
+
+**Loop nums set not the original nums array**
 
 
 
@@ -4346,5 +4350,175 @@ function buildTree(preorder: number[], inorder: number[]): TreeNode | null {
 
 
 
+### ***[106. Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/) (22/12)
 
+```typescript
+
+function buildTree(inorder: number[], postorder: number[]): TreeNode | null {
+  if (inorder.length) {
+    const value = postorder.pop();
+    const idx = inorder.indexOf(value);
+    const root = new TreeNode(value);
+
+    root.right = buildTree(inorder.slice(idx + 1), postorder);
+    root.left = buildTree(inorder.slice(0, idx), postorder);
+
+    return root;
+  }
+
+  return null;
+}
+
+// Time complexity: O(n^2)
+// Space complexity: O(n^2)
+
+function buildTree(inorder: number[], postorder: number[]): TreeNode | null {
+  const map = new Map<number, number>();
+
+  for (let i = 0; i < inorder.length; i++) {
+    map.set(inorder[i], i);
+  }
+
+  const build = (start: number, end: number): TreeNode | null => {
+    if (start > end) return null;
+
+    const value = postorder.pop();
+    const idx = map.get(value);
+    const root = new TreeNode(value);
+
+    root.right = build(idx + 1, end);
+    root.left = build(start, idx - 1);
+
+    return root;
+  };
+
+  return build(0, inorder.length - 1);
+}
+
+// Time O(n)
+// Space O(n)
+
+
+```
+
+
+
+### *[200. Number of Islands](https://leetcode.com/problems/number-of-islands/) (22/12)
+
+```typescript
+function numIslands(grid: string[][]): number {
+  const m = grid.length;
+  const n = grid[0].length;
+  let count = 0;
+
+  // dfs
+  const dfs = (i: number, j: number) => {
+    if (i < 0 || j < 0 || i >= m || j >= n) return;
+    if (grid[i][j] !== '1') return;
+
+    // mark visited
+    grid[i][j] = '0';
+
+    dfs(i - 1, j);
+    dfs(i, j + 1);
+    dfs(i + 1, j);
+    dfs(i, j - 1);
+  };
+
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (grid[i][j] !== '1') continue;
+      dfs(i, j);
+      count++;
+    }
+  }
+
+  return count;
+}
+
+const direction = [
+  [-1, 0],
+  [0, -1],
+  [1, 0],
+  [0, 1],
+];
+
+function numIslands(grid: string[][]): number {
+  const m = grid.length;
+  const n = grid[0].length;
+  let count = 0;
+
+  // dfs
+  const dfs = (i: number, j: number) => {
+    const stack = [[i, j]];
+
+    while (stack.length) {
+      const [row, col] = stack.pop();
+
+      if (row < 0 || col < 0 || row >= m || col >= n) continue;
+      if (grid[row][col] !== '1') continue;
+
+      grid[row][col] = '0';
+
+      for (const dir of direction) {
+        stack.push([row + dir[0], col + dir[1]]);
+      }
+    }
+  };
+
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (grid[i][j] !== '1') continue;
+      dfs(i, j);
+      count++;
+    }
+  }
+
+  return count;
+}
+
+function numIslands(grid: string[][]): number {
+  const m = grid.length;
+  const n = grid[0].length;
+  const direction = [
+    [-1, 0],
+    [0, -1],
+    [1, 0],
+    [0, 1],
+  ];
+  let count = 0;
+
+  // bfs
+  const bfs = (i: number, j: number) => {
+    const queue = [[i, j]];
+    let head = 0;
+
+    while (head < queue.length) {
+      const [row, col] = queue[head++];
+
+      if (row < 0 || col < 0 || row >= m || col >= n) continue;
+      if (grid[row][col] !== '1') continue;
+
+      grid[row][col] = '0';
+
+      for (const dir of direction) {
+        queue.push([row + dir[0], col + dir[1]]);
+      }
+    }
+  };
+
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (grid[i][j] !== '1') continue;
+      bfs(i, j);
+      count++;
+    }
+  }
+
+  return count;
+}
+
+// Time O(m*n)
+// Space O(n)
+```
 
