@@ -4703,3 +4703,97 @@ function cloneGraph2(node: _Node | null): _Node | null {
 
 ```
 
+
+
+### *** [207. Course Schedule](https://leetcode.com/problems/course-schedule/) (23/12)
+
+```typescript
+
+function canFinish(numCourses: number, prerequisites: number[][]): boolean {
+  const preMap = {} as Record<number, number[]>;
+
+  for (let i = 0; i < numCourses; i++) {
+    preMap[i] = [];
+  }
+
+  for (const [cor, pre] of prerequisites) {
+    preMap[cor].push(pre);
+  }
+
+  const cycle = new Set();
+
+  const dfs = (cor: number) => {
+    if (preMap[cor].length === 0) return true;
+    if (cycle.has(cor)) return false;
+
+    cycle.add(cor);
+
+    for (let pre of preMap[cor]) {
+      if (!dfs(pre)) return false;
+    }
+    cycle.delete(cor);
+    preMap[cor] = [];
+    return true;
+  };
+
+  for (let i = 0; i < numCourses; i++) {
+    if (!dfs(i)) return false;
+  }
+
+  return true;
+}
+
+// Time O(V + E)
+// Space O(V + E) for graph + O(V) recursion stack in worst case
+
+```
+
+
+
+### *** [210. Course Schedule II](https://leetcode.com/problems/course-schedule-ii/) (23/12)
+
+```typescript
+function findOrder(numCourses: number, prerequisites: number[][]): number[] {
+  const preqMap = [];
+
+  for (let i = 0; i < numCourses; i++) {
+    preqMap[i] = [];
+  }
+
+  for (const [cor, pre] of prerequisites) {
+    preqMap[cor].push(pre);
+  }
+
+  const ans = [];
+  const cycle = new Set<number>();
+  const seen = new Set<number>();
+
+  const dfs = (cor: number) => {
+    if (seen.has(cor)) return true;
+
+    if (cycle.has(cor)) return false;
+
+    cycle.add(cor);
+
+    for (const pre of preqMap[cor]) {
+      if (!dfs(pre)) return false;
+    }
+
+    cycle.delete(cor);
+    seen.add(cor);
+    ans.push(cor);
+    return true;
+  };
+
+  for (let i = 0; i < numCourses; i++) {
+    if (!dfs(i)) return [];
+  }
+
+  return ans;
+}
+
+// Time O(V + E)
+// Space O(V + E) for graph + O(V) recursion stack in worst case
+
+```
+
