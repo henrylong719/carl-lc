@@ -1,20 +1,15 @@
 function buildTree(preorder: number[], inorder: number[]): TreeNode | null {
-  const mapping = new Map();
-  for (let i = 0; i < inorder.length; i++) {
-    mapping.set(inorder[i], i);
-  }
-
   if (inorder.length) {
-    const idx = mapping.get(preorder.shift());
+    const idx = inorder.indexOf(preorder.shift());
     const root = new TreeNode(inorder[idx]);
 
     root.left = buildTree(preorder, inorder.slice(0, idx));
     root.right = buildTree(preorder, inorder.slice(idx + 1));
+
     return root;
   }
   return null;
 }
-
 // Time complexity: O(n^2)
 // Space complexity: O(n^2)
 

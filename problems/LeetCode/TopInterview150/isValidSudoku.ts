@@ -91,3 +91,58 @@ function isValidSudoku2(board: string[][]): boolean {
 
   return true;
 }
+
+// another brutal force
+function isValidSudoku3(board: string[][]): boolean {
+  const rows = board.length;
+  const cols = board[0].length;
+
+  let set = new Set();
+
+  // check each col
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      if (board[i][j] === '.') continue;
+      if (set.has(board[i][j])) {
+        return false;
+      }
+      set.add(board[i][j]);
+    }
+    set.clear();
+  }
+
+  // check each row
+  for (let j = 0; j < cols; j++) {
+    for (let i = 0; i < rows; i++) {
+      if (board[i][j] === '.') continue;
+      if (set.has(board[i][j])) {
+        return false;
+      }
+      set.add(board[i][j]);
+    }
+    set.clear();
+  }
+
+  // check each grid
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      if (i % 3 === 0 && j % 3 === 0) {
+        for (let k = 0; k < 3; k++) {
+          for (let l = 0; l < 3; l++) {
+            if (board[i + k][j + l] === '.') continue;
+            if (set.has(board[i + k][j + l])) {
+              return false;
+            }
+            set.add(board[i + k][j + l]);
+          }
+        }
+        set.clear();
+      }
+    }
+  }
+
+  return true;
+}
+
+// Time O(n^2)
+// Space O(n)
