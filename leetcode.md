@@ -5032,5 +5032,26 @@ function minMutation(
 
 
 
+### [1431. Kids With the Greatest Number of Candies](https://leetcode.com/problems/kids-with-the-greatest-number-of-candies/) (25/12)
+
+```typescript
+
+function kidsWithCandies(candies: number[], extraCandies: number): boolean[] {
+  const max = Math.max(...candies);
+
+  const ans = [];
+
+  for (const candy of candies) {
+    ans.push(candy + extraCandies >= max);
+  }
+
+  return ans;
+}
+
+
+// TIme: O(n)
+// Space: O(n)
+```
+
 
 
