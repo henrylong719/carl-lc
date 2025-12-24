@@ -4846,3 +4846,74 @@ function mergeAlternately(word1: string, word2: string): string {
 
 ```
 
+
+
+### *** [1071. Greatest Common Divisor of Strings](https://leetcode.com/problems/greatest-common-divisor-of-strings/) (24/12)
+
+```typescript
+
+
+function gcdOfStrings(str1: string, str2: string): string {
+  const len1 = str1.length;
+  const len2 = str2.length;
+
+  const isDivisor = (l: number) => {
+    if (len1 % l !== 0 || len2 % l !== 0) return false;
+
+    let t1 = len1 / l;
+    let t2 = len2 / l;
+
+    let prefix = str1.slice(0, l);
+
+    if (prefix.repeat(t1) === str1 && prefix.repeat(t2) === str2) {
+      return true;
+    }
+
+    return false;
+  };
+
+  for (let i = Math.min(len1, len2); i > 0; i--) {
+    if (isDivisor(i)) {
+      return str1.slice(0, i);
+    }
+  }
+
+  return '';
+}
+
+// Time: O(min(m,n) * (m+n)
+// Space: O(n+m) .repeat
+
+function gcdOfStrings(str1: string, str2: string): string {
+  let len1 = str1.length;
+  let len2 = str2.length;
+
+  const isDivisor = (l: number) => {
+    if (len1 % l !== 0 || len2 % l !== 0) return false;
+
+    const prefix = str1.slice(0, l);
+
+    for (let i = 0; i < str1.length; i += prefix.length) {
+      if (!str1.startsWith(prefix, i)) return false;
+    }
+
+    for (let i = 0; i < str2.length; i += prefix.length) {
+      if (!str2.startsWith(prefix, i)) return false;
+    }
+
+    return true;
+  };
+
+  for (let i = Math.min(len1, len2); i > 0; i--) {
+    if (isDivisor(i)) return str1.slice(0, i);
+  }
+
+  return '';
+}
+
+// Time: O(min(m,n) * (m+n)
+// Space: O(k) for prefix
+
+
+```
+
