@@ -4917,3 +4917,120 @@ function gcdOfStrings(str1: string, str2: string): string {
 
 ```
 
+
+
+### ***[399. Evaluate Division](https://leetcode.com/problems/evaluate-division/) (24/12)
+
+```typescript
+
+function calcEquation(
+  equations: string[][],
+  values: number[],
+  queries: string[][],
+): number[] {
+  const graph = new Map<string, [string, number][]>();
+
+  const buildEdges = (from: string, to: string, weight: number) => {
+    if (!graph.has(from)) graph.set(from, []);
+    graph.get(from).push([to, weight]);
+  };
+
+  for (let i = 0; i < equations.length; i++) {
+    const [from, to] = equations[i];
+    const val = values[i];
+
+    buildEdges(from, to, val);
+    buildEdges(to, from, 1 / val);
+  }
+
+  const bfs = (start, end) => {
+    if (!graph.has(start) || !graph.has(end)) {
+      return -1;
+    }
+
+    const queue = [[start, 1]];
+    const visited = new Set();
+
+    let idx = 0;
+
+    while (idx < queue.length) {
+      const [cur, dist] = queue[idx++];
+
+      if (cur === end) return dist;
+
+      for (let [nei, w] of graph.get(cur)) {
+        if (!visited.has(nei)) {
+          visited.add(nei);
+          queue.push([nei, dist * w]);
+        }
+      }
+    }
+    return -1;
+  };
+
+  let ans = [];
+
+  for (let i = 0; i < queries.length; i++) {
+    ans.push(bfs(queries[i][0], queries[i][1]));
+  }
+
+  return ans;
+}
+
+```
+
+
+
+### ***[433. Minimum Genetic Mutation](https://leetcode.com/problems/minimum-genetic-mutation/) (24/12)
+
+```typescript
+
+function minMutation(
+  startGene: string,
+  endGene: string,
+  bank: string[],
+): number {
+  const bankSet = new Set(bank);
+
+  if (!bankSet.has(endGene)) return -1;
+
+  const choices = ['A', 'C', 'G', 'T'];
+  const queue = [[startGene, 0]] as [string, number][];
+  const visisted = new Set();
+  visisted.add(startGene);
+
+  while (queue.length) {
+    const [cur, step] = queue.shift();
+
+    if (cur === endGene) return step;
+
+    let arr = cur.split('');
+
+    for (let i = 0; i < arr.length; i++) {
+      let original = arr[i];
+
+      for (let char of choices) {
+        arr[i] = char;
+        let gene = arr.join('');
+        if (!visisted.has(gene) && bankSet.has(gene)) {
+          visisted.add(gene);
+          queue.push([gene, step + 1]);
+        }
+      }
+      arr[i] = original;
+    }
+  }
+
+  return -1;
+}
+
+// Time: Bank.length * Gene.length * 4
+// Space: queue
+
+
+```
+
+
+
+
+
