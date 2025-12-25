@@ -32,3 +32,48 @@ function spiralOrder(matrix: number[][]): number[] {
 
   return ans;
 }
+
+function spiralOrder2(matrix: number[][]): number[] {
+  const directions = [
+    [0, 1],
+    [1, 0],
+    [0, -1],
+    [-1, 0],
+  ];
+  let dirIdx = 0;
+
+  let r = 0;
+  let c = 0;
+
+  const rows = matrix.length;
+  const cols = matrix[0].length;
+
+  const INVALID_NUM = 101;
+
+  const ans = [];
+
+  while (ans.length < rows * cols) {
+    ans.push(matrix[r][c]);
+    matrix[r][c] = INVALID_NUM;
+
+    // check if the next step is valid
+    const dr = directions[dirIdx][0];
+    const dc = directions[dirIdx][1];
+    if (
+      r + dr < 0 ||
+      r + dr >= rows ||
+      c + dc < 0 ||
+      c + dc >= cols ||
+      matrix[r + dr][c + dc] === INVALID_NUM
+    ) {
+      // change direction
+      dirIdx += 1;
+      dirIdx %= 4;
+    }
+
+    r += directions[dirIdx][0];
+    c += directions[dirIdx][1];
+  }
+
+  return ans;
+}
