@@ -1,7 +1,5 @@
 ### 88. Merge Sorted Array (28/10)
 
-
-
 ```typescript
 function merge1(nums1: number[], m: number, nums2: number[], n: number): void {
   for (let i = m, j = 0; j < n; i++, j++) {
@@ -11,8 +9,6 @@ function merge1(nums1: number[], m: number, nums2: number[], n: number): void {
   nums1.sort((a, b) => a - b);
 }
 ```
-
-
 
 ### 27. Remove Element (28/10)
 
@@ -28,10 +24,7 @@ function removeElement(nums: number[], val: number): number {
   }
   return nextElement;
 }
-
 ```
-
-
 
 ### 26. [Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/) (29/10)
 
@@ -50,10 +43,7 @@ function removeDuplicates(nums: number[]): number {
 
   return nextElement;
 }
-
 ```
-
-
 
 ### [80. Remove Duplicates from Sorted Array II ](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/)(30/10)
 
@@ -68,13 +58,13 @@ function removeDuplicates(nums: number[]): number {
 
   for (let i = 1; i < nums.length; i++) {
     if (nums[i] === cur) {
-        count++;
-        if (count <= LIMIT) {
-            nums[nextElement] = nums[i];
-            nextElement++;
-        } 
-        continue;
-    } 
+      count++;
+      if (count <= LIMIT) {
+        nums[nextElement] = nums[i];
+        nextElement++;
+      }
+      continue;
+    }
 
     count = 1;
     cur = nums[i];
@@ -83,19 +73,16 @@ function removeDuplicates(nums: number[]): number {
   }
   return nextElement;
 }
-
 ```
-
-
 
 ```typescript
 function removeDuplicates(nums: number[]): number {
   let nextElement = 2;
 
   for (let i = 2; i < nums.length; i++) {
-    if (nums[i] !== nums[nextElement-2]) {
-        nums[nextElement] = nums[i];
-        nextElement++;
+    if (nums[i] !== nums[nextElement - 2]) {
+      nums[nextElement] = nums[i];
+      nextElement++;
     }
   }
 
@@ -103,39 +90,30 @@ function removeDuplicates(nums: number[]): number {
 }
 ```
 
-
 ### [169. Majority Element](https://leetcode.com/problems/majority-element/) (31/Oct)
 
 ```typescript
-
 function majorityElement(nums: number[]): number {
+  let count = 0;
+  let candidate = null;
 
-    let count = 0;
-    let candidate = null;
-
-    for (let num of nums) {
-        if (count === 0) {
-            candidate = num;
-        }
-        (num === candidate)? count++ : count --;
+  for (let num of nums) {
+    if (count === 0) {
+      candidate = num;
     }
-    return candidate;
-};
-
+    num === candidate ? count++ : count--;
+  }
+  return candidate;
+}
 ```
-
-
 
 ```typescript
 function majorityElement(nums: number[]): number {
+  nums.sort((a, b) => a - b);
 
-    nums.sort((a,b)=>a-b);
-
-    return nums[Math.floor(nums.length/2)];
-};
+  return nums[Math.floor(nums.length / 2)];
+}
 ```
-
-
 
 ### [189. Rotate Array](https://leetcode.com/problems/rotate-array/) (31/10)
 
@@ -149,69 +127,58 @@ function rotate(nums: number[], k: number): void {
     nums[i] = arr[i];
   }
 }
-
 ```
-
-
 
 **Better approach**
 
 ```typescript
-
 function reverse(nums: number[], l: number, r: number) {
-    while (l < r) {
-        let tmp = nums[l];
-        nums[l] = nums[r];
-        nums[r] = tmp;
-        l++;
-        r--;
-    }
+  while (l < r) {
+    let tmp = nums[l];
+    nums[l] = nums[r];
+    nums[r] = tmp;
+    l++;
+    r--;
+  }
 }
 
 function rotate(nums: number[], k: number): void {
+  let n = nums.length;
+  if (n === 0) return;
 
-    let n = nums.length;
-    if (n === 0) return;
+  let _k = k % n;
+  if (_k === 0) return;
 
-    let _k = (k % n);
-    if (_k === 0) return;
-
-    reverse(nums, 0, n-1);
-    reverse(nums, 0, _k-1);
-    reverse(nums, _k, n-1)
-};
-
+  reverse(nums, 0, n - 1);
+  reverse(nums, 0, _k - 1);
+  reverse(nums, _k, n - 1);
+}
 ```
-
-
 
 ### [121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) (3/11)
 
 ```typescript
-
 function maxProfit(prices: number[]): number {
-    if (prices.length === 0) return 0;
+  if (prices.length === 0) return 0;
 
-    let lowest = prices[0];
-    let best = 0;
+  let lowest = prices[0];
+  let best = 0;
 
-    for (let price of prices){
-        if (price < lowest) {
-            lowest = price;
-            continue;
-        } 
-        best = Math.max(best, price - lowest);
+  for (let price of prices) {
+    if (price < lowest) {
+      lowest = price;
+      continue;
     }
+    best = Math.max(best, price - lowest);
+  }
 
-    return best;
-};
-
+  return best;
+}
 ```
 
 ### [122. Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) (3/11)
 
 ```typescript
-
 function maxProfit(prices: number[]): number {
   let n = prices.length;
 
@@ -232,16 +199,11 @@ function maxProfit(prices: number[]): number {
   }
   return dp[n - 1];
 }
-
-
 ```
-
-
 
 ### [13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/) (4/11)
 
 ```typescript
-
 function romanToInt(s: string): number {
   const dic = {
     I: 1,
@@ -267,7 +229,6 @@ function romanToInt(s: string): number {
   return num;
 }
 
-
 // better solution
 
 function romanToInt2(s: string): number {
@@ -291,12 +252,9 @@ function romanToInt2(s: string): number {
   }
   return total;
 }
-
 ```
 
-
-
-### *[12. Integer to Roman](https://leetcode.com/problems/integer-to-roman/) (7/11, 15/12)
+### \*[12. Integer to Roman](https://leetcode.com/problems/integer-to-roman/) (7/11, 15/12)
 
 ```typescript
 function intToRoman2(num: number): string {
@@ -328,15 +286,11 @@ function intToRoman2(num: number): string {
 
   return res;
 }
-
 ```
-
-
 
 ### [58. Length of Last Word](https://leetcode.com/problems/length-of-last-word/) (7/11)
 
 ```typescript
-
 function lengthOfLastWord(s: string): number {
   const arr = s.trim().split(' ');
   return arr[arr.length - 1].length;
@@ -357,12 +311,9 @@ function lengthOfLastWord2(s: string): number {
 
   return end - start;
 }
-
 ```
 
-
-
-### [*55. Jump Game](https://leetcode.com/problems/jump-game/) (10/11, 15/12)
+### [\*55. Jump Game](https://leetcode.com/problems/jump-game/) (10/11, 15/12)
 
 ```typescript
 function canJump(nums: number[]): boolean {
@@ -378,33 +329,28 @@ function canJump(nums: number[]): boolean {
       }
     }
   }
-   return pos === 0;
+  return pos === 0;
 }
 
 function canJump(nums: number[]): boolean {
+  let goal = nums.length - 1;
 
-    let goal = nums.length-1;
-
-    for (let i = nums.length - 2; i >= 0; i--) {
-        if (nums[i] + i >= goal) {
-            goal = i;
-        }
+  for (let i = nums.length - 2; i >= 0; i--) {
+    if (nums[i] + i >= goal) {
+      goal = i;
     }
+  }
 
-    return goal === 0;
-};
+  return goal === 0;
+}
 
 // Time complexity: O(n)
 // Space complexity: O(1)
-
 ```
-
-
 
 ### [45. Jump Game II](https://leetcode.com/problems/jump-game-ii/) (10/11)
 
 ```typescript
-
 function jump(nums: number[]): number {
   let pos = nums.length - 1;
 
@@ -425,10 +371,7 @@ function jump(nums: number[]): number {
 
   return steps;
 }
-
 ```
-
-
 
 ### [14. Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/) (10/11)
 
@@ -454,15 +397,11 @@ function longestCommonPrefix(strs: string[]): string {
 
   return ans;
 }
-
 ```
-
-
 
 ### [151. Reverse Words in a String](https://leetcode.com/problems/reverse-words-in-a-string/) (10/11)
 
 ```typescript
-
 function reverseWords(s: string): string {
   let end = s.length - 1;
   let ans = '';
@@ -488,15 +427,11 @@ function reverseWords(s: string): string {
 
   return ans.trim();
 }
-
 ```
-
-
 
 ### [274. H-Index](https://leetcode.com/problems/h-index/) (11/11)
 
 ```typescript
-
 function hIndex(citations: number[]): number {
   const sortedCitations = citations.sort((a, b) => b - a);
 
@@ -521,10 +456,7 @@ function hIndex(citations: number[]): number {
 
   return ans;
 }
-
 ```
-
-
 
 ### [28. Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) (11/11)
 
@@ -552,12 +484,9 @@ function strStr(haystack: string, needle: string): number {
 }
 
 // O(m*n)
-
 ```
 
-
-
-### ** [6. Zigzag Conversion](https://leetcode.com/problems/zigzag-conversion/) (11/11 ***** , 15/12 ******)
+### ** [6. Zigzag Conversion](https://leetcode.com/problems/zigzag-conversion/) (11/11 \*\*\*** , 15/12 **\*\***)
 
 ```typescript
 function convert(s: string, numRows: number): string {
@@ -586,8 +515,6 @@ function convert(s: string, numRows: number): string {
 
   return rows.join('');
 }
-
-
 
 function convert2(s: string, numRows: number): string {
   // consider edge cases first
@@ -636,18 +563,13 @@ function convert2(s: string, numRows: number): string {
   return ans;
 }
 
-
 // Time complexity: O(n)
 // Space complexity: O(n^2)
-
 ```
 
-
-
-### [238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) (12/11*, 15/12)
+### [238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) (12/11\*, 15/12)
 
 ```typescript
-
 function productExceptSelf(nums: number[]): number[] {
   const n = nums.length;
   const prefix = new Array(n).fill(1);
@@ -698,40 +620,32 @@ function productExceptSelf2(nums: number[]): number[] {
 // Time complexity: O(n)
 // Space complexity: O(1) (exclude output array)
 
-
 function productExceptSelf(nums: number[]): number[] {
+  let n = nums.length;
 
-    let n = nums.length;
+  const ans = new Array(n).fill(1);
 
-    const ans = new Array(n).fill(1);
+  // get suffix into ans
+  for (let i = n - 2; i >= 0; i--) {
+    ans[i] = ans[i + 1] * nums[i + 1];
+  }
 
-    // get suffix into ans
-    for (let i = n - 2; i >= 0; i --) {
-        ans[i] = ans[i+1] * nums[i+1]; 
-    }
+  let prefix = 1;
+  for (let i = 0; i < n; i++) {
+    ans[i] = prefix * ans[i];
+    prefix *= nums[i];
+  }
 
-    let prefix = 1;
-    for (let i = 0; i < n; i++) {
-        ans[i] = prefix * ans[i];
-        prefix *= nums[i];
-    }
-
-    return ans;
-};
+  return ans;
+}
 
 // Time complexity: O(n)
 // Space complexity: O(1) (exclude output array)
 
 console.log(productExceptSelf([1, 2, 3, 4]));
-
-
 ```
 
-
-
-
-
-### *[125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) (13/11, 15/12)
+### \*[125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) (13/11, 15/12)
 
 ```typescript
 function isPalindrome2(s: string): boolean {
@@ -751,19 +665,15 @@ function isPalindrome2(s: string): boolean {
 
   return true;
 }
-
 ```
 
-
-
-### *** [134. Gas Station](https://leetcode.com/problems/gas-station/) (13/11, 16/12)
+### \*\*\* [134. Gas Station](https://leetcode.com/problems/gas-station/) (13/11, 16/12)
 
 `Hint:`
 
 if you start from station `a` and stuck at `b`, then you can't get to `b` from any station between `a` and `b`.
 
 ```typescript
-
 function canCompleteCircuit(gas: number[], cost: number[]): number {
   // make sure solution exists
   if (
@@ -789,31 +699,24 @@ function canCompleteCircuit(gas: number[], cost: number[]): number {
 
   return start;
 }
-
 ```
-
-
-
-
 
 ### [392. Is Subsequence](https://leetcode.com/problems/is-subsequence/) (14/11)
 
 ```typescript
-
 function isSubsequence(s: string, t: string): boolean {
+  let sp = 0;
+  let tp = 0;
 
-    let sp = 0;
-    let tp =0;
+  while (sp < s.length && tp < t.length) {
+    if (s[sp] === t[tp]) {
+      sp++;
+    }
+    tp++;
+  }
 
-    while (sp < s.length && tp < t.length) {
-        if (s[sp] === t[tp]) {
-            sp++;
-        }
-        tp++;
-    } 
-
-    return sp === s.length;
-};
+  return sp === s.length;
+}
 
 function isSubsequenceRec(s: string, t: string, m: number, n: number): boolean {
   if (m === 0) {
@@ -834,17 +737,11 @@ function isSubsequenceRec(s: string, t: string, m: number, n: number): boolean {
 function isSubsequence2(s: string, t: string): boolean {
   return isSubsequenceRec(s, t, s.length, t.length);
 }
-
 ```
-
-
-
-
 
 ### [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) (14/11)
 
 ```typescript
-
 function twoSum(numbers: number[], target: number): number[] {
   let pl = 0;
   let pr = numbers.length - 1;
@@ -865,19 +762,11 @@ function twoSum(numbers: number[], target: number): number[] {
 
 // Time complexity: O(n)
 // Space complexity: O(1)
-
 ```
-
-
-
-
-
-
 
 ### [11. Container With Most Water](https://leetcode.com/problems/container-with-most-water/) (14/11)
 
 ```typescript
-
 function maxArea(height: number[]): number {
   let ans = 0;
   let l = 0;
@@ -898,14 +787,9 @@ function maxArea(height: number[]): number {
 
 // Time complexity: O(n)
 // Space complexity: O(1)
-
 ```
 
-
-
-
-
-### ***[15. 3Sum ](https://leetcode.com/problems/3sum/)(14/11, 16/12)
+### \*\*\*[15. 3Sum ](https://leetcode.com/problems/3sum/)(14/11, 16/12)
 
 ```typescript
 function threeSum(nums: number[]): number[][] {
@@ -927,7 +811,7 @@ function twoSum(
   sorted: number[],
   left: number,
   target: number,
-  ans: number[][]
+  ans: number[][],
 ) {
   let right = sorted.length - 1;
 
@@ -955,12 +839,7 @@ function twoSum(
 
 // Time complexity: O(n^2) +O(nlog(n)) = O(n^2)
 // Space complexity: O(n)
-
 ```
-
-
-
-
 
 ### [383. Ransom Note](https://leetcode.com/problems/ransom-note/) (16/11)
 
@@ -1016,19 +895,15 @@ function canConstruct2(ransomNote: string, magazine: string): boolean {
 // Time complexity: O(n^2)
 
 // Space completiry: O(n) (Set)
-
 ```
 
-
-
-### *[205. Isomorphic Strings](https://leetcode.com/problems/isomorphic-strings/) (16/11, 17/12)
+### \*[205. Isomorphic Strings](https://leetcode.com/problems/isomorphic-strings/) (16/11, 17/12)
 
 `hint:`
 
 `use index`
 
 ```typescript
-
 function isIsomorphic(s: string, t: string): boolean {
   if (s.length !== t.length) return false;
   return isValid(s, t) && isValid(t, s);
@@ -1079,7 +954,6 @@ function isIsomorphic2(s: string, t: string): boolean {
 // Time complexity: O(n)
 // Space complexity: O(n)
 
-
 function isIsomorphic(s: string, t: string): boolean {
   if (s.length !== t.length) return false;
 
@@ -1111,12 +985,7 @@ function isIsomorphic(s: string, t: string): boolean {
 
 // Time complexity: O(n)
 // Space complexity: O(n)
-
-
-
 ```
-
-
 
 ### [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) (16/11)
 
@@ -1169,10 +1038,7 @@ function lengthOfLongestSubstring3(s: string): number {
 
 // Time complexity: O(n)
 // Space complexity: O(n)
-
 ```
-
-
 
 ### [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) (14/11)
 
@@ -1242,15 +1108,11 @@ function minSubArrayLen2(target: number, nums: number[]): number {
 
 // Time complexity: O(nlog(n))
 // Space complexity: O(n)
-
 ```
 
-
-
-### **[76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) (17/11, 17/12)
+### \*\*[76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) (17/11, 17/12)
 
 ```typescript
-
 function minWindow(s: string, t: string): string {
   if (s.length < t.length) return '';
   if (s === t) return s;
@@ -1353,18 +1215,11 @@ function minWindow2(s: string, t: string): string {
 
 // Time complexity: O(m+n)
 // Space complexity: O(n)
-
-
 ```
 
-
-
-
-
-### *[242. Valid Anagram](https://leetcode.com/problems/valid-anagram/) (17/11, 17/12)
+### \*[242. Valid Anagram](https://leetcode.com/problems/valid-anagram/) (17/11, 17/12)
 
 ```typescript
-
 function isAnagram(s: string, t: string): boolean {
   if (s.length !== t.length) return false;
 
@@ -1406,19 +1261,13 @@ function isAnagram2(s: string, t: string): boolean {
 
 // Time complexity: O(m+n)
 // Space complexity: O9n
-
 ```
 
-
-
-### [**290. Word Pattern](https://leetcode.com/problems/word-pattern/) (17/11, 19/12)
-
-
+### [\*\*290. Word Pattern](https://leetcode.com/problems/word-pattern/) (17/11, 19/12)
 
 use `hasOwnProperty` for obj with string key :)
 
 ```typescript
-
 function wordPattern(pattern: string, s: string): boolean {
   const words = s.split(' ');
 
@@ -1483,7 +1332,6 @@ function wordPattern1(pattern: string, s: string): boolean {
   const seen: Record<string, string> = {};
 
   for (let i = 0; i < pattern.length; i++) {
-    
     // avoid repetition
     const pattern_key = 'p_' + pattern[i];
     const words_key = 'w_' + words[i];
@@ -1507,17 +1355,13 @@ function wordPattern1(pattern: string, s: string): boolean {
 // Space complexity: O(k+m) = O(n) (split and obj)
 
 console.log(wordPattern('abba', 'dog constructor constructor dog'));
-
 ```
-
-
 
 ### [1. Two Sum](https://leetcode.com/problems/two-sum/) (18/11)
 
 it cannot be sorted
 
 ```typescript
-
 function twoSum(nums: number[], target: number): number[] {
   const dic: Record<number, number> = {};
 
@@ -1533,14 +1377,9 @@ function twoSum(nums: number[], target: number): number[] {
 
   return [];
 }
-
 ```
 
-
-
-### **[202. Happy Number](https://leetcode.com/problems/happy-number/) (18/11, 19/12)
-
-
+### \*\*[202. Happy Number](https://leetcode.com/problems/happy-number/) (18/11, 19/12)
 
 ```typescript
 function isHappy(n: number): boolean {
@@ -1653,8 +1492,6 @@ number of digits = Θ(log n)
 
 */
 
-
-
 /*
 
 1-9 1 digit
@@ -1668,17 +1505,11 @@ k digits represent
 (k-1) <= log10(n) < k
 O(log(n))
 */
-
 ```
 
-
-
-
-
-### *[219. Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii/)(18/11, 20/12)
+### \*[219. Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii/)(18/11, 20/12)
 
 ```typescript
-
 function containsNearbyDuplicate(nums: number[], k: number): boolean {
   const seen: Record<number, number> = {};
 
@@ -1716,23 +1547,17 @@ function containsNearbyDuplicate2(nums: number[], k: number): boolean {
 
 // Time complexity: O(n)
 // Space complexity: O(n)
-
 ```
 
-
-
-### **[49. Group Anagrams](https://leetcode.com/problems/group-anagrams/) (18/11, 21/12)
+### \*\*[49. Group Anagrams](https://leetcode.com/problems/group-anagrams/) (18/11, 21/12)
 
 `Hint`
 
 1. sorting string using .split('').sort().join('')
 2. using array to count letters
-3. can join count bucket using a special char '#' to distinguish different strings 
-
-
+3. can join count bucket using a special char '#' to distinguish different strings
 
 ```typescript
-
 function groupAnagrams(strs: string[]): string[][] {
   const ans = [];
   const record = new Array(strs.length).fill(true);
@@ -1827,21 +1652,13 @@ function groupAnagrams3(strs: string[]): string[][] {
 
 // Time complexity: O(m*n)
 // Space complexity: O(m*n)
-
 ```
 
-
-
-### ***[128. Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/) (19/11, 22/11)
-
-
+### \*\*\*[128. Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/) (19/11, 22/11)
 
 **Loop nums set not the original nums array**
 
-
-
 ```typescript
-
 function longestConsecutive(nums: number[]): number {
   const numSet = new Set(nums);
   let longest = 0;
@@ -1862,16 +1679,11 @@ function longestConsecutive(nums: number[]): number {
 
 // Time compleixty: O(n)
 // Space complexity: O(n)
-
-
 ```
-
-
 
 ### [228. Summary Ranges](https://leetcode.com/problems/summary-ranges/) (19/11)
 
 ```typescript
-
 function summaryRanges(nums: number[]): string[] {
   let idx = 0;
   let ans = [];
@@ -1922,16 +1734,11 @@ function summaryRanges2(nums: number[]): string[] {
 
 // Time compleixty: O(n)
 // Space complexity: O(1) or O(n) inclusing output
-
 ```
 
-
-
-### ***[36. Valid Sudoku](https://leetcode.com/problems/valid-sudoku/)(19/11, 23/12)
+### \*\*\*[36. Valid Sudoku](https://leetcode.com/problems/valid-sudoku/)(19/11, 23/12)
 
 ```typescript
-
-
 function isValidSudoku2(board: string[][]): boolean {
   const rows: Set<string>[] = [];
   const cols: Set<string>[] = [];
@@ -1969,11 +1776,7 @@ function isValidSudoku2(board: string[][]): boolean {
 // Time compleixty: O(9*9) = O(1)
 // Space complexity: rows(81) + cols(81) + boxes(81) = 243
 // O(243) = O(1)
-
-
 ```
-
-
 
 ### [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/) (20/11)
 
@@ -1984,35 +1787,29 @@ function merge(intervals: number[][]): number[][] {
 
   const merged = [intervals[0]];
 
-    for (let i = 1; i < sorted.length; i++) {
+  for (let i = 1; i < sorted.length; i++) {
+    const prev = merged[merged.length - 1];
+    const interval = sorted[i];
 
-        const prev = merged[merged.length - 1];
-        const interval = sorted[i];
-
-        if (interval[0] <= prev[1]) {
-            prev[0] = Math.min(interval[0], prev[0]);
-            prev[1] = Math.max(interval[1], prev[1]);
-            continue;
-        }
-
-        merged.push(interval);
-
+    if (interval[0] <= prev[1]) {
+      prev[0] = Math.min(interval[0], prev[0]);
+      prev[1] = Math.max(interval[1], prev[1]);
+      continue;
     }
+
+    merged.push(interval);
+  }
 
   return merged;
 }
 
 // Time complexity: O(nlog(n)) sorting
 // Space complexity:O(n)
-
 ```
-
-
 
 ### [57. Insert Interval](https://leetcode.com/problems/insert-interval/) (20/11)
 
 ```typescript
-
 function insert(intervals: number[][], newInterval: number[]): number[][] {
   const sorted = [...intervals, newInterval].sort((a, b) => a[0] - b[0]);
 
@@ -2060,21 +1857,13 @@ function insert2(intervals: number[][], newInterval: number[]): number[][] {
   return ans;
 }
 
-// Time complexity: O(n) 
+// Time complexity: O(n)
 // Space complexity:O(n)
-
-
-
 ```
 
-
-
-### *[452. Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) (22/11, 24/12)
-
-
+### \*[452. Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) (22/11, 24/12)
 
 ```typescript
-
 function findMinArrowShots(points: number[][]): number {
   // Sort
 
@@ -2102,43 +1891,36 @@ function findMinArrowShots(points: number[][]): number {
 // Space complexity: O(n)
 
 function findMinArrowShots(points: number[][]): number {
+  // Sort
 
-    // Sort
+  const sorted = points.sort((a, b) => a[0] - b[0]);
 
-    const sorted = points.sort((a,b)=> a[0] - b[0]);
+  let arrows = 1;
+  let prev = sorted[0];
 
-    let arrows = 1;
-    let prev = sorted[0];
+  for (let i = 0; i < sorted.length; i++) {
+    const interval = sorted[i];
 
-    for (let i = 0; i < sorted.length; i++) {
-
-        const interval = sorted[i];
-
-        if (interval[0] <= prev[1]) {
-            prev[0] = Math.max(prev[0], interval[0]);
-            prev[1] = Math.min(prev[1], interval[1]);
-            continue;
-        }
-
-        prev = interval;
-        arrows++;
+    if (interval[0] <= prev[1]) {
+      prev[0] = Math.max(prev[0], interval[0]);
+      prev[1] = Math.min(prev[1], interval[1]);
+      continue;
     }
 
-    return arrows;
+    prev = interval;
+    arrows++;
+  }
 
-};
+  return arrows;
+}
 
 // Time complexity: O(nlog(n))
 // Space complexity: O(1)
-
 ```
-
-
 
 ### [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) (9/12)
 
 ```typescript
-
 function isValid(s: string): boolean {
   const map = {
     '(': ')',
@@ -2166,40 +1948,31 @@ function isValid(s: string): boolean {
 
 // Time complexity: O(n))
 // Space complexity: O(n)
-
 ```
-
-
 
 ### [71. Simplify Path](https://leetcode.com/problems/simplify-path/) (9/12)
 
 ```typescript
-
 function simplifyPath(path: string): string {
-    const stack = [];
-    const pathArray = path.split('/').filter((a)=> !!a && a !== '.');
+  const stack = [];
+  const pathArray = path.split('/').filter((a) => !!a && a !== '.');
 
-    for (let p of pathArray) {
-        if (p === '..') {
-            stack.pop();
-            continue;
-        } 
-        stack.push(p);
+  for (let p of pathArray) {
+    if (p === '..') {
+      stack.pop();
+      continue;
     }
+    stack.push(p);
+  }
 
-    return '/' + stack.join('/');
-};
-
+  return '/' + stack.join('/');
+}
 
 // Time complexity: O(n))
 // Space complexity: O(n)
 ```
 
-
-
 ### 150. [ Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) (9/11)
-
-
 
 ```typescript
 function evalRPN(tokens: string[]): number {
@@ -2231,50 +2004,45 @@ function evalRPN(tokens: string[]): number {
 
 // Time complexity: O(n))
 // Space complexity: O(n)
-
 ```
 
-
-
-### [**54. Spiral Matrix](https://leetcode.com/problems/spiral-matrix/) (10/12, 25/12)
+### [\*\*54. Spiral Matrix](https://leetcode.com/problems/spiral-matrix/) (10/12, 25/12)
 
 ```typescript
-
 function spiralOrder(matrix: number[][]): number[] {
+  const rows = matrix.length;
+  const cols = matrix[0].length;
 
-    const rows = matrix.length;
-    const cols = matrix[0].length;
+  let x = 0;
+  let y = 0;
 
-    let x = 0;
-    let y = 0;
+  // start with moving right
+  let dx = 1;
+  let dy = 0;
 
-    // start with moving right
-    let dx = 1;
-    let dy = 0;
+  let INVALID_NUM = 101;
+  let ans = [];
 
-    let INVALID_NUM = 101;
-    let ans = [];
+  while (ans.length < rows * cols) {
+    const val = matrix[y][x];
+    ans.push(val);
+    matrix[y][x] = INVALID_NUM;
 
-    while (ans.length < rows * cols) {
-        
-        const val = matrix[y][x];
-        ans.push(val);
-        matrix[y][x] = INVALID_NUM;
+    // check if current step is out of bound or a repetitive step
 
-        // check if current step is out of bound or a repetitive step
-
-        if (!(x + dx < cols && x + dx >= 0 && y + dy < rows && y + dy >=0) || matrix[y+dy][x+dx] === INVALID_NUM) {
-            [dx, dy] = [-dy, dx];
-        }
-
-        x += dx;
-        y += dy;
+    if (
+      !(x + dx < cols && x + dx >= 0 && y + dy < rows && y + dy >= 0) ||
+      matrix[y + dy][x + dx] === INVALID_NUM
+    ) {
+      [dx, dy] = [-dy, dx];
     }
 
-    return ans;    
-};
+    x += dx;
+    y += dy;
+  }
 
-
+  return ans;
+}
 
 function spiralOrder2(matrix: number[][]): number[] {
   const directions = [
@@ -2321,19 +2089,13 @@ function spiralOrder2(matrix: number[][]): number[] {
   return ans;
 }
 
-
-
 // Time complexity: O(m*n)
 // Space complexity: Aside from ans, you only use a few pointers and temporary copies → O(1) extra space.
-
 ```
 
-
-
-### *[48. Rotate Image](https://leetcode.com/problems/rotate-image/) (10/12)
+### \*[48. Rotate Image](https://leetcode.com/problems/rotate-image/) (10/12, 26/12)
 
 ```typescript
-
 function rotate(matrix: number[][]): void {
   const n = matrix.length;
   const nums = [];
@@ -2378,17 +2140,11 @@ function rotate2(matrix: number[][]): void {
 
 // Time complexity O(n^2)
 // Space complexity O(1)
-
 ```
 
-
-
-### **[73. Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/) (10/12)
-
-
+### \*\*[73. Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/) (10/12)
 
 ```typescript
-
 function setZeroes(matrix: number[][]): void {
   const rows = matrix.length;
   const cols = matrix[0].length;
@@ -2491,56 +2247,45 @@ function setZeroes2(matrix: number[][]): void {
 // Time complexity: O(m*n)
 // Space complexity: O(1)
 
-
-
 // dodge but inspired by 289. Game of Life
 function setZeroes(matrix: number[][]): void {
+  const rows = matrix.length;
+  const cols = matrix[0].length;
 
-    const rows = matrix.length;
-    const cols = matrix[0].length;
-
-    for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < cols; col ++) {
-
-            if (matrix[row][col] === 0) {
-
-                for (let c = 0; c < cols; c++) {
-                    if (matrix[row][c] !== 0) {
-                        matrix[row][c]  = null;
-                    }
-                }
-
-                for (let r = 0; r < rows; r++) {
-                    if (matrix[r][col] !== 0) {
-                        matrix[r][col] = null;
-                    }
-                }
-            }
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      if (matrix[row][col] === 0) {
+        for (let c = 0; c < cols; c++) {
+          if (matrix[row][c] !== 0) {
+            matrix[row][c] = null;
+          }
         }
-    }
 
-    for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < cols; col++) {
-            if (matrix[row][col] === null) {
-                matrix[row][col] = 0;
-            }
+        for (let r = 0; r < rows; r++) {
+          if (matrix[r][col] !== 0) {
+            matrix[r][col] = null;
+          }
         }
+      }
     }
-};
+  }
+
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      if (matrix[row][col] === null) {
+        matrix[row][col] = 0;
+      }
+    }
+  }
+}
 
 // time complexity: O(m*n * (m+n))
 // Space compleixty: O(1)
-
 ```
 
-
-
-### **289. [Game of Life](https://leetcode.com/problems/game-of-life/) (11/12)
-
-
+### \*\*289. [Game of Life](https://leetcode.com/problems/game-of-life/) (11/12)
 
 ```typescript
-
 function gameOfLife(board: number[][]): void {
   const duplicateBoard = [];
   const rows = board.length;
@@ -2610,7 +2355,7 @@ function gameOfLife(board: number[][]): void {
         duplicateBoard,
         neighbours,
         rows,
-        cols
+        cols,
       );
       board[row][col] = updateState(neighborCount, board[row][col]);
     }
@@ -2635,7 +2380,7 @@ function countAliveNeighbors(
   duplicateBoard: number[][],
   neighbors: any,
   rows: number,
-  cols: number
+  cols: number,
 ) {
   let count = 0;
   neighbors.forEach(({ row, col }) => {
@@ -2706,15 +2451,11 @@ function gameOfLife2(board: number[][]): void {
 
 // Time compleixty: O(r*c)
 // Space complexity: O(1)
-
 ```
-
-
 
 ### [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/) (11/12)
 
 ```typescript
-
 function hasCycle(head: ListNode | null): boolean {
   if (!head) return false;
 
@@ -2734,21 +2475,14 @@ function hasCycle(head: ListNode | null): boolean {
 
 // Time complexity: O(n)
 // Space compleixty: O(1)
-
 ```
 
-
-
-### *[2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) (11/12)
-
-
+### \*[2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) (11/12)
 
 ```typescript
-
-
 function addTwoNumbers4(
   l1: ListNode | null,
-  l2: ListNode | null
+  l2: ListNode | null,
 ): ListNode | null {
   let total = 0;
   let carry = 0;
@@ -2781,20 +2515,14 @@ function addTwoNumbers4(
 
 // Time complexity: O(n)
 // Space complexity: O(1)
-
 ```
 
-
-
-### *[21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) (12/12)
-
-
+### \*[21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) (12/12)
 
 ```typescript
-
 function mergeTwoLists(
   list1: ListNode | null,
-  list2: ListNode | null
+  list2: ListNode | null,
 ): ListNode | null {
   let dummy = new ListNode();
   let cur = dummy;
@@ -2820,7 +2548,7 @@ function mergeTwoLists(
 
 function mergeTwoListsRec(
   list1: ListNode | null,
-  list2: ListNode | null
+  list2: ListNode | null,
 ): ListNode | null {
   if (!list1 || !list2) {
     return list1 ? list1 : list2;
@@ -2839,19 +2567,11 @@ function mergeTwoListsRec(
 
 // Time complexity: O(m+n)
 // Space complexity: O(m+n)
-
 ```
 
-
-
-
-
-### **[138. Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/) (12/12)
-
-
+### \*\*[138. Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/) (12/12)
 
 ```typescript
-
 function copyRandomList(head: _Node | null): _Node | null {
   const map = new Map<_Node, _Node>();
 
@@ -2876,19 +2596,15 @@ function copyRandomList(head: _Node | null): _Node | null {
 
 // time complexity: O(n)
 // space complexity: O(n)
-
 ```
 
-
-
-### **[92. Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/) (12/12)
+### \*\*[92. Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/) (12/12)
 
 ```typescript
-
 function reverseBetween(
   head: ListNode | null,
   left: number,
-  right: number
+  right: number,
 ): ListNode | null {
   let dummy = new ListNode();
   dummy.next = head;
@@ -2915,15 +2631,11 @@ function reverseBetween(
   return dummy.next;
 }
 
-
 // Time complexity: O(n)
 // Space complexity: O(1)
-
 ```
 
-
-
-### [*19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) (12/12)
+### [\*19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) (12/12)
 
 ```typescript
 function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
@@ -2999,12 +2711,9 @@ function removeNthFromEnd3(head: ListNode | null, n: number): ListNode | null {
 
 // Time complexity: O(n)
 // Space complexity: O(1)
-
 ```
 
-
-
-### *[86. Partition List](https://leetcode.com/problems/partition-list/) (13/12)
+### \*[86. Partition List](https://leetcode.com/problems/partition-list/) (13/12)
 
 ```typescript
 function partition(head: ListNode | null, x: number): ListNode | null {
@@ -3056,15 +2765,11 @@ function partition2(head: ListNode | null, x: number): ListNode | null {
 
 // Time compleixty: O(n)
 // Space complexity: O(n)
-
 ```
 
-
-
-### ** [146. LRU Cache](https://leetcode.com/problems/lru-cache/) (13/12)
+### \*\* [146. LRU Cache](https://leetcode.com/problems/lru-cache/) (13/12)
 
 ```typescript
-
 class LRUCache {
   capacity: number;
   map: Map<number, number>;
@@ -3103,15 +2808,11 @@ class LRUCache {
 }
 
 // get and put O(1)
-
 ```
 
-
-
-### **82. Remove duplicates from sorted List II
+### \*\*82. Remove duplicates from sorted List II
 
 ```typescript
-
 function deleteDuplicates(head: ListNode | null): ListNode | null {
   const map = new Map<number, number>();
 
@@ -3190,15 +2891,11 @@ function deleteDuplicates3(head: ListNode | null): ListNode | null {
 
 // Time complexity: O(n)
 // Space complexity: O(1)
-
 ```
 
-
-
-### *61. Rotate List (14/11)
+### \*61. Rotate List (14/11)
 
 ```typescript
-
 function rotateRight(head: ListNode | null, k: number): ListNode | null {
   if (!head) return head;
 
@@ -3229,15 +2926,11 @@ function rotateRight(head: ListNode | null, k: number): ListNode | null {
 
 // Time complexity: O(n)
 // Space complexity: O(1)
-
 ```
-
-
 
 ### [104. Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) (15/12)
 
 ```typescript
-
 function maxDepth(root: TreeNode | null): number {
   if (!root) {
     return 0;
@@ -3280,12 +2973,7 @@ function maxDepthBfs(root: TreeNode | null): number {
 // Time complexity: O(n)
 // Space compleixty: O(w)
 // w is the maximum width of the tree (worst-case O(n)).
-
-
-
 ```
-
-
 
 ### [100. Same Tree](https://leetcode.com/problems/same-tree/) (16/12)
 
@@ -3322,15 +3010,11 @@ function isSameTreeBfs(p: TreeNode | null, q: TreeNode | null): boolean {
 
 // Time comlexity: O(n)
 // Space complexity: O(w), worse case O(n)
-
 ```
 
-
-
-### [*226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/) (16/12)
+### [\*226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/) (16/12)
 
 ```typescript
-
 function invertTree(root: TreeNode | null): TreeNode | null {
   if (!root) {
     return root;
@@ -3346,15 +3030,11 @@ function invertTree(root: TreeNode | null): TreeNode | null {
 
 // Time complexity: O(n)
 // Space complexity: O(h), worse case O(n)
-
 ```
-
-
 
 ### [101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/) (16/12)
 
 ```typescript
-
 function isMirror(root1: TreeNode | null, root2: TreeNode | null): boolean {
   if (!root1 && !root2) {
     return true;
@@ -3377,15 +3057,11 @@ function isSymmetric(root: TreeNode | null): boolean {
 
 // Time complexity: O(n)
 // Space complexity: O(h), worse case O(n)
-
 ```
 
-
-
-### **[114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/) (17/12)
+### \*\*[114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/) (17/12)
 
 ```typescript
-
 function dfs(root: TreeNode, arr: number[]): void {
   if (!root) {
     return;
@@ -3432,7 +3108,6 @@ function flatten(root: TreeNode | null): void {
   dfs(root, prev);
 }
 
-
 function flatten(root: TreeNode | null): void {
   if (!root) return;
 
@@ -3456,15 +3131,11 @@ function flatten(root: TreeNode | null): void {
 
 // Time complexity: O(n)
 // Space complexity: O(h)
-
 ```
 
-
-
-### *[112. Path Sum](https://leetcode.com/problems/path-sum/) (17/12)
+### \*[112. Path Sum](https://leetcode.com/problems/path-sum/) (17/12)
 
 ```typescript
-
 function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
   if (!root) return false;
 
@@ -3476,12 +3147,9 @@ function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
 
 // Time complexity: O(n)
 // Space complexity: O(h) worse case O(n)
-
 ```
 
-
-
-### *[129. Sum Root to Leaf Numbers](https://leetcode.com/problems/sum-root-to-leaf-numbers/) (17/12)
+### \*[129. Sum Root to Leaf Numbers](https://leetcode.com/problems/sum-root-to-leaf-numbers/) (17/12)
 
 ```typescript
 function dfs(root: TreeNode | null, str: string, total: { sum: number }) {
@@ -3530,17 +3198,11 @@ function sumNumbers2(root: TreeNode | null): number {
 
 // Time complexity: O(n)
 // Space compleixty: O(h)
-
 ```
 
-
-
-### ** [173. Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/) (19/12)
-
-
+### \*\* [173. Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/) (19/12)
 
 ```typescript
-
 class BSTIterator {
   private pointer = 0;
   private inOrderTree = [];
@@ -3606,21 +3268,15 @@ class BSTIterator2 {
 // total pushes = n total pops = n totalWork O(n)
 // some calls do "extra work", but that extra work is "paid for" by the fact those
 // nodes won't be pushed again later
-
 ```
 
-
-
-### ** [222. Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/) (19/12)
-
-
+### \*\* [222. Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/) (19/12)
 
 `hint`
 
 `use << `
 
 ```typescript
-
 function countNodes(root: TreeNode | null): number {
   if (!root) return 0;
 
@@ -3696,15 +3352,11 @@ function countNodes2(root: TreeNode | null): number {
 
 // Time comleixity: O(log(n))
 // Space compleixty: O(1)
-
 ```
 
-
-
-### **[117. Populating Next Right Pointers in Each Node II](https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/) (19/12)
+### \*\*[117. Populating Next Right Pointers in Each Node II](https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/) (19/12)
 
 ```typescript
-
 function connect(root: _Node | null): _Node | null {
   if (!root) return root;
 
@@ -3764,7 +3416,6 @@ function connect2(root: _Node | null): _Node | null {
 // Time complexity: O(n)
 // Space compleixity: O(n)
 
-
 function connect3(root: _Node | null): _Node | null {
   if (!root) return root;
 
@@ -3795,15 +3446,11 @@ function connect3(root: _Node | null): _Node | null {
 
 // Time complexity: O(n)
 // Space compleixity: O(1)
-
 ```
 
-
-
-### *[199. Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/) (20/12)
+### \*[199. Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/) (20/12)
 
 ```typescript
-
 function rightSideView(root: TreeNode | null): number[] {
   if (!root) return [];
 
@@ -3890,15 +3537,11 @@ function rightSideView_DFS(root: TreeNode | null): number[] {
 
 // Time complexity: O(n)
 // Space complexity: O(h), worse case O(n)
-
 ```
-
-
 
 ### [637. Average of Levels in Binary Tree](https://leetcode.com/problems/average-of-levels-in-binary-tree/) (20/12)
 
 ```typescript
-
 function averageOfLevels(root: TreeNode | null): number[] {
   let queue = [root];
   let ans = [];
@@ -3923,15 +3566,11 @@ function averageOfLevels(root: TreeNode | null): number[] {
 
 // Time complexity: O(n)
 // Space compleixty: O(w) worse case O(n)
-
 ```
-
-
 
 ### [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) (20/12)
 
 ```typescript
-
 function levelOrder(root: TreeNode | null): number[][] {
   if (!root) return [];
 
@@ -3959,7 +3598,6 @@ function levelOrder(root: TreeNode | null): number[][] {
 // Time complexity: O(n)
 // Space complexity: O(w)
 
-
 function levelOrder(root: TreeNode | null): number[][] {
   if (!root) return [];
 
@@ -3984,17 +3622,11 @@ function levelOrder(root: TreeNode | null): number[][] {
 
 // Time complexity: O(n)
 // Space complexity: O(n)
-
 ```
 
-
-
-
-
-### ***[236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) (20/12)
+### \*\*\*[236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) (20/12)
 
 ```typescript
-
 function lowestCommonAncestor(
   root: TreeNode | null,
   p: TreeNode | null,
@@ -4018,17 +3650,13 @@ function lowestCommonAncestor(
 
 // Time compleixity: O(n)
 // Space compleixty: O(h)
-
 ```
-
-
 
 ### [103. Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) (21/12)
 
 `current level can be got using ans len`
 
 ```typescript
-
 function zigzagLevelOrder(root: TreeNode | null): number[][] {
   if (!root) return [];
 
@@ -4060,17 +3688,11 @@ function zigzagLevelOrder(root: TreeNode | null): number[][] {
 
 // Time compleixty: O(n)
 // Space comlexity: O(w) excluding output
-
 ```
 
-
-
-
-
-### *[530. Minimum Absolute Difference in BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/) (21/12)
+### \*[530. Minimum Absolute Difference in BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/) (21/12)
 
 ```typescript
-
 function getMinimumDifference(root: TreeNode | null): number {
   let min = Infinity;
   let pre = -Infinity;
@@ -4092,15 +3714,11 @@ function getMinimumDifference(root: TreeNode | null): number {
 
 // Time compleixty: O(n)
 // Space complexity: O(h)
-
 ```
 
-
-
-### **[230. Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) (21/12)
+### \*\*[230. Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) (21/12)
 
 ```typescript
-
 function kthSmallest(root: TreeNode | null, k: number): number {
   let ans = 0;
 
@@ -4128,7 +3746,6 @@ function kthSmallest(root: TreeNode | null, k: number): number {
 // Space complexity: O(h)
 
 // Follow up: If the BST is modified often (i.e., we can do insert and delete operations) and you need to find the kth smallest frequently, how would you optimize?
-
 
 class SizeNode {
   val: number;
@@ -4220,7 +3837,7 @@ class SizeBST {
       }
     }
 
-    throw new Error("Unreachable");
+    throw new Error('Unreachable');
   }
 }
 
@@ -4237,15 +3854,11 @@ console.log(bst.kthSmallest(3)); // 4
 
 bst.delete(3);
 console.log(bst.kthSmallest(2)); // 4
-
 ```
 
-
-
-### *[98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/) (21/12)
+### \*[98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/) (21/12)
 
 ```typescript
-
 function isValidBST(root: TreeNode | null): boolean {
   const dfs = (node: TreeNode | null, min: number, max: number): boolean => {
     if (!node) {
@@ -4267,23 +3880,15 @@ function isValidBST(root: TreeNode | null): boolean {
 
 // Time complexity: O(n)
 // Space complexity: O(h)
-
 ```
 
-
-
-
-
-### ***[105. Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/) (21/12)
+### \*\*\*[105. Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/) (21/12)
 
 `hint`
 
 `for any number in the inorder array, numbers in its left are in its left tree, numbers in its right are in its right tree`
 
-
-
 ```typescript
-
 function buildTree(preorder: number[], inorder: number[]): TreeNode | null {
   const mapping = new Map();
   for (let i = 0; i < inorder.length; i++) {
@@ -4331,15 +3936,11 @@ function buildTree(preorder: number[], inorder: number[]): TreeNode | null {
 
 // Time O(n)
 // Space O(n)
-
 ```
 
-
-
-### ***[106. Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/) (22/12)
+### \*\*\*[106. Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/) (22/12)
 
 ```typescript
-
 function buildTree(inorder: number[], postorder: number[]): TreeNode | null {
   if (inorder.length) {
     const value = postorder.pop();
@@ -4383,13 +3984,9 @@ function buildTree(inorder: number[], postorder: number[]): TreeNode | null {
 
 // Time O(n)
 // Space O(n)
-
-
 ```
 
-
-
-### *[200. Number of Islands](https://leetcode.com/problems/number-of-islands/) (22/12)
+### \*[200. Number of Islands](https://leetcode.com/problems/number-of-islands/) (22/12)
 
 ```typescript
 function numIslands(grid: string[][]): number {
@@ -4508,12 +4105,9 @@ function numIslands(grid: string[][]): number {
 // Space O(n)
 ```
 
-
-
-### **[130. Surrounded Regions](https://leetcode.com/problems/surrounded-regions/) (22/12)
+### \*\*[130. Surrounded Regions](https://leetcode.com/problems/surrounded-regions/) (22/12)
 
 ```typescript
-
 /**
  Do not return anything, modify board in-place instead.
  */
@@ -4621,646 +4215,4 @@ function solve(board: string[][]): void {
     }
   }
 }
-
 ```
-
-
-
-### ** [133. Clone Graph](https://leetcode.com/problems/clone-graph/) (23/12)
-
-```typescript
-
-function cloneGraph(node: _Node | null): _Node | null {
-  if (!node) return node;
-  const map = new Map<number, _Node>();
-  const stack = [node];
-
-  while (stack.length) {
-    const node = stack.pop();
-    const duplicate = map.has(node.val)
-      ? map.get(node.val)
-      : new _Node(node.val);
-    map.set(node.val, duplicate);
-
-    if (duplicate?.neighbors?.length > 0) continue;
-
-    for (let i = 0; i < node.neighbors.length; i++) {
-      const neighbor = node.neighbors[i];
-      const duplicateNeighbor = map.has(neighbor.val)
-        ? map.get(neighbor.val)
-        : new _Node(neighbor.val);
-      map.set(neighbor.val, duplicateNeighbor);
-
-      duplicate.neighbors.push(duplicateNeighbor);
-      stack.push(neighbor);
-    }
-  }
-
-  return map.get(node.val);
-}
-
-function cloneGraph2(node: _Node | null): _Node | null {
-  if (!node) return node;
-
-  const map = new Map<_Node, _Node>();
-  map.set(node, new _Node(node.val));
-
-  const stack = [node];
-
-  while (stack.length) {
-    const cur = stack.pop();
-    const curClone = map.get(cur);
-
-    for (const nei of cur.neighbors) {
-      if (!map.has(nei)) {
-        const neiClone = new _Node(nei.val);
-        map.set(nei, neiClone);
-        stack.push(nei);
-      }
-      curClone.neighbors.push(map.get(nei));
-    }
-  }
-
-  return map.get(node);
-}
-
-// Time O(V+E)
-// Space O(V)
-
-```
-
-
-
-### *** [207. Course Schedule](https://leetcode.com/problems/course-schedule/) (23/12)
-
-```typescript
-
-function canFinish(numCourses: number, prerequisites: number[][]): boolean {
-  const preMap = {} as Record<number, number[]>;
-
-  for (let i = 0; i < numCourses; i++) {
-    preMap[i] = [];
-  }
-
-  for (const [cor, pre] of prerequisites) {
-    preMap[cor].push(pre);
-  }
-
-  const cycle = new Set();
-
-  const dfs = (cor: number) => {
-    if (preMap[cor].length === 0) return true;
-    if (cycle.has(cor)) return false;
-
-    cycle.add(cor);
-
-    for (let pre of preMap[cor]) {
-      if (!dfs(pre)) return false;
-    }
-    cycle.delete(cor);
-    preMap[cor] = [];
-    return true;
-  };
-
-  for (let i = 0; i < numCourses; i++) {
-    if (!dfs(i)) return false;
-  }
-
-  return true;
-}
-
-// Time O(V + E)
-// Space O(V + E) for graph + O(V) recursion stack in worst case
-
-```
-
-
-
-### *** [210. Course Schedule II](https://leetcode.com/problems/course-schedule-ii/) (23/12)
-
-```typescript
-function findOrder(numCourses: number, prerequisites: number[][]): number[] {
-  const preqMap = [];
-
-  for (let i = 0; i < numCourses; i++) {
-    preqMap[i] = [];
-  }
-
-  for (const [cor, pre] of prerequisites) {
-    preqMap[cor].push(pre);
-  }
-
-  const ans = [];
-  const cycle = new Set<number>();
-  const seen = new Set<number>();
-
-  const dfs = (cor: number) => {
-    if (seen.has(cor)) return true;
-
-    if (cycle.has(cor)) return false;
-
-    cycle.add(cor);
-
-    for (const pre of preqMap[cor]) {
-      if (!dfs(pre)) return false;
-    }
-
-    cycle.delete(cor);
-    seen.add(cor);
-    ans.push(cor);
-    return true;
-  };
-
-  for (let i = 0; i < numCourses; i++) {
-    if (!dfs(i)) return [];
-  }
-
-  return ans;
-}
-
-// Time O(V + E)
-// Space O(V + E) for graph + O(V) recursion stack in worst case
-
-```
-
-
-
-### *[1768. Merge Strings Alternately](https://leetcode.com/problems/merge-strings-alternately/) (24/12)
-
-```typescript
-
-function mergeAlternately(word1: string, word2: string): string {
-  if (!word1) return word2;
-  if (!word2) return word1;
-
-  let arr = new Array(word1.length + word2.length);
-  let ptr = 0;
-
-  for (let i = 0; i < word1.length; i++) {
-    arr[ptr] = word1[i];
-    ptr += 2;
-  }
-
-  ptr = 1;
-
-  for (let i = 0; i < word2.length; i++) {
-    arr[ptr] = word2[i];
-    ptr += 2;
-  }
-
-  return arr.join('');
-}
-
-function mergeAlternately(word1: string, word2: string): string {
-  if (!word1 || !word2) return word1 || word2;
-
-  const merged = [];
-
-  for (let i = 0; i < Math.max(word1.length, word2.length); i++) {
-    if (i < word1.length) {
-      merged.push(word1[i]);
-    }
-
-    if (i < word2.length) {
-      merged.push(word2[i]);
-    }
-  }
-
-  return merged.join('');
-}
-
-// Time O(m+n)
-// Space O(m+n)
-
-```
-
-
-
-### *** [1071. Greatest Common Divisor of Strings](https://leetcode.com/problems/greatest-common-divisor-of-strings/) (24/12)
-
-```typescript
-
-
-function gcdOfStrings(str1: string, str2: string): string {
-  const len1 = str1.length;
-  const len2 = str2.length;
-
-  const isDivisor = (l: number) => {
-    if (len1 % l !== 0 || len2 % l !== 0) return false;
-
-    let t1 = len1 / l;
-    let t2 = len2 / l;
-
-    let prefix = str1.slice(0, l);
-
-    if (prefix.repeat(t1) === str1 && prefix.repeat(t2) === str2) {
-      return true;
-    }
-
-    return false;
-  };
-
-  for (let i = Math.min(len1, len2); i > 0; i--) {
-    if (isDivisor(i)) {
-      return str1.slice(0, i);
-    }
-  }
-
-  return '';
-}
-
-// Time: O(min(m,n) * (m+n)
-// Space: O(n+m) .repeat
-
-function gcdOfStrings(str1: string, str2: string): string {
-  let len1 = str1.length;
-  let len2 = str2.length;
-
-  const isDivisor = (l: number) => {
-    if (len1 % l !== 0 || len2 % l !== 0) return false;
-
-    const prefix = str1.slice(0, l);
-
-    for (let i = 0; i < str1.length; i += prefix.length) {
-      if (!str1.startsWith(prefix, i)) return false;
-    }
-
-    for (let i = 0; i < str2.length; i += prefix.length) {
-      if (!str2.startsWith(prefix, i)) return false;
-    }
-
-    return true;
-  };
-
-  for (let i = Math.min(len1, len2); i > 0; i--) {
-    if (isDivisor(i)) return str1.slice(0, i);
-  }
-
-  return '';
-}
-
-// Time: O(min(m,n) * (m+n)
-// Space: O(k) for prefix
-
-
-```
-
-
-
-### ***[399. Evaluate Division](https://leetcode.com/problems/evaluate-division/) (24/12)
-
-```typescript
-
-function calcEquation(
-  equations: string[][],
-  values: number[],
-  queries: string[][],
-): number[] {
-  const graph = new Map<string, [string, number][]>();
-
-  const buildEdges = (from: string, to: string, weight: number) => {
-    if (!graph.has(from)) graph.set(from, []);
-    graph.get(from).push([to, weight]);
-  };
-
-  for (let i = 0; i < equations.length; i++) {
-    const [from, to] = equations[i];
-    const val = values[i];
-
-    buildEdges(from, to, val);
-    buildEdges(to, from, 1 / val);
-  }
-
-  const bfs = (start, end) => {
-    if (!graph.has(start) || !graph.has(end)) {
-      return -1;
-    }
-
-    const queue = [[start, 1]];
-    const visited = new Set();
-
-    let idx = 0;
-
-    while (idx < queue.length) {
-      const [cur, dist] = queue[idx++];
-
-      if (cur === end) return dist;
-
-      for (let [nei, w] of graph.get(cur)) {
-        if (!visited.has(nei)) {
-          visited.add(nei);
-          queue.push([nei, dist * w]);
-        }
-      }
-    }
-    return -1;
-  };
-
-  let ans = [];
-
-  for (let i = 0; i < queries.length; i++) {
-    ans.push(bfs(queries[i][0], queries[i][1]));
-  }
-
-  return ans;
-}
-
-```
-
-
-
-### ***[433. Minimum Genetic Mutation](https://leetcode.com/problems/minimum-genetic-mutation/) (24/12)
-
-```typescript
-
-function minMutation(
-  startGene: string,
-  endGene: string,
-  bank: string[],
-): number {
-  const bankSet = new Set(bank);
-
-  if (!bankSet.has(endGene)) return -1;
-
-  const choices = ['A', 'C', 'G', 'T'];
-  const queue = [[startGene, 0]] as [string, number][];
-  const visisted = new Set();
-  visisted.add(startGene);
-
-  while (queue.length) {
-    const [cur, step] = queue.shift();
-
-    if (cur === endGene) return step;
-
-    let arr = cur.split('');
-
-    for (let i = 0; i < arr.length; i++) {
-      let original = arr[i];
-
-      for (let char of choices) {
-        arr[i] = char;
-        let gene = arr.join('');
-        if (!visisted.has(gene) && bankSet.has(gene)) {
-          visisted.add(gene);
-          queue.push([gene, step + 1]);
-        }
-      }
-      arr[i] = original;
-    }
-  }
-
-  return -1;
-}
-
-// Time: Bank.length * Gene.length * 4
-// Space: queue
-
-
-```
-
-
-
-### [1431. Kids With the Greatest Number of Candies](https://leetcode.com/problems/kids-with-the-greatest-number-of-candies/) (25/12)
-
-```typescript
-
-function kidsWithCandies(candies: number[], extraCandies: number): boolean[] {
-  const max = Math.max(...candies);
-
-  const ans = [];
-
-  for (const candy of candies) {
-    ans.push(candy + extraCandies >= max);
-  }
-
-  return ans;
-}
-
-
-// TIme: O(n)
-// Space: O(n)
-```
-
-
-
-### *[345. Reverse Vowels of a String](https://leetcode.com/problems/reverse-vowels-of-a-string/) (25/12)
-
-```typescript
-function reverseVowels(s: string): string {
-  const vowels = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
-  let l = 0;
-  let r = s.length - 1;
-
-  const arr = s.split('');
-
-  while (l < r) {
-    while (l < r && !vowels.has(arr[l])) l++;
-    while (l < r && !vowels.has(arr[r])) r--;
-
-    if (l < r) {
-      [arr[l], arr[r]] = [arr[r], arr[l]];
-      l++;
-      r--;
-    }
-  }
-  return arr.join('');
-}
-
-// Time O(n)
-// Space O(n)
-
-
-```
-
-
-
-### ***[127. Word Ladder](https://leetcode.com/problems/word-ladder/) (25/12)
-
-```typescript
-
-function ladderLength(
-  beginWord: string,
-  endWord: string,
-  wordList: string[],
-): number {
-  const wordListSet = new Set(wordList);
-  if (!wordListSet.has(endWord)) return 0;
-
-  const letters = 'abcdefghijklmnopqrstuvwxyz';
-
-  const bfs = (word: string) => {
-    const queue = [[word, 1]] as [string, number][];
-    const visited = new Set([word]);
-    let idx = 0;
-
-    while (idx < queue.length) {
-      const [w, s] = queue[idx++];
-      if (w === endWord) return s;
-
-      const arr = w.split('');
-
-      for (let i = 0; i < arr.length; i++) {
-        const original = arr[i];
-        for (const can of letters) {
-          if (can === original) continue;
-          arr[i] = can;
-          const str = arr.join('');
-          if (wordListSet.has(str) && !visited.has(str)) {
-            visited.add(str);
-            queue.push([str, s + 1]);
-          }
-        }
-        arr[i] = original;
-      }
-    }
-
-    return 0;
-  };
-
-  return bfs(beginWord);
-}
-
-// Time O(m * n * 26)
-// m: wordList.length
-// n: beginWord.length
-
-// O(m)
-
-function ladderLength2(
-  beginWord: string,
-  endWord: string,
-  wordList: string[],
-): number {
-  const dict = new Set(wordList);
-  if (!dict.has(endWord)) return 0;
-
-  let begin = new Set<string>([beginWord]);
-  let end = new Set<string>([endWord]);
-
-  const visited = new Set<string>([beginWord, endWord]);
-  const L = beginWord.length;
-  const letters = 'abcdefghijklmnopqrstuvwxyz';
-
-  let steps = 1;
-
-  while (begin.size && end.size) {
-    // always expand smaller frontier
-    if (begin.size > end.size) {
-      const tmp = begin;
-      begin = end;
-      end = tmp;
-    }
-
-    const next = new Set<string>();
-
-    for (const word of begin) {
-      const arr = word.split('');
-
-      for (let i = 0; i < L; i++) {
-        const original = arr[i];
-
-        for (let k = 0; k < 26; k++) {
-          const ch = letters[k];
-          if (ch === original) continue;
-
-          arr[i] = ch;
-          const candidate = arr.join('');
-
-          if (end.has(candidate)) return steps + 1;
-
-          if (dict.has(candidate) && !visited.has(candidate)) {
-            visited.add(candidate);
-            next.add(candidate);
-          }
-        }
-
-        arr[i] = original;
-      }
-    }
-
-    begin = next;
-    steps++;
-  }
-
-  return 0;
-}
-
-// Time: O(N*L^2)
-// N: number of words in wordLsit, L: word lengh
-// For each visited word, we need to try up to L * 25 mutations, for each mutation, we need to build a new string
-// via join
-
-// per word O(L*26*L) = O(26*L^2)
-// Space O(N)
-
-// why bidirectional BFS is faster in practice: it usually visits far fewer than N nodes, but worst-case is still O(N)
-
-```
-
-
-
-### ** [909. Snakes and Ladders](https://leetcode.com/problems/snakes-and-ladders/) (25/12)
-
-```typescript
-
-function snakesAndLadders(board: number[][]): number {
-  let flat = [0];
-
-  const n = board.length;
-  const target = Math.pow(n, 2);
-
-  let idx = 1;
-
-  for (let r = board.length - 1; r >= 0; r--) {
-    const rowIdx = n - r;
-    const reverseRow = rowIdx % 2 === 0;
-
-    if (reverseRow) {
-      for (let c = n - 1; c >= 0; c--) flat[idx++] = board[r][c];
-    } else {
-      for (let c = 0; c < n; c++) flat[idx++] = board[r][c];
-    }
-  }
-
-  const bfs = () => {
-    // [positon, steps]
-    const queue = [[1, 0]];
-
-    let q = 0;
-
-    // we start from position 1
-    const visited = new Set([1]);
-
-    while (q < queue.length) {
-      const [curr, step] = queue[q++];
-
-      if (curr === target) return step;
-
-      for (let i = 1; i <= 6; i++) {
-        const nextPos = curr + i;
-        if (nextPos > target) break;
-
-        let next = nextPos;
-
-        if (flat[nextPos] !== -1) {
-          next = flat[nextPos];
-        }
-
-        if (!visited.has(next)) {
-          visited.add(next);
-          queue.push([next, step + 1]);
-        }
-      }
-    }
-
-    return -1;
-  };
-
-  return bfs();
-}
-
-// Time O(n^2)
-// Space O(n^2)
-
-```
-

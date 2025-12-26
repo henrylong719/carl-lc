@@ -1,3 +1,600 @@
+### \*\* [133. Clone Graph](https://leetcode.com/problems/clone-graph/) (23/12)
+
+```typescript
+function cloneGraph(node: _Node | null): _Node | null {
+  if (!node) return node;
+  const map = new Map<number, _Node>();
+  const stack = [node];
+
+  while (stack.length) {
+    const node = stack.pop();
+    const duplicate = map.has(node.val)
+      ? map.get(node.val)
+      : new _Node(node.val);
+    map.set(node.val, duplicate);
+
+    if (duplicate?.neighbors?.length > 0) continue;
+
+    for (let i = 0; i < node.neighbors.length; i++) {
+      const neighbor = node.neighbors[i];
+      const duplicateNeighbor = map.has(neighbor.val)
+        ? map.get(neighbor.val)
+        : new _Node(neighbor.val);
+      map.set(neighbor.val, duplicateNeighbor);
+
+      duplicate.neighbors.push(duplicateNeighbor);
+      stack.push(neighbor);
+    }
+  }
+
+  return map.get(node.val);
+}
+
+function cloneGraph2(node: _Node | null): _Node | null {
+  if (!node) return node;
+
+  const map = new Map<_Node, _Node>();
+  map.set(node, new _Node(node.val));
+
+  const stack = [node];
+
+  while (stack.length) {
+    const cur = stack.pop();
+    const curClone = map.get(cur);
+
+    for (const nei of cur.neighbors) {
+      if (!map.has(nei)) {
+        const neiClone = new _Node(nei.val);
+        map.set(nei, neiClone);
+        stack.push(nei);
+      }
+      curClone.neighbors.push(map.get(nei));
+    }
+  }
+
+  return map.get(node);
+}
+
+// Time O(V+E)
+// Space O(V)
+```
+
+### \*\*\* [207. Course Schedule](https://leetcode.com/problems/course-schedule/) (23/12)
+
+```typescript
+function canFinish(numCourses: number, prerequisites: number[][]): boolean {
+  const preMap = {} as Record<number, number[]>;
+
+  for (let i = 0; i < numCourses; i++) {
+    preMap[i] = [];
+  }
+
+  for (const [cor, pre] of prerequisites) {
+    preMap[cor].push(pre);
+  }
+
+  const cycle = new Set();
+
+  const dfs = (cor: number) => {
+    if (preMap[cor].length === 0) return true;
+    if (cycle.has(cor)) return false;
+
+    cycle.add(cor);
+
+    for (let pre of preMap[cor]) {
+      if (!dfs(pre)) return false;
+    }
+    cycle.delete(cor);
+    preMap[cor] = [];
+    return true;
+  };
+
+  for (let i = 0; i < numCourses; i++) {
+    if (!dfs(i)) return false;
+  }
+
+  return true;
+}
+
+// Time O(V + E)
+// Space O(V + E) for graph + O(V) recursion stack in worst case
+```
+
+### \*\*\* [210. Course Schedule II](https://leetcode.com/problems/course-schedule-ii/) (23/12)
+
+```typescript
+function findOrder(numCourses: number, prerequisites: number[][]): number[] {
+  const preqMap = [];
+
+  for (let i = 0; i < numCourses; i++) {
+    preqMap[i] = [];
+  }
+
+  for (const [cor, pre] of prerequisites) {
+    preqMap[cor].push(pre);
+  }
+
+  const ans = [];
+  const cycle = new Set<number>();
+  const seen = new Set<number>();
+
+  const dfs = (cor: number) => {
+    if (seen.has(cor)) return true;
+
+    if (cycle.has(cor)) return false;
+
+    cycle.add(cor);
+
+    for (const pre of preqMap[cor]) {
+      if (!dfs(pre)) return false;
+    }
+
+    cycle.delete(cor);
+    seen.add(cor);
+    ans.push(cor);
+    return true;
+  };
+
+  for (let i = 0; i < numCourses; i++) {
+    if (!dfs(i)) return [];
+  }
+
+  return ans;
+}
+
+// Time O(V + E)
+// Space O(V + E) for graph + O(V) recursion stack in worst case
+```
+
+### \*[1768. Merge Strings Alternately](https://leetcode.com/problems/merge-strings-alternately/) (24/12)
+
+```typescript
+function mergeAlternately(word1: string, word2: string): string {
+  if (!word1) return word2;
+  if (!word2) return word1;
+
+  let arr = new Array(word1.length + word2.length);
+  let ptr = 0;
+
+  for (let i = 0; i < word1.length; i++) {
+    arr[ptr] = word1[i];
+    ptr += 2;
+  }
+
+  ptr = 1;
+
+  for (let i = 0; i < word2.length; i++) {
+    arr[ptr] = word2[i];
+    ptr += 2;
+  }
+
+  return arr.join('');
+}
+
+function mergeAlternately(word1: string, word2: string): string {
+  if (!word1 || !word2) return word1 || word2;
+
+  const merged = [];
+
+  for (let i = 0; i < Math.max(word1.length, word2.length); i++) {
+    if (i < word1.length) {
+      merged.push(word1[i]);
+    }
+
+    if (i < word2.length) {
+      merged.push(word2[i]);
+    }
+  }
+
+  return merged.join('');
+}
+
+// Time O(m+n)
+// Space O(m+n)
+```
+
+### \*\*\* [1071. Greatest Common Divisor of Strings](https://leetcode.com/problems/greatest-common-divisor-of-strings/) (24/12)
+
+```typescript
+function gcdOfStrings(str1: string, str2: string): string {
+  const len1 = str1.length;
+  const len2 = str2.length;
+
+  const isDivisor = (l: number) => {
+    if (len1 % l !== 0 || len2 % l !== 0) return false;
+
+    let t1 = len1 / l;
+    let t2 = len2 / l;
+
+    let prefix = str1.slice(0, l);
+
+    if (prefix.repeat(t1) === str1 && prefix.repeat(t2) === str2) {
+      return true;
+    }
+
+    return false;
+  };
+
+  for (let i = Math.min(len1, len2); i > 0; i--) {
+    if (isDivisor(i)) {
+      return str1.slice(0, i);
+    }
+  }
+
+  return '';
+}
+
+// Time: O(min(m,n) * (m+n)
+// Space: O(n+m) .repeat
+
+function gcdOfStrings(str1: string, str2: string): string {
+  let len1 = str1.length;
+  let len2 = str2.length;
+
+  const isDivisor = (l: number) => {
+    if (len1 % l !== 0 || len2 % l !== 0) return false;
+
+    const prefix = str1.slice(0, l);
+
+    for (let i = 0; i < str1.length; i += prefix.length) {
+      if (!str1.startsWith(prefix, i)) return false;
+    }
+
+    for (let i = 0; i < str2.length; i += prefix.length) {
+      if (!str2.startsWith(prefix, i)) return false;
+    }
+
+    return true;
+  };
+
+  for (let i = Math.min(len1, len2); i > 0; i--) {
+    if (isDivisor(i)) return str1.slice(0, i);
+  }
+
+  return '';
+}
+
+// Time: O(min(m,n) * (m+n)
+// Space: O(k) for prefix
+```
+
+### \*\*\*[399. Evaluate Division](https://leetcode.com/problems/evaluate-division/) (24/12)
+
+```typescript
+function calcEquation(
+  equations: string[][],
+  values: number[],
+  queries: string[][],
+): number[] {
+  const graph = new Map<string, [string, number][]>();
+
+  const buildEdges = (from: string, to: string, weight: number) => {
+    if (!graph.has(from)) graph.set(from, []);
+    graph.get(from).push([to, weight]);
+  };
+
+  for (let i = 0; i < equations.length; i++) {
+    const [from, to] = equations[i];
+    const val = values[i];
+
+    buildEdges(from, to, val);
+    buildEdges(to, from, 1 / val);
+  }
+
+  const bfs = (start, end) => {
+    if (!graph.has(start) || !graph.has(end)) {
+      return -1;
+    }
+
+    const queue = [[start, 1]];
+    const visited = new Set();
+
+    let idx = 0;
+
+    while (idx < queue.length) {
+      const [cur, dist] = queue[idx++];
+
+      if (cur === end) return dist;
+
+      for (let [nei, w] of graph.get(cur)) {
+        if (!visited.has(nei)) {
+          visited.add(nei);
+          queue.push([nei, dist * w]);
+        }
+      }
+    }
+    return -1;
+  };
+
+  let ans = [];
+
+  for (let i = 0; i < queries.length; i++) {
+    ans.push(bfs(queries[i][0], queries[i][1]));
+  }
+
+  return ans;
+}
+```
+
+### \*\*\*[433. Minimum Genetic Mutation](https://leetcode.com/problems/minimum-genetic-mutation/) (24/12)
+
+```typescript
+function minMutation(
+  startGene: string,
+  endGene: string,
+  bank: string[],
+): number {
+  const bankSet = new Set(bank);
+
+  if (!bankSet.has(endGene)) return -1;
+
+  const choices = ['A', 'C', 'G', 'T'];
+  const queue = [[startGene, 0]] as [string, number][];
+  const visisted = new Set();
+  visisted.add(startGene);
+
+  while (queue.length) {
+    const [cur, step] = queue.shift();
+
+    if (cur === endGene) return step;
+
+    let arr = cur.split('');
+
+    for (let i = 0; i < arr.length; i++) {
+      let original = arr[i];
+
+      for (let char of choices) {
+        arr[i] = char;
+        let gene = arr.join('');
+        if (!visisted.has(gene) && bankSet.has(gene)) {
+          visisted.add(gene);
+          queue.push([gene, step + 1]);
+        }
+      }
+      arr[i] = original;
+    }
+  }
+
+  return -1;
+}
+
+// Time: Bank.length * Gene.length * 4
+// Space: queue
+```
+
+### [1431. Kids With the Greatest Number of Candies](https://leetcode.com/problems/kids-with-the-greatest-number-of-candies/) (25/12)
+
+```typescript
+function kidsWithCandies(candies: number[], extraCandies: number): boolean[] {
+  const max = Math.max(...candies);
+
+  const ans = [];
+
+  for (const candy of candies) {
+    ans.push(candy + extraCandies >= max);
+  }
+
+  return ans;
+}
+
+// TIme: O(n)
+// Space: O(n)
+```
+
+### \*[345. Reverse Vowels of a String](https://leetcode.com/problems/reverse-vowels-of-a-string/) (25/12)
+
+```typescript
+function reverseVowels(s: string): string {
+  const vowels = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
+  let l = 0;
+  let r = s.length - 1;
+
+  const arr = s.split('');
+
+  while (l < r) {
+    while (l < r && !vowels.has(arr[l])) l++;
+    while (l < r && !vowels.has(arr[r])) r--;
+
+    if (l < r) {
+      [arr[l], arr[r]] = [arr[r], arr[l]];
+      l++;
+      r--;
+    }
+  }
+  return arr.join('');
+}
+
+// Time O(n)
+// Space O(n)
+```
+
+### \*\*\*[127. Word Ladder](https://leetcode.com/problems/word-ladder/) (25/12)
+
+```typescript
+function ladderLength(
+  beginWord: string,
+  endWord: string,
+  wordList: string[],
+): number {
+  const wordListSet = new Set(wordList);
+  if (!wordListSet.has(endWord)) return 0;
+
+  const letters = 'abcdefghijklmnopqrstuvwxyz';
+
+  const bfs = (word: string) => {
+    const queue = [[word, 1]] as [string, number][];
+    const visited = new Set([word]);
+    let idx = 0;
+
+    while (idx < queue.length) {
+      const [w, s] = queue[idx++];
+      if (w === endWord) return s;
+
+      const arr = w.split('');
+
+      for (let i = 0; i < arr.length; i++) {
+        const original = arr[i];
+        for (const can of letters) {
+          if (can === original) continue;
+          arr[i] = can;
+          const str = arr.join('');
+          if (wordListSet.has(str) && !visited.has(str)) {
+            visited.add(str);
+            queue.push([str, s + 1]);
+          }
+        }
+        arr[i] = original;
+      }
+    }
+
+    return 0;
+  };
+
+  return bfs(beginWord);
+}
+
+// Time O(m * n * 26)
+// m: wordList.length
+// n: beginWord.length
+
+// O(m)
+
+function ladderLength2(
+  beginWord: string,
+  endWord: string,
+  wordList: string[],
+): number {
+  const dict = new Set(wordList);
+  if (!dict.has(endWord)) return 0;
+
+  let begin = new Set<string>([beginWord]);
+  let end = new Set<string>([endWord]);
+
+  const visited = new Set<string>([beginWord, endWord]);
+  const L = beginWord.length;
+  const letters = 'abcdefghijklmnopqrstuvwxyz';
+
+  let steps = 1;
+
+  while (begin.size && end.size) {
+    // always expand smaller frontier
+    if (begin.size > end.size) {
+      const tmp = begin;
+      begin = end;
+      end = tmp;
+    }
+
+    const next = new Set<string>();
+
+    for (const word of begin) {
+      const arr = word.split('');
+
+      for (let i = 0; i < L; i++) {
+        const original = arr[i];
+
+        for (let k = 0; k < 26; k++) {
+          const ch = letters[k];
+          if (ch === original) continue;
+
+          arr[i] = ch;
+          const candidate = arr.join('');
+
+          if (end.has(candidate)) return steps + 1;
+
+          if (dict.has(candidate) && !visited.has(candidate)) {
+            visited.add(candidate);
+            next.add(candidate);
+          }
+        }
+
+        arr[i] = original;
+      }
+    }
+
+    begin = next;
+    steps++;
+  }
+
+  return 0;
+}
+
+// Time: O(N*L^2)
+// N: number of words in wordLsit, L: word lengh
+// For each visited word, we need to try up to L * 25 mutations, for each mutation, we need to build a new string
+// via join
+
+// per word O(L*26*L) = O(26*L^2)
+// Space O(N)
+
+// why bidirectional BFS is faster in practice: it usually visits far fewer than N nodes, but worst-case is still O(N)
+```
+
+### \*\* [909. Snakes and Ladders](https://leetcode.com/problems/snakes-and-ladders/) (25/12)
+
+```typescript
+
+function snakesAndLadders(board: number[][]): number {
+  let flat = [0];
+
+  const n = board.length;
+  const target = Math.pow(n, 2);
+
+  let idx = 1;
+
+  for (let r = board.length - 1; r >= 0; r--) {
+    const rowIdx = n - r;
+    const reverseRow = rowIdx % 2 === 0;
+
+    if (reverseRow) {
+      for (let c = n - 1; c >= 0; c--) flat[idx++] = board[r][c];
+    } else {
+      for (let c = 0; c < n; c++) flat[idx++] = board[r][c];
+    }
+  }
+
+  const bfs = () => {
+    // [positon, steps]
+    const queue = [[1, 0]];
+
+    let q = 0;
+
+    // we start from position 1
+    const visited = new Set([1]);
+
+    while (q < queue.length) {
+      const [curr, step] = queue[q++];
+
+      if (curr === target) return step;
+
+      for (let i = 1; i <= 6; i++) {
+        const nextPos = curr + i;
+        if (nextPos > target) break;
+
+        let next = nextPos;
+
+        if (flat[nextPos] !== -1) {
+          next = flat[nextPos];
+        }
+
+        if (!visited.has(next)) {
+          visited.add(next);
+          queue.push([next, step + 1]);
+        }
+      }
+    }
+
+    return -1;
+  };
+
+  return bfs();
+}
+
+// Time O(n^2)
+// Space O(n^2)
+```
+
+
+
 ### *[283. Move Zeroes](https://leetcode.com/problems/move-zeroes/) (26/12)
 
 ```typescript
