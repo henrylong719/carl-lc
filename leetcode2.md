@@ -531,6 +531,8 @@ function ladderLength2(
 
 ### \*\* [909. Snakes and Ladders](https://leetcode.com/problems/snakes-and-ladders/) (25/12)
 
+`rowIdx`
+
 ```typescript
 
 function snakesAndLadders(board: number[][]): number {
@@ -876,6 +878,61 @@ class WordDictionary {
   // a.b.c
   // 5 * 26^2
 }
+
+```
+
+
+
+### * [724. Find Pivot Index](https://leetcode.com/problems/find-pivot-index/) (28/12)
+
+`Notice the difference between this one and 1732 Find the Highest Altitude`
+
+```typescript
+
+function pivotIndex(nums: number[]): number {
+
+    const n = nums.length;
+
+    const prefix = new Array(n).fill(0);
+    const postfix = new Array(n).fill(0);
+
+    for (let i = 1; i < n; i++) {
+        prefix[i] = prefix[i - 1] + nums[i - 1];
+    }
+
+    for (let i = n - 2; i >= 0; i--) {
+        postfix[i] = postfix[i + 1] + nums[i + 1];
+    }
+
+    for (let i = 0; i < n; i++) {
+        if (prefix[i] === postfix[i]) return i;
+    }
+
+    return -1;
+};
+
+function pivotIndex(nums: number[]): number {
+
+    const n = nums.length;
+    const postfix = new Array(n).fill(0);
+
+    for (let i = n - 2; i >= 0; i--) {
+        postfix[i] = postfix[i + 1] + nums[i + 1];
+    }
+
+    let pre = 0;
+
+    for (let i = 0; i < n; i++) {
+        if (pre === postfix[i]) return i;
+        pre += nums[i];
+    }
+
+    return -1;
+};
+
+
+// Time O(n)
+// Space O(n)
 
 ```
 
