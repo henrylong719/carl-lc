@@ -936,3 +936,59 @@ function pivotIndex(nums: number[]): number {
 
 ```
 
+
+
+### [2215. Find the Difference of Two Arrays](https://leetcode.com/problems/find-the-difference-of-two-arrays/) (28/12)
+
+```typescript
+
+function findDifference(nums1: number[], nums2: number[]): number[][] {
+  const set1 = new Set(nums1);
+  const set2 = new Set(nums2);
+
+  const ans = [[], []] as number[][];
+
+  for (let num of set1) {
+    if (!set2.has(num)) ans[0].push(num);
+  }
+
+  for (let num of set2) {
+    if (!set1.has(num)) ans[1].push(num);
+  }
+
+  return ans;
+}
+
+// Time: O(n)
+// Space: O(n)
+
+```
+
+
+
+### *[1207. Unique Number of Occurrences](https://leetcode.com/problems/unique-number-of-occurrences/) (28/12)
+
+```typescript
+
+function uniqueOccurrences(arr: number[]): boolean {
+  const map: Map<number, number> = new Map();
+
+  for (let num of arr) {
+    map.set(num, (map.get(num) ?? 0) + 1);
+  }
+
+  const seen = new Set();
+
+  for (const count of map.values()) {
+    if (seen.has(count)) return false;
+    seen.add(count);
+  }
+
+  return true;
+}
+
+// Time: O(n)
+// Space: O(n)
+
+```
+
