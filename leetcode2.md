@@ -1028,3 +1028,110 @@ class RecentCounter {
 
 ```
 
+
+
+### [872. Leaf-Similar Trees](https://leetcode.com/problems/leaf-similar-trees/) (30/12)
+
+```typescript
+
+
+function leafSimilar(root1: TreeNode | null, root2: TreeNode | null): boolean {
+  const leaves1 = [] as number[];
+  const leaves2 = [] as number[];
+
+  const dfs = (node: TreeNode | null, leaves: number[]) => {
+    if (!node) {
+      return;
+    }
+
+    if (!node.left && !node.right) {
+      leaves.push(node.val);
+    }
+
+    dfs(node.left, leaves);
+    dfs(node.right, leaves);
+  };
+
+  dfs(root1, leaves1);
+  dfs(root2, leaves2);
+
+  if (leaves1.length !== leaves2.length) return false;
+
+  for (let i = 0; i < leaves1.length; i++) {
+    if (leaves1[i] !== leaves2[i]) return false;
+  }
+
+  return true;
+}
+
+// Time O(n+m)
+// Space O(n+m)
+
+```
+
+
+
+### *[443. String Compression](https://leetcode.com/problems/string-compression/) (30/12)
+
+
+
+```typescript
+
+function compress(chars: string[]): number {
+  if (!chars.length) return 0;
+
+  let idx = 0;
+  let ansStr = '';
+
+  while (idx < chars.length) {
+    let head = chars[idx];
+    let count = 1;
+
+    while (idx + count < chars.length && chars[idx + count] === head) {
+      count++;
+    }
+
+    ansStr += count > 1 ? head + String(count) : head;
+    idx += count;
+  }
+
+  for (let i = 0; i < chars.length; i++) {
+    chars[i] = ansStr[i];
+  }
+
+  return ansStr.length;
+}
+
+// Time: O(n)
+// Space: O(n)
+
+function compress2(chars: string[]): number {
+  let read = 0;
+  let write = 0;
+
+  while (read < chars.length) {
+    const ch = chars[read];
+    let start = read;
+
+    while (read < chars.length && chars[read] === ch) read++;
+
+    chars[write++] = ch;
+
+    const count = read - start;
+
+    if (count > 1) {
+      const s = String(count);
+      for (let i = 0; i < s.length; i++) {
+        chars[write++] = s[i];
+      }
+    }
+  }
+
+  return write;
+}
+
+// Time: O(n)
+// Space: O(1)
+
+```
+

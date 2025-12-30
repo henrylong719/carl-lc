@@ -2142,7 +2142,9 @@ function rotate2(matrix: number[][]): void {
 // Space complexity O(1)
 ```
 
-### \*\*[73. Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/) (10/12)
+### \*\*[73. Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/) (10/12, 28/12)
+
+`When update rows and cols using marker, start from second row and second col, otherwise fist col will be mixed`
 
 ```typescript
 function setZeroes(matrix: number[][]): void {
@@ -2283,87 +2285,9 @@ function setZeroes(matrix: number[][]): void {
 // Space compleixty: O(1)
 ```
 
-### \*\*289. [Game of Life](https://leetcode.com/problems/game-of-life/) (11/12)
+### *289. [Game of Life](https://leetcode.com/problems/game-of-life/) (11/12, 28/12)
 
 ```typescript
-function gameOfLife(board: number[][]): void {
-  const duplicateBoard = [];
-  const rows = board.length;
-  const cols = board[0].length;
-
-  for (let row = 0; row < rows; row++) {
-    duplicateBoard[row] = [];
-    for (let col = 0; col < cols; col++) {
-      duplicateBoard[row][col] = board[row][col];
-    }
-  }
-
-  for (let row = 0; row < rows; row++) {
-    for (let col = 0; col < cols; col++) {
-      // check its neighbours
-      const topLeft = {
-        row: row - 1,
-        col: col - 1,
-      };
-
-      const top = {
-        row: row - 1,
-        col: col,
-      };
-
-      const topRight = {
-        row: row - 1,
-        col: col + 1,
-      };
-
-      const right = {
-        row: row,
-        col: col + 1,
-      };
-
-      const bottomRight = {
-        row: row + 1,
-        col: col + 1,
-      };
-
-      const bottom = {
-        row: row + 1,
-        col: col,
-      };
-
-      const bottomLeft = {
-        row: row + 1,
-        col: col - 1,
-      };
-
-      const left = {
-        row: row,
-        col: col - 1,
-      };
-
-      const neighbours = [
-        topLeft,
-        top,
-        topRight,
-        right,
-        bottomRight,
-        bottom,
-        bottomLeft,
-        left,
-      ];
-      const neighborCount = countAliveNeighbors(
-        duplicateBoard,
-        neighbours,
-        rows,
-        cols,
-      );
-      board[row][col] = updateState(neighborCount, board[row][col]);
-    }
-  }
-}
-
-// Time complexity: O(r*c)
-// Space complexity: O(r*c)
 
 function updateState(neighborCount: number, currentState: number) {
   let newState = currentState;
@@ -2477,7 +2401,7 @@ function hasCycle(head: ListNode | null): boolean {
 // Space compleixty: O(1)
 ```
 
-### \*[2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) (11/12)
+### \*[2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) (11/12, 28/12)
 
 ```typescript
 function addTwoNumbers4(
@@ -2517,7 +2441,7 @@ function addTwoNumbers4(
 // Space complexity: O(1)
 ```
 
-### \*[21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) (12/12)
+### \*[21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) (12/12, 28/12)
 
 ```typescript
 function mergeTwoLists(
@@ -2569,7 +2493,9 @@ function mergeTwoListsRec(
 // Space complexity: O(m+n)
 ```
 
-### \*\*[138. Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/) (12/12)
+### \*\**[138. Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/) (12/12, 28/12)
+
+`Map<original node: new node>`
 
 ```typescript
 function copyRandomList(head: _Node | null): _Node | null {
