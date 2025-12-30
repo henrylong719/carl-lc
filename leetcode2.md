@@ -1135,3 +1135,90 @@ function compress2(chars: string[]): number {
 
 ```
 
+
+
+### [1929. Concatenation of Array](https://leetcode.com/problems/concatenation-of-array/) (30/12)
+
+```typescript
+
+function getConcatenation(nums: number[]): number[] {
+  const n = nums.length;
+  const ans = new Array(2 * n);
+
+  for (let i = 0; i < n; i++) {
+    const v = nums[i];
+    ans[i] = v;
+    ans[i + n] = v;
+  }
+
+  return ans;
+}
+
+// beter approach, no resizing/growth overhead during the loop, doesn't mutate the input
+// Time O(n)
+// Space O(n)
+```
+
+
+
+### *[705. Design HashSet](https://leetcode.com/problems/design-hashset/) (30/12)
+
+
+
+```typescript
+class MyHashSet {
+  private set: (number | null)[] = [];
+
+  // O(n)
+  add(key: number): void {
+    if (this.set.indexOf(key) !== -1) return;
+    this.set.push(key);
+  }
+
+  // O(n)
+  remove(key: number): void {
+    const idx = this.set.indexOf(key);
+
+    if (idx === -1) return;
+
+    const n = this.set.length;
+
+    for (let i = idx; i < n - 1; i++) {
+      this.set[i] = this.set[i + 1];
+    }
+
+    this.set.pop();
+  }
+
+   // O(n)
+  contains(key: number): boolean {
+    const idx = this.set.indexOf(key);
+    if (idx === -1) return false;
+    return true;
+  }
+}
+
+// Space O(n)
+
+class MyHashSet {
+  // 1_000_001 here not 1_000_000 !!!
+  private set = new Uint8Array(1_000_001);
+
+  add(key: number): void {
+    this.set[key] = 1;
+  }
+
+  remove(key: number): void {
+    this.set[key] = 0;
+  }
+
+  contains(key: number): boolean {
+    return this.set[key] === 1;
+  }
+}
+
+// Space O(1e6)
+
+
+```
+
