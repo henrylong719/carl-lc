@@ -1436,3 +1436,29 @@ class MyHashMap {
 
 
 
+### ***[334. Increasing Triplet Subsequence](https://leetcode.com/problems/increasing-triplet-subsequence/) (31/12)
+
+```typescript
+
+function increasingTriplet(nums: number[]): boolean {
+  let first = Infinity;
+  let second = Infinity;
+
+  for (let num of nums) {
+    if (num <= first) {
+      first = num;
+    } else if (num <= second) {
+      second = num;
+    } else {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+// Time O(n)
+// Space O(1)
+
+```
+
