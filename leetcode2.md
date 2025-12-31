@@ -1,34 +1,6 @@
 ### \*\* [133. Clone Graph](https://leetcode.com/problems/clone-graph/) (23/12)
 
 ```typescript
-function cloneGraph(node: _Node | null): _Node | null {
-  if (!node) return node;
-  const map = new Map<number, _Node>();
-  const stack = [node];
-
-  while (stack.length) {
-    const node = stack.pop();
-    const duplicate = map.has(node.val)
-      ? map.get(node.val)
-      : new _Node(node.val);
-    map.set(node.val, duplicate);
-
-    if (duplicate?.neighbors?.length > 0) continue;
-
-    for (let i = 0; i < node.neighbors.length; i++) {
-      const neighbor = node.neighbors[i];
-      const duplicateNeighbor = map.has(neighbor.val)
-        ? map.get(neighbor.val)
-        : new _Node(neighbor.val);
-      map.set(neighbor.val, duplicateNeighbor);
-
-      duplicate.neighbors.push(duplicateNeighbor);
-      stack.push(neighbor);
-    }
-  }
-
-  return map.get(node.val);
-}
 
 function cloneGraph2(node: _Node | null): _Node | null {
   if (!node) return node;
@@ -1267,6 +1239,88 @@ function letterCombinations(digits: string): string[] {
 // Time: O(n*4^n) or O(n*3^n)
 // 4^n: combination, n: string concatenation
 // Space: O(n)
+
+```
+
+
+
+### *[706. Design HashMap](https://leetcode.com/problems/design-hashmap/) (31/12)
+
+```typescript
+
+class Node {
+  key: number = -1;
+  value: number = -1;
+  next: Node = null;
+
+  constructor(key: number = -1, value: number = -1, next: Node = null) {
+    this.key = key;
+    this.value = value;
+    this.next = next;
+  }
+}
+
+class MyHashMap {
+  private map: Node[];
+
+  constructor() {
+    this.map = new Array(10_000).fill(null).map(() => new Node());
+  }
+
+  // average O(1), O(n) worse case
+  put(key: number, value: number): void {
+    const hashedKey = this.hash(key);
+
+    let cur = this.map[hashedKey];
+
+    while (cur.next) {
+      if (cur.next.key === key) {
+        cur.next.value = value;
+        return;
+      }
+      cur = cur.next;
+    }
+
+    cur.next = new Node(key, value);
+  }
+
+  // average O(1), O(n) worse case
+  get(key: number): number {
+    const hashedKey = this.hash(key);
+    let cur = this.map[hashedKey];
+
+    while (cur.next) {
+      if (cur.next.key === key) {
+        return cur.next.value;
+      }
+      cur = cur.next;
+    }
+
+    return -1;
+  }
+
+  // average O(1), O(n) worse case
+  remove(key: number): void {
+    const hashedKey = this.hash(key);
+    let cur = this.map[hashedKey];
+
+    while (cur.next) {
+      if (cur.next.key === key) {
+        cur.next = cur.next.next;
+        return;
+      }
+      cur = cur.next;
+    }
+  }
+
+  hash(key: number): number {
+    return key % this.map.length;
+  }
+}
+
+// Space: O(m+n)
+// m: number of bucket
+// n: number of unique key
 
 ```
 
