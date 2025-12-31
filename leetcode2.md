@@ -1518,3 +1518,100 @@ function maxOperations(nums: number[], k: number): number {
 
 ```
 
+
+
+### **[46. Permutations](https://leetcode.com/problems/permutations/) (31/12)
+
+```typescript
+
+function permute(nums: number[]): number[][] {
+  const ans: number[][] = [];
+
+  const backtrack = (prem: Set<number>) => {
+    if (prem.size === nums.length) {
+      ans.push([...prem]);
+      return;
+    }
+
+    for (const num of nums) {
+      if (prem.has(num)) continue;
+      prem.add(num);
+      backtrack(prem);
+      prem.delete(num);
+    }
+  };
+
+  backtrack(new Set());
+  return ans;
+}
+
+function permute(nums: number[]): number[][] {
+  const n: number = nums.length;
+  const path: boolean[] = new Array(n).fill(false);
+  const ans: number[][] = [];
+
+  const backtrack = (prem: number[]) => {
+    if (prem.length === n) {
+      ans.push([...prem]);
+      return;
+    }
+
+    for (let i = 0; i < n; i++) {
+      if (path[i]) continue;
+      path[i] = true;
+      prem.push(nums[i]);
+      backtrack(prem);
+      path[i] = false;
+      prem.pop();
+    }
+  };
+
+  backtrack([]);
+  return ans;
+}
+
+// Time:
+// generate n! premutations
+// each time you hit a full permutation, you copy perm into ans: O(n)
+// O(n*n!)
+
+// Space:
+// O(n*n!)
+
+```
+
+
+
+### ***[39. Combination Sum](https://leetcode.com/problems/combination-sum/) (31/12)
+
+```typescript
+
+function combinationSum(candidates: number[], target: number): number[][] {
+  const ans: number[][] = [];
+
+  const backtrack = (idx: number, sum: number, comb: number[]) => {
+    if (sum === target) {
+      ans.push([...comb]);
+      return;
+    }
+
+    if (idx >= candidates.length || sum > target) {
+      return;
+    }
+
+    // choose to keep use the current element
+    comb.push(candidates[idx]);
+    backtrack(idx, sum + candidates[idx], comb);
+    comb.pop();
+    backtrack(idx + 1, sum, comb);
+  };
+
+  backtrack(0, 0, []);
+  return ans;
+}
+
+// Time: O(2^n)
+// Space O(t/d), t is the target, d is the samllest candidate, represent the depth of the recusion
+
+```
+
