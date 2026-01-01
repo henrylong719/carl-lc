@@ -1648,3 +1648,111 @@ function calPoints(operations: string[]): number {
 
 ```
 
+
+
+### **[225. Implement Stack using Queues](https://leetcode.com/problems/implement-stack-using-queues/) 1/1
+
+```typescript
+
+class MyStack {
+  private q1: number[] = [];
+  private q2: number[] = [];
+
+  // O(n)
+  push(x: number): void {
+    this.q2.push(x);
+
+    while (this.q1.length) {
+      this.q2.push(this.q1.shift()!);
+    }
+
+    [this.q1, this.q2] = [this.q2, this.q1];
+  }
+
+  // O(1)
+  pop(): number {
+    return this.q1.shift()!;
+  }
+
+  // O(1)
+  top(): number {
+    return this.q1[0];
+  }
+
+  // O(1)
+  empty(): boolean {
+    return this.q1.length === 0;
+  }
+}
+
+class MyStack {
+  private q: number[] = [];
+
+  // O(n)
+  push(x: number): void {
+    this.q.push(x);
+
+    // rotate everything before x to the back
+    for (let i = 0; i < this.q.length - 1; i++) {
+      this.q.push(this.q.shift()!);
+    }
+  }
+
+  // O(1)
+  pop(): number {
+    return this.q.shift()!;
+  }
+
+  // O(1)
+  top(): number {
+    return this.q[0];
+  }
+
+  // O(1)
+  empty(): boolean {
+    return this.q.length === 0;
+  }
+}
+
+```
+
+
+
+### **[232. Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/) (1/1)
+
+```typescript
+class MyQueue {
+  private input: number[] = [];
+  private output: number[] = [];
+
+  push(x: number): void {
+    this.input.push(x);
+  }
+
+  pop(): number {
+    this.peek();
+    return this.output.pop();
+  }
+
+  // Peek()
+  // Amortized O(1), worst-case O(n)
+  // If output is empty, you move all elements from input to output (that’s O(n)), otherwise it’s O(1).
+  // Across a sequence of operations, each element is moved at most once from input to output,
+  // so average cost is O(1).
+
+  peek(): number {
+    if (!this.output.length) {
+      while (this.input.length) {
+        this.output.push(this.input.pop());
+      }
+    }
+    return this.output[this.output.length - 1];
+  }
+
+  empty(): boolean {
+    return !this.input.length && !this.output.length;
+  }
+}
+
+```
+
