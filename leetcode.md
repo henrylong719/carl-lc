@@ -2524,7 +2524,7 @@ function copyRandomList(head: _Node | null): _Node | null {
 // space complexity: O(n)
 ```
 
-### \*\*[92. Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/) (12/12)
+### \*\*[92. Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/) (12/12, 31/12)
 
 ```typescript
 function reverseBetween(
@@ -2561,7 +2561,7 @@ function reverseBetween(
 // Space complexity: O(1)
 ```
 
-### [\*19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) (12/12)
+### [\*19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) (12/12, 31/12)
 
 ```typescript
 function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
