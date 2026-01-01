@@ -1788,3 +1788,31 @@ function maxVowels(s: string, k: number): number {
 
 ```
 
+
+
+### *** [1493. Longest Subarray of 1's After Deleting One Element](https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/) (1/1)
+
+```typescript
+function longestSubarray(nums: number[]): number {
+  let lastZero = -1;
+  let left = 0;
+  let maxLength = 0;
+
+  for (let right = 0; right < nums.length; right++) {
+    if (nums[right] === 0) {
+      left = lastZero + 1;
+      lastZero = right;
+    }
+
+    maxLength = Math.max(maxLength, right - left);
+  }
+
+  return maxLength;
+}
+
+// Time O(n)
+// Space O(1)
+
+
+```
+
