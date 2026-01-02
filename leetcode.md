@@ -2524,7 +2524,7 @@ function copyRandomList(head: _Node | null): _Node | null {
 // space complexity: O(n)
 ```
 
-### \*\*[92. Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/) (12/12, 31/12)
+### *[92. Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/) (12/12, 31/12)
 
 ```typescript
 function reverseBetween(
@@ -2639,7 +2639,7 @@ function removeNthFromEnd3(head: ListNode | null, n: number): ListNode | null {
 // Space complexity: O(1)
 ```
 
-### \*[86. Partition List](https://leetcode.com/problems/partition-list/) (13/12)
+### [86. Partition List](https://leetcode.com/problems/partition-list/) (13/12, 1/1)
 
 ```typescript
 function partition(head: ListNode | null, x: number): ListNode | null {
@@ -2693,7 +2693,7 @@ function partition2(head: ListNode | null, x: number): ListNode | null {
 // Space complexity: O(n)
 ```
 
-### \*\* [146. LRU Cache](https://leetcode.com/problems/lru-cache/) (13/12)
+### \*\* [146. LRU Cache](https://leetcode.com/problems/lru-cache/) (13/12, 1/1)
 
 ```typescript
 class LRUCache {
@@ -2734,6 +2734,90 @@ class LRUCache {
 }
 
 // get and put O(1)
+
+class DLLNode {
+    key: number;
+    val: number;
+    prev: DLLNode | null = null;
+    next: DLLNode | null = null;
+
+    constructor(key: number = -1, val: number = -1)  {
+        this.key = key;
+        this.val = val;
+    }
+}
+
+class LRUCache {
+
+    private capacity: number;
+    private map: Map<number, DLLNode>;
+    private head: DLLNode | null;
+    private tail: DLLNode | null;
+
+    constructor(capacity: number) {
+        this.capacity = capacity;
+        this.map = new Map();
+        this.head = new DLLNode(-1, -1);
+        this.tail = new DLLNode(-1, -1);
+        this.head.next = this.tail;
+        this.tail.prev = this.head;
+    }
+
+    get(key: number): number {
+        if (!this.map.has(key)) return -1;
+        const node = this.map.get(key);
+        this.moveToFront(node);
+        return node.val;
+    }
+
+    put(key: number, value: number): void {
+        if (this.map.has(key)) {
+            const node = this.map.get(key);
+            node.val = value;
+            this.moveToFront(node);
+            return;
+        }
+
+        const node = new DLLNode(key, value);
+        this.map.set(key, node);
+        this.addToFront(node);
+
+        if (this.map.size > this.capacity) {
+            const lru = this.removeLRU();
+            this.map.delete(lru.key);
+        }
+    }
+
+    removeNode(node: DLLNode) {
+        const pre = node.prev;
+        const nxt = node.next;
+        pre.next = nxt;
+        nxt.prev = pre;
+        node.prev = null;
+        node.next = null;
+    }
+
+
+    addToFront(node: DLLNode) {
+        const first = this.head.next;
+        node.prev = this.head;
+        node.next = first;
+        first.prev = node;
+        this.head.next = node;
+    }
+
+    moveToFront(node: DLLNode) {
+        this.removeNode(node);
+        this.addToFront(node);
+    }
+
+    removeLRU() {
+        const last = this.tail.prev;
+        this.removeNode(last);
+        return last;
+    }
+}
+
 ```
 
 ### \*\*82. Remove duplicates from sorted List II
