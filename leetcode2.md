@@ -1958,3 +1958,28 @@ function equalPairs(grid: number[][]): number {
 // Space: O(n^2) - n rows, each stored as a length-n key string
 ```
 
+
+
+### [2390. Removing Stars From a String](https://leetcode.com/problems/removing-stars-from-a-string/) (2/1)
+
+```typescript
+
+function removeStars(s: string): string {
+  const stack: string[] = [];
+
+  for (let char of s) {
+    if (char === '*') {
+      stack.pop();
+      continue;
+    }
+    stack.push(char);
+  }
+
+  return stack.join('');
+}
+
+// Time: O(n)
+// Space: O(n)
+
+```
+
