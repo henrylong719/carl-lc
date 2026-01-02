@@ -1924,3 +1924,37 @@ function closeStrings(word1: string, word2: string): boolean {
 
 
 
+### **[2352. Equal Row and Column Pairs](https://leetcode.com/problems/equal-row-and-column-pairs/) (2/1)
+
+```typescript
+
+function equalPairs(grid: number[][]): number {
+
+    const n = grid.length;
+    
+    const rowsCount = new Map<string, number>();
+
+    for (let r = 0; r < n; r++) {
+        const rows = grid[r].join('#');
+        rowsCount.set(rows, (rowsCount.get(rows) ?? 0) + 1);
+    }
+
+    let ans = 0;
+
+    for (let c = 0; c < grid[0].length; c++) {
+
+        const cols = [];
+        for (let r = 0; r < n; r++) cols.push(grid[r][c]);
+
+        const key = cols.join('#');
+        ans += rowsCount.get(key) ?? 0;
+    }
+
+    return ans;
+    
+};
+
+// Time: O(n^2)
+// Space: O(n^2) - n rows, each stored as a length-n key string
+```
+
