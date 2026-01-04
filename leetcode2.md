@@ -2185,3 +2185,74 @@ function asteroidCollision(asteroids: number[]): number[] {
 
 ```
 
+
+
+### ***[649. Dota2 Senate](https://leetcode.com/problems/dota2-senate/) (4/1)
+
+```typescript
+
+function predictPartyVictory(senate: string): string {
+  const n = senate.length;
+
+  const rQ: number[] = [];
+  const dQ: number[] = [];
+
+  for (let i = 0; i < n; i++) {
+    if (senate[i] === 'R') {
+      rQ.push(i);
+      continue;
+    }
+    dQ.push(i);
+  }
+
+  let rHead = 0;
+  let dHead = 0;
+
+  while (rHead < rQ.length && dHead < dQ.length) {
+    const r = rQ[rHead++];
+    const d = dQ[dHead++];
+
+    if (r < d) {
+      rQ.push(r + n);
+    } else {
+      dQ.push(d + n);
+    }
+  }
+
+  return rHead < rQ.length ? 'Radiant' : 'Dire';
+}
+
+// O(n) (each senator is popped/pushed a limited number of times)
+// O(n)
+
+```
+
+
+
+### ** [108. Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/) (4/1)
+
+```typescript
+function sortedArrayToBST(nums: number[]): TreeNode | null {
+  const dfs = (l: number, r: number) => {
+    if (l > r) {
+      return null;
+    }
+
+    const mid = Math.floor((l + r) / 2);
+    const node = new TreeNode(nums[mid]);
+
+    node.left = dfs(l, mid - 1);
+    node.right = dfs(mid + 1, r);
+
+    return node;
+  };
+
+  return dfs(0, nums.length - 1);
+}
+
+// Time: O(n)
+// Space: O(logn)
+
+
+```
+
