@@ -2903,7 +2903,7 @@ function deleteDuplicates3(head: ListNode | null): ListNode | null {
 // Space complexity: O(1)
 ```
 
-### \*61. Rotate List (14/11)
+### 61. Rotate List (14/11, 2/1)
 
 ```typescript
 function rotateRight(head: ListNode | null, k: number): ListNode | null {
@@ -3022,7 +3022,7 @@ function isSameTreeBfs(p: TreeNode | null, q: TreeNode | null): boolean {
 // Space complexity: O(w), worse case O(n)
 ```
 
-### [\*226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/) (16/12)
+### [226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/) (16/12,  2/1)
 
 ```typescript
 function invertTree(root: TreeNode | null): TreeNode | null {
@@ -3069,7 +3069,7 @@ function isSymmetric(root: TreeNode | null): boolean {
 // Space complexity: O(h), worse case O(n)
 ```
 
-### \*\*[114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/) (17/12)
+### *[114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/) (17/12, 2/1)
 
 ```typescript
 function dfs(root: TreeNode, arr: number[]): void {
@@ -3143,7 +3143,7 @@ function flatten(root: TreeNode | null): void {
 // Space complexity: O(h)
 ```
 
-### \*[112. Path Sum](https://leetcode.com/problems/path-sum/) (17/12)
+### \*[112. Path Sum](https://leetcode.com/problems/path-sum/) (17/12, 2/1)
 
 ```typescript
 function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
