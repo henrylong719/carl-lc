@@ -2820,37 +2820,9 @@ class LRUCache {
 
 ```
 
-### \*\*82. Remove duplicates from sorted List II
+### \*\*82. Remove duplicates from sorted List II (13/12, 4/1)
 
 ```typescript
-function deleteDuplicates(head: ListNode | null): ListNode | null {
-  const map = new Map<number, number>();
-
-  let cur = head;
-
-  while (cur) {
-    const count = (map.get(cur.val) ?? 0) + 1;
-    map.set(cur.val, count);
-    cur = cur.next;
-  }
-
-  let dummy = new ListNode();
-  cur = dummy;
-
-  for (const [key, value] of map) {
-    if (value > 1) {
-      continue;
-    }
-
-    cur.next = new ListNode(key);
-    cur = cur.next;
-  }
-
-  return dummy.next;
-}
-
-// Time complexity: O(n)
-// Space complexity: O(n)
 
 function deleteDuplicates2(head: ListNode | null): ListNode | null {
   let dummy = new ListNode(0, head);
@@ -2901,6 +2873,31 @@ function deleteDuplicates3(head: ListNode | null): ListNode | null {
 
 // Time complexity: O(n)
 // Space complexity: O(1)
+
+function deleteDuplicates(head: ListNode | null): ListNode | null {
+
+    if (!head) return head;
+
+    const dummy = new ListNode();
+    let cur = dummy;
+
+    while (head) {
+        const val = head.val;
+        if (head.next && head.next.val === val) {
+            while (head && head.val === val) {
+                head = head.next;
+            }
+            cur.next = head;
+        } else {
+            cur.next = head;
+            cur = cur.next;
+            head = head.next;
+        }
+    }
+
+    return dummy.next;
+};
+
 ```
 
 ### 61. Rotate List (14/11, 2/1)
@@ -3159,7 +3156,7 @@ function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
 // Space complexity: O(h) worse case O(n)
 ```
 
-### \*[129. Sum Root to Leaf Numbers](https://leetcode.com/problems/sum-root-to-leaf-numbers/) (17/12)
+### \*[129. Sum Root to Leaf Numbers](https://leetcode.com/problems/sum-root-to-leaf-numbers/) (17/12, 4/1)
 
 ```typescript
 function dfs(root: TreeNode | null, str: string, total: { sum: number }) {
@@ -3210,7 +3207,7 @@ function sumNumbers2(root: TreeNode | null): number {
 // Space compleixty: O(h)
 ```
 
-### \*\* [173. Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/) (19/12)
+### \*\* [173. Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/) (19/12, 4/1) *
 
 ```typescript
 class BSTIterator {
@@ -3280,7 +3277,7 @@ class BSTIterator2 {
 // nodes won't be pushed again later
 ```
 
-### \*\* [222. Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/) (19/12)
+### ** [222. Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/) (19/12, 4/1) *
 
 `hint`
 
