@@ -3631,7 +3631,7 @@ function levelOrder(root: TreeNode | null): number[][] {
 // Space complexity: O(n)
 ```
 
-### \*\*\*[236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) (20/12)
+### \*\*\*[236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) (20/12, 6/1)*
 
 ```typescript
 function lowestCommonAncestor(
