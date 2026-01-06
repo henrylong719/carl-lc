@@ -3361,7 +3361,7 @@ function countNodes2(root: TreeNode | null): number {
 // Space compleixty: O(1)
 ```
 
-### \*\*[117. Populating Next Right Pointers in Each Node II](https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/) (19/12)
+### \*\*[117. Populating Next Right Pointers in Each Node II](https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/) (19/12, 5/1)*
 
 ```typescript
 function connect(root: _Node | null): _Node | null {
