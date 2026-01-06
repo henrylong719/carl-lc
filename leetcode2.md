@@ -2650,3 +2650,32 @@ function longestZigZag(root: TreeNode | null): number {
 
 ```
 
+
+
+### *** [942. DI String Match](https://leetcode.com/problems/di-string-match/) (6/1)
+
+```typescript
+
+function diStringMatch(s: string): number[] {
+  let low = 0;
+  let high = s.length;
+  let res = [];
+
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === 'I') {
+      res.push(low);
+      low++;
+    } else {
+      res.push(high);
+      high--;
+    }
+  }
+  res.push(high);
+  return res;
+}
+
+// Time: O(n)
+// Space: O(1)
+
+```
+
