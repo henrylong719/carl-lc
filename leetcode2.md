@@ -2795,3 +2795,34 @@ function largestSumAfterKNegations(nums: number[], k: number): number {
 
 ```
 
+
+
+### [1221. Split a String in Balanced Strings](https://leetcode.com/problems/split-a-string-in-balanced-strings/) (7/1)
+
+```typescript
+
+function balancedStringSplit(s: string): number {
+
+    let R: number = 0;
+    let L: number = 0;
+    let res = 0;
+
+    for (let char of s) {
+        if (char === 'R') {
+            R ++;
+        } else if (char === 'L') {
+            L ++;
+        }
+
+        if (R === L) {
+            res ++;
+        }
+    }
+
+    return res;
+};
+
+// Time: O(n)
+// Space: O(1)
+```
+
