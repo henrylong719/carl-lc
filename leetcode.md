@@ -3455,7 +3455,7 @@ function connect3(root: _Node | null): _Node | null {
 // Space compleixity: O(1)
 ```
 
-### \*[199. Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/) (20/12)
+### \*[199. Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/) (20/12, 6/1)
 
 ```typescript
 function rightSideView(root: TreeNode | null): number[] {
@@ -3697,7 +3697,9 @@ function zigzagLevelOrder(root: TreeNode | null): number[][] {
 // Space comlexity: O(w) excluding output
 ```
 
-### \*[530. Minimum Absolute Difference in BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/) (21/12)
+### \*[530. Minimum Absolute Difference in BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/) (21/12, 6/1) *
+
+`prev could be 0, if we just check (!prev), it would be causing error`
 
 ```typescript
 function getMinimumDifference(root: TreeNode | null): number {
@@ -3743,6 +3745,22 @@ function kthSmallest(root: TreeNode | null, k: number): number {
   dfs(root);
   return ans;
 }
+
+function kthSmallest(root: TreeNode | null, k: number): number {
+
+     const dfs = (node: TreeNode | null) : number | null => {
+        
+        if (!node) return null;
+
+        const left = dfs(node.left);
+        if (left !== null) return left;
+
+        k --;
+        if (k === 0) return node.val;
+        return dfs(node.right);
+    }
+    return dfs(root);
+};
 
 // Time complexity O(h + k)
 // You visit:
