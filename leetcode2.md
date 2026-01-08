@@ -2882,3 +2882,29 @@ function minCostToMoveChips(position: number[]): number {
 
 ```
 
+
+
+### ***[1403. Minimum Subsequence in Non-Increasing Order](https://leetcode.com/problems/minimum-subsequence-in-non-increasing-order/) (8/1)
+
+```typescript
+function minSubsequence(nums: number[]): number[] {
+  const total = nums.reduce((acc, x) => acc + x, 0);
+  const arr = [...nums].sort((a, b) => b - a);
+
+  let taken = 0;
+  let res = [];
+
+  for (const x of arr) {
+    res.push(x);
+    taken += x;
+    if (taken > total / 2) break;
+  }
+
+  return res;
+}
+
+// Time: O(nlogn)
+// Space: O(n)
+
+```
+
