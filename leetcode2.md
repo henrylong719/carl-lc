@@ -3080,3 +3080,49 @@ function addBinary(a: string, b: string): string {
 
 ```
 
+
+
+### *[136. Single Number](https://leetcode.com/problems/single-number/)(12/1)
+
+```typescript
+function singleNumber(nums: number[]): number {
+  let res = 0;
+
+  for (const num of nums) {
+    res ^= num;
+  }
+
+  return res;
+}
+
+// Time: O(n)
+// Space: O(1)
+
+```
+
+
+
+### **[9. Palindrome Number](https://leetcode.com/problems/palindrome-number/) (12/1)
+
+```typescript
+
+function isPalindrome(x: number): boolean {
+
+    if (x < 0) return false;
+
+    let xCopy = x;
+    let reverse = 0;
+
+    while (x > 0) {
+        reverse = 10 * reverse + (x % 10);
+        x = Math.floor(x / 10);
+    }
+
+    return xCopy === reverse;
+};
+
+// Time: O(n)
+// Space: O(1)
+
+```
+
