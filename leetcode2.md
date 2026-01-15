@@ -3409,3 +3409,28 @@ function lengthOfLIS2(nums: number[]): number {
 
 ```
 
+
+
+### **[2239. Find Closest Number to Zero](https://leetcode.com/problems/find-closest-number-to-zero/) (14/1)
+
+```typescript
+function findClosestNumber(nums: number[]): number {
+  let best = nums[0];
+
+  for (const x of nums) {
+    const ax = Math.abs(x);
+    const ab = Math.abs(best);
+
+    if (ax < ab || (ax <= ab && x > best)) {
+      best = x;
+    }
+  }
+
+  return best;
+}
+
+// Time: O(n)
+// Space: O(1)
+
+```
+
