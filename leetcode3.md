@@ -445,3 +445,196 @@ function trailingZeroes(n: number): number {
 
 ```
 
+
+
+### **[1161. Maximum Level Sum of a Binary Tree](https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/) (19/1)
+
+```typescript
+function maxLevelSum(root: TreeNode | null): number {
+  if (!root) return 0;
+
+  let level = 1;
+  let bestLevel = 1;
+  let bestSum = root.val;
+  let head = 0;
+  let queue = [root];
+
+  while (head < queue.length) {
+    const size = queue.length - head;
+    let sum = 0;
+
+    for (let i = 0; i < size; i++) {
+      const node = queue[head++];
+
+      sum += node.val;
+
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
+
+    if (sum > bestSum) {
+      bestSum = sum;
+      bestLevel = level;
+    }
+
+    level++;
+  }
+
+  return bestLevel;
+}
+
+function maxLevelSum2(root: TreeNode | null): number {
+  if (!root) return 0;
+
+  const levelSum: number[] = [];
+
+  const dfs = (node: TreeNode, level: number) => {
+    if (!node) return;
+
+    if (levelSum.length < level) {
+      levelSum.push(0);
+    }
+
+    levelSum[level - 1] += node.val;
+
+    dfs(node.left, level + 1);
+    dfs(node.right, level + 1);
+  };
+
+  dfs(root, 1);
+
+  let maxLevelSum = levelSum[0];
+  let level = 1;
+
+  for (let i = 0; i < levelSum.length; i++) {
+    if (levelSum[i] > maxLevelSum) {
+      maxLevelSum = levelSum[i];
+      level = i + 1;
+    }
+  }
+
+  return level;
+}
+
+// Time: O(n)
+// Space: O(n)
+
+```
+
+
+
+### **[547. Number of Provinces](https://leetcode.com/problems/number-of-provinces/) (19/1)
+
+```typescript
+
+function findCircleNum(isConnected: number[][]): number {
+  const n = isConnected.length;
+
+  const adjacencyList = Array.from({ length: n + 1 }, () => Array(n + 1));
+
+  for (let r = 0; r < n; r++) {
+    for (let c = 0; c < n; c++) {
+      if (r === c) continue;
+      if (isConnected[r][c] === 1) {
+        adjacencyList[r + 1].push(c + 1);
+      }
+    }
+  }
+
+  const visited = new Array(n + 1).fill(0);
+
+  const dfs = (city: number) => {
+    if (visited[city] === 1) return;
+    visited[city] = 1;
+    for (let neigh of adjacencyList[city]) {
+      if (visited[neigh] === 0) {
+        dfs(neigh);
+      }
+    }
+  };
+
+  let num = 0;
+
+  for (let i = 1; i <= n; i++) {
+    if (visited[i] === 0) {
+      num++;
+      dfs(i);
+    }
+  }
+
+  return num;
+}
+
+function findCircleNum2(isConnected: number[][]): number {
+  const n = isConnected.length;
+
+  const adjacencyList = Array.from({ length: n + 1 }, () => Array(n + 1));
+
+  for (let r = 0; r < n; r++) {
+    for (let c = 0; c < n; c++) {
+      if (r === c) continue;
+      if (isConnected[r][c] === 1) {
+        adjacencyList[r + 1].push(c + 1);
+      }
+    }
+  }
+
+  const visited = new Array(n + 1).fill(0);
+
+  const dfs = (city: number) => {
+    const stack = [city];
+    visited[city] = 1;
+    while (stack.length) {
+      const node = stack.pop();
+      for (let neigh of adjacencyList[node]) {
+        if (visited[neigh] === 0) {
+          visited[neigh] = 1;
+          stack.push(neigh);
+        }
+      }
+    }
+  };
+
+  let num = 0;
+
+  for (let i = 1; i <= n; i++) {
+    if (visited[i] === 0) {
+      num++;
+      dfs(i);
+    }
+  }
+
+  return num;
+}
+
+function findCircleNum(isConnected: number[][]): number {
+  const n = isConnected.length;
+  const visited = new Array(n).fill(false);
+
+  const dfs = (city: number) => {
+    visited[city] = true;
+    const row = isConnected[city];
+    for (let i = 0; i < n; i++) {
+      if (!visited[i] && row[i] === 1) {
+        dfs(i);
+      }
+    }
+  };
+
+  let province = 0;
+
+  for (let i = 0; i < n; i++) {
+    if (!visited[i]) {
+      province++;
+      dfs(i);
+    }
+  }
+
+  return province;
+}
+
+// Time: O(n^2)
+// Space: O(n)
+
+```
+
