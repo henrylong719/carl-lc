@@ -1248,3 +1248,28 @@ function addStrings(num1: string, num2: string): string {
 
 ```
 
+
+
+### **[496. Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/) (24/1)
+
+```typescript
+
+function nextGreaterElement(nums1: number[], nums2: number[]): number[] {
+  const next = new Map<number, number>();
+  const stack: number[] = [];
+
+  for (const num of nums2) {
+    while (stack.length && num > stack[stack.length - 1]) {
+      next.set(stack.pop()!, num);
+    }
+    stack.push(num);
+  }
+
+  return nums1.map((num) => next.get(num) ?? -1);
+}
+
+// Time: O(num1.length + num2.length)
+// Space: O(num2.length)
+
+```
+
