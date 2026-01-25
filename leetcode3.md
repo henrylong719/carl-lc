@@ -1373,20 +1373,11 @@ function countSegments2(s: string): number {
 ### **[414. Third Maximum Number](https://leetcode.com/problems/third-maximum-number/) (25/1)
 
 ```typescript
+
 function thirdMax(nums: number[]): number {
-  const sorted = [...new Set(nums)].sort((a, b) => b - a);
-
-  let res = null;
-  let count = 0;
-
-  for (const num of sorted) {
-    if (count === 0 || count === 2) {
-      res = num;
-    }
-    count++;
-  }
-  return res;
-}
+    const sorted = [...new Set(nums)].sort((a,b)=> b-a);
+    return sorted[2] ?? sorted[0];
+};
 
 // Time: O(nlogn)
 // Space: O(1)
@@ -1445,6 +1436,69 @@ function minSeconds(start: string, end: string) {
 
 // Time: O(n)
 // Space: O(1)
+
+```
+
+
+
+## **[347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) (25/1)
+
+```typescript
+
+function topKFrequent(nums: number[], k: number): number[] {
+  const counter = new Map<number, number>();
+
+  for (const n of nums) {
+    counter.set(n, (counter.get(n) ?? 0) + 1);
+  }
+
+  const arr: [number, number][] = [];
+
+  for (const [key, value] of counter) {
+    arr.push([key, value]);
+  }
+
+  arr.sort((a, b) => b[1] - a[1]);
+
+  const res: number[] = [];
+
+  for (let i = 0; i < k; i++) {
+    res.push(arr[i][0]);
+  }
+
+  return res;
+}
+
+// Time: O(nlogn)
+// Space: O(n)
+
+function topKFrequent(nums: number[], k: number): number[] {
+  const counter = new Map<number, number>();
+
+  for (const n of nums) {
+    counter.set(n, (counter.get(n) ?? 0) + 1);
+  }
+
+  const bucket = Array.from({ length: nums.length + 1 }, () => []);
+
+  for (const [num, fre] of counter) {
+    bucket[fre].push(num);
+  }
+
+  const res = [];
+
+  for (let i = bucket.length - 1; i >= 0 && res.length < k; i--) {
+    for (const n of bucket[i]) {
+      res.push(n);
+      if (res.length === k) break;
+    }
+  }
+
+  return res;
+}
+
+// Time: O(n)
+// Space: O(n)
 
 ```
 
