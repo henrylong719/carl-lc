@@ -1544,3 +1544,29 @@ function findDisappearedNumbers2(nums: number[]): number[] {
 
 ```
 
+
+
+
+
+### [2037. Minimum Number of Moves to Seat Everyone](https://leetcode.com/problems/minimum-number-of-moves-to-seat-everyone/) (26/1)
+
+```typescript
+function minMovesToSeat(seats: number[], students: number[]): number {
+  seats.sort((a, b) => a - b);
+  students.sort((a, b) => a - b);
+
+  let moves = 0;
+
+  for (let i = 0; i < seats.length; i++) {
+    moves += Math.abs(seats[i] - students[i]);
+  }
+
+  return moves;
+}
+
+// Time: O(nlogn)
+// Space: O(1)
+
+
+```
+
