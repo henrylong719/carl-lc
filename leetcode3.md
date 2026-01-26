@@ -1441,7 +1441,7 @@ function minSeconds(start: string, end: string) {
 
 
 
-## **[347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) (25/1)
+### **[347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) (25/1)
 
 ```typescript
 
@@ -1499,6 +1499,48 @@ function topKFrequent(nums: number[], k: number): number[] {
 
 // Time: O(n)
 // Space: O(n)
+
+```
+
+
+
+
+
+### **[448. Find All Numbers Disappeared in an Array](https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/) (26/1)
+
+```typescript
+function findDisappearedNumbers(nums: number[]): number[] {
+  const set = new Set(nums);
+  const res: number[] = [];
+
+  for (let i = 1; i <= nums.length; i++) {
+    if (!set.has(i)) res.push(i);
+  }
+
+  return res;
+}
+
+// Time: O(n)
+// Space: O(n)
+
+function findDisappearedNumbers2(nums: number[]): number[] {
+  for (let i = 0; i < nums.length; i++) {
+    const idx = Math.abs(nums[i]) - 1;
+    if (nums[idx] > 0) nums[idx] = -nums[idx];
+  }
+
+  const res: number[] = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] > 0) res.push(i + 1);
+  }
+
+  return res;
+}
+
+// Time: O(n)
+// Space: O(1)
+
 
 ```
 
