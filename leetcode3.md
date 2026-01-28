@@ -1719,3 +1719,67 @@ function findRelativeRanks(score: number[]): string[] {
 
 ```
 
+
+
+### **[2078. Two Furthest Houses With Different Colors](https://leetcode.com/problems/two-furthest-houses-with-different-colors/) (27/1)
+
+```typescript
+
+function maxDistance(colors: number[]): number {
+  let res = 0;
+  const n = colors.length;
+
+  for (let i = 0; i < n; i++) {
+    if (colors[i] !== colors[n - 1]) res = Math.max(res, n - 1 - i);
+  }
+
+  for (let i = n - 1; i >= 0; i--) {
+    if (colors[i] !== colors[0]) res = Math.max(res, i);
+  }
+
+  return res;
+}
+
+// Time: O(n)
+// Space: O(1)
+
+```
+
+
+
+### **[973. K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/) (27/1)
+
+```typescript
+function kClosest(points: number[][], k: number): number[][] {
+  const distances: number[][] = [];
+
+  for (let i = 0; i < points.length; i++) {
+    const p = points[i];
+    const dist = Math.sqrt(p[0] * p[0] + p[1] * p[1]);
+    distances.push([i, dist]);
+  }
+
+  distances.sort((a, b) => a[1] - b[1]);
+
+  const res: number[][] = [];
+
+  for (let i = 0; i < k; i++) {
+    const idx = distances[i][0];
+    res.push(points[idx]);
+  }
+
+  return res;
+}
+
+function kClosest(points: number[][], k: number): number[][] {
+  points.sort(
+    (a, b) => a[0] * a[0] + a[1] * a[1] - (b[0] * b[0] + b[1] * b[1]),
+  );
+  return points.slice(0, k);
+}
+
+// Time: O(nlogn)
+// Space: O(n)
+
+```
+
