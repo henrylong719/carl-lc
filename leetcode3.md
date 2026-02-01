@@ -2387,3 +2387,28 @@ class NumArray {
 
 ```
 
+
+
+### ***[371. Sum of Two Integers](https://leetcode.com/problems/sum-of-two-integers/) (1/2)
+
+```typescript
+function getSum(a: number, b: number): number {
+  while (b !== 0) {
+    const carry = (a & b) << 1;
+    a = (a ^ b) | 0; // sum without carry (force 32 bits)
+    b = carry | 0; // carry
+  }
+
+  return a;
+}
+
+// Time:O(1)
+
+/*
+Reason: in JavaScript/TypeScript, all bitwise operations work on 32-bit signed integers, so the carry can only “move left” through at most 32 bit positions. Each iteration shifts the carry left (<< 1), and once it shifts past the highest bit, it becomes 0 and the loop stops.
+
+So worst case: ≤ 32 iterations → constant time.
+*/
+
+```
+
