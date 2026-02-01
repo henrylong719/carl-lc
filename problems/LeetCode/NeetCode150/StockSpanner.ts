@@ -19,5 +19,6 @@ class StockSpanner {
     return span;
   }
 }
+
 // Time: amortized O(1) per next() (each element pushed once, popped once)
 // Space: O(n) worst case (strictly decreasing prices)
