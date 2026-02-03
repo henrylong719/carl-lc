@@ -2611,3 +2611,27 @@ function kSmallestPairs(
 
 ```
 
+
+
+### **[2331. Evaluate Boolean Binary Tree](https://leetcode.com/problems/evaluate-boolean-binary-tree/) (3/2)
+
+```typescript
+
+function evaluateTree(root: TreeNode | null): boolean {
+  if (!root) return false;
+
+  if (!root.left && !root.right) return root.val === 1;
+
+  const left = evaluateTree(root.left);
+  const right = evaluateTree(root.right);
+
+  if (root.val === 2) return left || right;
+
+  return left && right;
+}
+
+// Time: O(n)
+// Space: O(h)
+
+```
+
