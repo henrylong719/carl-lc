@@ -2850,8 +2850,31 @@ function arrangeCoins(n: number): number {
   return r;
 }
 
+
+function arrangeCoins(n: number): number {
+  let l = 0;
+  let r = n;
+
+  while (l < r) {
+    const mid = Math.floor((l + r + 1) / 2); // bias right
+
+    const need = ((1 + mid) * mid) / 2;
+
+    if (need === n) return mid;
+
+    if (need < n) {
+      l = mid;
+    } else {
+      r = mid - 1;
+    }
+  }
+
+  return l;
+}
+
 // Time: O(logn)
 // Space: O(1)
+
 
 ```
 
