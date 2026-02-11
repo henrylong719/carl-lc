@@ -226,3 +226,35 @@ function specialArray(nums: number[]): number {
 
 ```
 
+
+
+### ****[3477. Fruits Into Baskets II](https://leetcode.com/problems/fruits-into-baskets-ii/) (11/2)
+
+`can have a better solution`
+
+```typescript
+
+function numOfUnplacedFruits(fruits: number[], baskets: number[]): number {
+  let count = 0;
+  for (const f of fruits) {
+    let valid = false;
+    for (let i = 0; i < baskets.length; i++) {
+      const b = baskets[i];
+      if (b >= f) {
+        valid = true;
+        baskets[i] = 0;
+        break;
+      }
+    }
+    if (!valid) count++;
+  }
+
+  return count;
+}
+
+// Time: O(m*n)
+// Space: O(1)
+
+
+```
+
