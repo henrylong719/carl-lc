@@ -927,3 +927,45 @@ function isPrefixString(s: string, words: string[]): boolean {
 
 ```
 
+
+
+### **[3823. Reverse Letters Then Special Characters in a String](https://leetcode.com/problems/reverse-letters-then-special-characters-in-a-string/) (28/1)
+
+```typescript
+function reverseByType(s: string): string {
+  const arr = s.split('');
+  const special = new Set('!@#$%^&*()');
+
+  const normals = [];
+  const specials = [];
+
+  for (const ch of arr) {
+    if (special.has(ch)) {
+      specials.push(ch);
+      continue;
+    }
+    normals.push(ch);
+  }
+
+  let sp = specials.length - 1;
+  let no = normals.length - 1;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (special.has(arr[i])) {
+      arr[i] = specials[sp--];
+      continue;
+    }
+    arr[i] = normals[no--];
+  }
+
+  return arr.join('');
+}
+
+// Time: O(n)
+// Space: O(n)
+
+
+
+
+```
+
