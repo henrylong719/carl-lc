@@ -964,7 +964,30 @@ function reverseByType(s: string): string {
 // Time: O(n)
 // Space: O(n)
 
+```
 
+
+
+### **[1475. Final Prices With a Special Discount in a Shop](https://leetcode.com/problems/final-prices-with-a-special-discount-in-a-shop/) (2/3)
+
+```typescript
+function finalPrices(prices: number[]): number[] {
+  const res = [...prices];
+  const stack = [];
+
+  for (let i = 0; i < prices.length; i++) {
+    while (stack.length > 0 && prices[stack[stack.length - 1]] >= prices[i]) {
+      const j = stack.pop()!;
+      res[j] = prices[j] - prices[i];
+    }
+    stack.push(i);
+  }
+
+  return res;
+}
+
+// Time: O(n)
+// Space: O(n)
 
 
 ```
