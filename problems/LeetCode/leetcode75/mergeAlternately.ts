@@ -40,3 +40,23 @@ function mergeAlternately(word1: string, word2: string): string {
 
 // Time O(m+n)
 // Space O(m+n)
+
+function mergeAlternately(word1: string, word2: string): string {
+  let idx1 = 0;
+  let idx2 = 0;
+  let res: string[] = [];
+
+  while (idx1 < word1.length || idx2 < word2.length) {
+    if (idx1 < word1.length) {
+      res.push(word1[idx1]);
+      idx1++;
+    }
+
+    if (idx2 < word2.length) {
+      res.push(word2[idx2]);
+      idx2++;
+    }
+  }
+
+  return res.join('');
+}
