@@ -1,26 +1,24 @@
-function gcdOfStrings(str1: string, str2: string): string {
-  let len1 = str1.length;
-  let len2 = str2.length;
+function reverseWords(s: string): string {
+  let end = s.length - 1;
+  let res = '';
 
-  const isDivisor = (l: number) => {
-    if (len1 % l !== 0 || len2 % l !== 0) return false;
+  while (end >= 0) {
+    let wordEnd = end;
 
-    const gcd = str1.slice(0, l);
-
-    for (let i = 0; i < len1; i += l) {
-      if (!str1.startsWith(gcd, i)) return false;
+    while (s[wordEnd] === ' ' && wordEnd >= 0) {
+      wordEnd--;
     }
 
-    for (let j = 0; j < len2; j += l) {
-      if (!str2.startsWith(gcd, j)) return false;
+    let wordStart = wordEnd;
+
+    while (s[wordStart] !== ' ' && wordStart >= 0) {
+      wordStart--;
     }
 
-    return true;
-  };
+    res += s.slice(wordStart + 1, wordEnd + 1) + ' ';
 
-  for (let i = Math.min(len1, len2); i > 0; i--) {
-    if (isDivisor(i)) return str1.slice(0, i);
+    end = wordStart;
   }
 
-  return '';
+  return res.trim();
 }

@@ -217,3 +217,46 @@ function gcdOfStrings(str1: string, str2: string): string {
 
 
 
+### **[151. Reverse Words in a String](https://leetcode.com/problems/reverse-words-in-a-string/) (21/3)
+
+```typescript
+function reverseWords(s: string): string {
+    return s.split(' ').filter((str)=>!!str).reverse().join(' ');
+};
+
+// Time: O(n)
+// Space: O(n)
+
+function reverseWords(s: string): string {
+
+    let end = s.length - 1; 
+    let res = '';
+
+    while (end >= 0) {
+
+        let wordEnd = end;
+
+        while (s[wordEnd] === ' ' && wordEnd >= 0) {
+            wordEnd --;
+        }
+
+        let wordStart = wordEnd;
+
+        while (s[wordStart] !== ' ' && wordStart >= 0) {
+            wordStart --;
+        }
+
+        res += s.slice(wordStart + 1, wordEnd + 1) + ' ';
+
+        end = wordStart;
+    }
+
+    return res.trim();
+};
+
+// Time: O(n)
+// Space: O(n)
+```
+
+
+
