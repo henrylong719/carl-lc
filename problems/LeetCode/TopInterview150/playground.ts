@@ -1,24 +1,23 @@
-function reverseWords(s: string): string {
-  let end = s.length - 1;
-  let res = '';
+function canPlaceFlowers(flowerbed: number[], n: number): boolean {
+  const valid = (i: number) => {
+    if (
+      flowerbed[i] === 0 &&
+      (i === 0 || flowerbed[i - 1] === 0) &&
+      (i === flowerbed.length - 1 || flowerbed[i + 1] === 0)
+    ) {
+      return true;
+    }
+    return false;
+  };
 
-  while (end >= 0) {
-    let wordEnd = end;
-
-    while (s[wordEnd] === ' ' && wordEnd >= 0) {
-      wordEnd--;
+  for (let i = 0; i < flowerbed.length; i++) {
+    if (valid(i)) {
+      flowerbed[i] = 1;
+      n--;
     }
 
-    let wordStart = wordEnd;
-
-    while (s[wordStart] !== ' ' && wordStart >= 0) {
-      wordStart--;
-    }
-
-    res += s.slice(wordStart + 1, wordEnd + 1) + ' ';
-
-    end = wordStart;
+    if (n <= 0) return true;
   }
 
-  return res.trim();
+  return false;
 }
