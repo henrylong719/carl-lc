@@ -290,3 +290,69 @@ function canPlaceFlowers(flowerbed: number[], n: number): boolean {
 
 ```
 
+
+
+### **[443. String Compression](https://leetcode.com/problems/string-compression/) (22/3)
+
+```typescript
+
+function compress(chars: string[]): number {
+  let read = 0;
+  let write = 0;
+
+  while (read < chars.length) {
+    const ch = chars[read];
+    const start = read;
+
+    while (read < chars.length && chars[read] === ch) read++;
+
+    // new char or the end
+    chars[write++] = ch;
+    const count = read - start;
+
+    if (count > 1) {
+      const s = String(count);
+      for (let i = 0; i < s.length; i++) {
+        chars[write++] = s[i];
+      }
+    }
+  }
+  return write;
+}
+
+// Time: O(n)
+// Space: O(1)
+```
+
+
+
+### *[238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) (23/3)
+
+```typescript
+
+
+function productExceptSelf(nums: number[]): number[] {
+  const n = nums.length;
+
+  const res = new Array(n).fill(1);
+
+  for (let i = 1; i < n; i++) {
+    res[i] = res[i - 1] * nums[i - 1];
+  }
+
+  let product = 1;
+
+  for (let i = n - 1; i >= 0; i--) {
+    res[i] = res[i] * product;
+    product *= nums[i];
+  }
+
+  return res;
+}
+
+
+// Time: O(n)
+// Space: O(1) (exclude output array)
+
+```
+
