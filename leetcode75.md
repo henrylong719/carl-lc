@@ -329,8 +329,6 @@ function compress(chars: string[]): number {
 ### *[238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) (23/3)
 
 ```typescript
-
-
 function productExceptSelf(nums: number[]): number[] {
   const n = nums.length;
 
@@ -353,6 +351,90 @@ function productExceptSelf(nums: number[]): number[] {
 
 // Time: O(n)
 // Space: O(1) (exclude output array)
+
+```
+
+
+
+### *** [334. Increasing Triplet Subsequence](https://leetcode.com/problems/increasing-triplet-subsequence/) (23/3)
+
+```typescript
+
+function increasingTriplet(nums: number[]): boolean {
+  let first = Infinity;
+  let second = Infinity;
+
+  for (const num of nums) {
+    if (num <= first) {
+      first = num;
+    } else if (num <= second) {
+      second = num;
+    } else {
+      return true;
+    }
+  }
+  return false;
+}
+
+// Time: O(n)
+// Space: O(1)
+```
+
+
+
+### **[283. Move Zeroes](https://leetcode.com/problems/move-zeroes/) (24/3)
+
+```typescript
+
+function moveZeroes(nums: number[]): void {
+
+    let left = 0;
+
+    for (let right = 0; right < nums.length; right++) {
+        if (nums[right] !== 0) {
+            [nums[left],nums[right]] = [nums[right],nums[left]];
+            left++
+        }
+    }
+};
+
+// Time: O(n)
+// Space: O(1)
+```
+
+
+
+### [392. Is Subsequence](https://leetcode.com/problems/is-subsequence/)
+
+```typescript
+
+function isSubsequence(s: string, t: string): boolean {
+  let ptr = 0;
+
+  for (const char of t) {
+    if (char === s[ptr]) ptr++;
+  }
+
+  return ptr === s.length;
+}
+
+function isSubsequence(s: string, t: string): boolean {
+  let sPtr = 0;
+  let tPtr = 0;
+
+  while (sPtr < s.length && tPtr < t.length) {
+    if (s[sPtr] === t[tPtr]) {
+      sPtr++;
+    }
+    tPtr++;
+  }
+
+  return sPtr === s.length;
+}
+
+
+// Time: O(n)
+// Space: O(1)
 
 ```
 
