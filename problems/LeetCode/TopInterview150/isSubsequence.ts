@@ -26,3 +26,23 @@ function isSubsequence2(s: string, t: string): boolean {
 
 // Time complexity: O(n)
 // Space complexity: O(1)
+
+function maxOperations(nums: number[], k: number): number {
+  const map = new Map<number, number>();
+  let count: number = 0;
+
+  for (let num of nums) {
+    const need = k - num;
+    const needCount = map.get(need);
+
+    if (needCount !== undefined && needCount > 0) {
+      map.set(need, needCount - 1);
+      count++;
+      continue;
+    }
+
+    map.set(num, (map.get(num) ?? 0) + 1);
+  }
+
+  return count;
+}

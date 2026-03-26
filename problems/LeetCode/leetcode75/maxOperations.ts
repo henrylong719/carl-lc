@@ -45,3 +45,23 @@ function maxOperations(nums: number[], k: number): number {
 
 // Time: O(n))
 // Space: O(n)
+
+function maxOperations(nums: number[], k: number): number {
+  const map = new Map<number, number>();
+  let count: number = 0;
+
+  for (let num of nums) {
+    const need = k - num;
+    const neededCount = map.get(need);
+
+    if (neededCount !== undefined && neededCount > 0) {
+      map.set(need, neededCount - 1);
+      count++;
+      continue;
+    }
+
+    map.set(num, (map.get(num) ?? 0) + 1);
+  }
+
+  return count;
+}

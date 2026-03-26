@@ -438,3 +438,61 @@ function isSubsequence(s: string, t: string): boolean {
 
 ```
 
+
+
+### [1679. Max Number of K-Sum Pairs](https://leetcode.com/problems/max-number-of-k-sum-pairs/) (25/3)
+
+```typescript
+
+function maxOperations(nums: number[], k: number): number {
+  let count = 0;
+  let l = 0;
+  let r = nums.length - 1;
+
+  nums.sort((a, b) => a - b);
+
+  while (l < r) {
+    const sum = nums[l] + nums[r];
+
+    if (sum === k) {
+      l++;
+      r--;
+      count++;
+    } else if (sum > k) {
+      r--;
+    } else {
+      l++;
+    }
+  }
+
+  return count;
+}
+
+// Time: O(nlogn)
+// Space: O(1)
+
+function maxOperations(nums: number[], k: number): number {
+
+    const map = new Map<number,number>();
+    let count: number = 0;
+
+    for (let num of nums) {
+        const need = k - num;
+        const needCount =  map.get(need);
+
+        if (needCount !== undefined && needCount > 0) {
+            map.set(need, needCount - 1);
+            count++;
+            continue;
+        }
+
+        map.set(num, (map.get(num) ?? 0) + 1);
+    }
+
+    return count;
+};
+
+// Time: O(n)
+// Space: O(n)
+```
+
