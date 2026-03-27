@@ -494,5 +494,108 @@ function maxOperations(nums: number[], k: number): number {
 
 // Time: O(n)
 // Space: O(n)
+
+```
+
+
+
+### *** [1493. Longest Subarray of 1's After Deleting One Element](https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/) (27/3)
+
+```typescript
+function longestSubarray(nums: number[]): number {
+  let left = 0;
+  let lastZero = -1;
+  let maxLength = 0;
+
+  for (let right = 0; right < nums.length; right++) {
+    if (nums[right] === 0) {
+      left = lastZero + 1;
+      lastZero = right;
+    }
+
+    maxLength = Math.max(maxLength, right - left);
+  }
+
+  return maxLength;
+}
+
+function longestSubarray(nums: number[]): number {
+  if (!nums.includes(0)) return nums.length - 1;
+
+  let zeros = 0;
+  let windowStart = 0;
+  let res = 0;
+
+  for (let windowEnd = 0; windowEnd < nums.length; windowEnd++) {
+    if (nums[windowEnd] === 0) zeros++;
+
+    res = Math.max(res, windowEnd - windowStart + 1 - zeros);
+
+    while (zeros > 1) {
+      if (nums[windowStart] === 0) zeros--;
+      windowStart++;
+    }
+  }
+
+  return res;
+}
+
+
+
+function longestSubarray(nums: number[]): number {
+  let left = 0;
+  let zeros = 0;
+  let maxLength = 0;
+
+  for (let right = 0; right < nums.length; right++) {
+    if (nums[right] === 0) zeros++;
+
+    while (zeros > 1) {
+      if (nums[left] === 0) zeros--;
+      left++;
+    }
+
+    maxLength = Math.max(maxLength, right - left);
+  }
+
+  return maxLength;
+}
+
+// Time: O(n)
+// Space: O(1)
+
+```
+
+
+
+
+
+### ***[1004. Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/) (27/3)
+
+
+
+```typescript
+
+function longestOnes(nums: number[], k: number): number {
+  let zeros = 0;
+  let left = 0;
+  let maxLength = 0;
+
+  for (let right = 0; right < nums.length; right++) {
+    if (nums[right] === 0) zeros++;
+
+    while (zeros > k) {
+      if (nums[left] === 0) zeros--;
+      left++;
+    }
+    maxLength = Math.max(maxLength, right - left + 1);
+  }
+
+  return maxLength;
+}
+
+// Time: O(n)
+// Space: O(1)
+
 ```
 
