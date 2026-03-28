@@ -1,23 +1,15 @@
-function canPlaceFlowers(flowerbed: number[], n: number): boolean {
-  const valid = (i: number) => {
-    if (
-      flowerbed[i] === 0 &&
-      (i === 0 || flowerbed[i - 1] === 0) &&
-      (i === flowerbed.length - 1 || flowerbed[i + 1] === 0)
-    ) {
-      return true;
-    }
-    return false;
-  };
+function pivotIndex2(nums: number[]): number {
+  const totalSum = nums.reduce((acc, cur) => acc + cur, 0);
 
-  for (let i = 0; i < flowerbed.length; i++) {
-    if (valid(i)) {
-      flowerbed[i] = 1;
-      n--;
-    }
+  let leftTotal = 0;
 
-    if (n <= 0) return true;
+  for (let i = 0; i < nums.length; i++) {
+    const rightTotal = totalSum - nums[i] - leftTotal;
+    if (rightTotal === leftTotal) return i;
+    leftTotal += nums[i];
   }
 
-  return false;
+  return -1;
 }
+
+console.log(pivotIndex2([9]));

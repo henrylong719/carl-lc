@@ -599,3 +599,70 @@ function longestOnes(nums: number[], k: number): number {
 
 ```
 
+
+
+### *[1732. Find the Highest Altitude](https://leetcode.com/problems/find-the-highest-altitude/)(27/3)
+
+```typescript
+
+function largestAltitude(gain: number[]): number {
+
+    const n = gain.length;
+
+    const altitudes = new Array(n+1).fill(0);
+
+    for (let i = 1; i <= n; i++) {
+        altitudes[i] = gain[i-1] + altitudes[i-1];
+    }
+
+    return Math.max(...altitudes);
+};
+
+// Time: O(n)
+// Space: O(n)
+
+function largestAltitude(gain: number[]): number {
+
+    const n = gain.length;
+
+    let altitude = 0;
+    let maxAltitude = 0; 
+
+    for (let i = 1; i <= n; i++) {
+         altitude = gain[i-1] + altitude; 
+         maxAltitude = Math.max(maxAltitude, altitude);
+
+    }
+
+    return maxAltitude;
+};
+
+// Time: O(n)
+// Space: O(1)
+```
+
+
+
+### *[724. Find Pivot Index](https://leetcode.com/problems/find-pivot-index/) (27/3)
+
+```typescript
+
+function pivotIndex(nums: number[]): number {
+  const totalSum = nums.reduce((acc, cur) => acc + cur, 0);
+
+  let leftTotal = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    const rightTotal = totalSum - nums[i] - leftTotal;
+    if (rightTotal === leftTotal) return i;
+    leftTotal += nums[i];
+  }
+
+  return -1;
+}
+
+// Time O(n)
+// Space: O(1)
+
+```
+
