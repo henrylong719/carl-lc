@@ -666,3 +666,214 @@ function pivotIndex(nums: number[]): number {
 
 ```
 
+
+
+### [1207. Unique Number of Occurrences](https://leetcode.com/problems/unique-number-of-occurrences/) (28/3)
+
+```typescript
+
+function uniqueOccurrences(arr: number[]): boolean {
+  const map = new Map<number, number>();
+
+  for (const n of arr) {
+    map.set(n, (map.get(n) ?? 0) + 1);
+  }
+
+  const occur = [...map.values()];
+  return occur.length === new Set([...occur]).size;
+}
+
+function uniqueOccurrences(arr: number[]): boolean {
+  const map = new Map<number, number>();
+
+  for (const n of arr) {
+    map.set(n, (map.get(n) ?? 0) + 1);
+  }
+
+  const seen = new Set();
+
+  for (const n of map.values()) {
+    if (seen.has(n)) return false;
+    seen.add(n);
+  }
+
+  return true;
+}
+
+
+
+
+// Time: O(n)
+// Space: O(n)
+
+```
+
+
+
+### **[1657. Determine if Two Strings Are Close](https://leetcode.com/problems/determine-if-two-strings-are-close/) (28/3)
+
+```typescript
+
+
+function closeStrings(word1: string, word2: string): boolean {
+  // 1. two strings have same keys
+  // 2. two strings have same ch frequencies
+
+  if (word1.length !== word2.length) return false;
+
+  const map1 = new Map<string, number>();
+  const map2 = new Map<string, number>();
+
+  const n = word1.length;
+
+  for (let i = 0; i < n; i++) {
+    map1.set(word1[i], (map1.get(word1[i]) ?? 0) + 1);
+    map2.set(word2[i], (map2.get(word2[i]) ?? 0) + 1);
+  }
+
+  if (map1.size !== map2.size) return false;
+
+  for (const k of map1.keys()) {
+    if (!map2.has(k)) return false;
+  }
+
+  const freq1 = [...map1.values()].sort((a, b) => a - b);
+  const freq2 = [...map2.values()].sort((a, b) => a - b);
+
+  if (freq1.length !== freq2.length) return false;
+
+  for (let i = 0; i < freq1.length; i++) {
+    if (freq1[i] !== freq2[i]) return false;
+  }
+
+  return true;
+}
+
+function closeStrings(word1: string, word2: string): boolean {
+  // 1. two strings have same keys
+  // 2. two strings have same ch counts
+
+  if (word1.length !== word2.length) return false;
+
+  const count1 = new Array(26).fill(0);
+  const count2 = new Array(26).fill(0);
+
+  const n = word1.length;
+
+  for (let i = 0; i < n; i++) {
+    count1[word1[i].charCodeAt(0) - 'a'.charCodeAt(0)]++;
+    count2[word2[i].charCodeAt(0) - 'a'.charCodeAt(0)]++;
+  }
+
+  for (let i = 0; i < 26; i++) {
+    //  havign different keys
+    if (
+      (count1[i] > 0 && count2[i] === 0) ||
+      (count2[i] === 0 && count1[i] > 0)
+    ) {
+      return false;
+    }
+  }
+
+  count1.sort((a, b) => a - b);
+  count2.sort((a, b) => a - b);
+
+  for (let i = 0; i < 26; i++) {
+    if (count1[i] !== count2[i]) return false;
+  }
+
+  return true;
+}
+
+
+// k: the number of distinct characters.
+// Time: O(n + klog(k))  → effectively O(n)
+// Space: O(n) -> O(1)
+
+
+```
+
+
+
+### ***[2352. Equal Row and Column Pairs](https://leetcode.com/problems/equal-row-and-column-pairs/) (28/3)
+
+
+
+**Keey in mind for cases like `[[11,1],[1,11]]` **
+
+
+
+```typescript
+
+
+function equalPairs(grid: number[][]): number {
+  const rows = grid.length;
+  const cols = grid[0].length;
+  const rowsCount = new Map<string, number>();
+
+  for (let r = 0; r < rows; r++) {
+    const row = grid[r].join('#');
+    rowsCount.set(row, (rowsCount.get(row) ?? 0) + 1);
+  }
+
+  let ans = 0;
+
+  for (let c = 0; c < cols; c++) {
+    const colNums = [];
+    for (let r = 0; r < rows; r++) colNums.push(grid[r][c]);
+    const colStr = colNums.join('#');
+    ans += rowsCount.get(colStr) ?? 0;
+  }
+
+  return ans;
+}
+
+
+// Time: O(n^2)
+// Space: O(n^2)
+
+// const rowsCount = new Map<string, number>();
+// here can be up to n different row strings.
+// Each row key represents n elements, so the stored keys take substantial space overall.
+// That makes the map cost O(n²) space in total.
+
+
+function equalPairs(grid: number[][]): number {
+  const rows = grid.length;
+  const cols = grid[0].length;
+
+  const rowStrs = [];
+  const colStrs = [];
+
+  for (let r = 0; r < rows; r++) {
+    const nums = [];
+    for (let c = 0; c < cols; c++) {
+      nums.push(grid[r][c]);
+    }
+    rowStrs.push(nums.join('-'));
+  }
+
+  for (let c = 0; c < cols; c++) {
+    const nums = [];
+    for (let r = 0; r < rows; r++) {
+      nums.push(grid[r][c]);
+    }
+    colStrs.push(nums.join('-'));
+  }
+
+  let count = 0;
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (rowStrs[r] === colStrs[c]) count++;
+    }
+  }
+
+  return count;
+}
+
+// Time: O(n^2)
+// Space: O(n^2)
+
+```
+
