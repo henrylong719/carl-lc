@@ -877,3 +877,74 @@ function equalPairs(grid: number[][]): number {
 
 ```
 
+
+
+### ***[735. Asteroid Collision](https://leetcode.com/problems/asteroid-collision/) (29/3)
+
+```typescript
+
+function asteroidCollision(asteroids: number[]): number[] {
+  // only positive, negative collides
+
+  const stack = [];
+
+  for (const s of asteroids) {
+    stack.push(s);
+
+    while (
+      stack.length > 1 &&
+      stack[stack.length - 1] < 0 &&
+      stack[stack.length - 2] > 0
+    ) {
+      // negative
+      const top = stack[stack.length - 1];
+      // positive
+      const second = stack[stack.length - 2];
+
+      if (-top === second) {
+        stack.pop();
+        stack.pop();
+        break;
+      } else if (-top < second) {
+        stack.pop();
+        break;
+      } else if (-top > second) {
+        stack.pop();
+        stack.pop();
+        stack.push(top);
+      }
+    }
+  }
+
+  return stack;
+}
+
+
+function asteroidCollision(asteroids: number[]): number[] {
+  const stack = [];
+
+  for (let i = 0; i < asteroids.length; i++) {
+    const curr = asteroids[i];
+    const last = stack[stack.length - 1];
+
+    if (!stack.length || last < 0 || curr > 0) {
+      stack.push(curr);
+    } else if (last === -curr) {
+      stack.pop();
+    } else if (last < -curr) {
+      stack.pop();
+      i--;
+    }
+  }
+
+  return stack;
+}
+
+
+// Time: O(n) (amortized)
+// Space: O(n)
+
+```
+
+
+
