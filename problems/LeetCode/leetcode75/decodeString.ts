@@ -25,5 +25,5 @@ function decodeString(s: string): string {
   return curr;
 }
 
-// Time: O(n + outputLenght) because you must actually build the oupput)
+// Time: O(n + outputLengh) because you must actually build the oupput)
 // Space: O(n) stack + output

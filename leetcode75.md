@@ -948,3 +948,43 @@ function asteroidCollision(asteroids: number[]): number[] {
 
 
 
+
+
+### ***[394. Decode String](https://leetcode.com/problems/decode-string/) (29/3)
+
+```typescript
+
+function decodeString(s: string): string {
+
+    const countStack = [];
+    const strStack = [];
+
+    let count = 0;
+    let curr = '';
+
+    for (const ch of s) {
+
+        if (ch >= '0' && ch <= '9') {
+            count = count * 10 + ch.charCodeAt(0) - '0'.charCodeAt(0);
+        } else if (ch === '[') {
+            countStack.push(count);
+            strStack.push(curr);
+            count = 0;
+            curr = '';
+        } else if (ch === ']') {
+            const times = countStack.pop();
+            const prev = strStack.pop();
+            curr = prev + curr.repeat(times);
+        } else {
+            curr += ch;
+        }
+    }
+    return curr;
+};
+
+
+// Time: O(n + outputLength) because you must actually build the output
+// Space: O(n) stack + output
+
+```
+
