@@ -1097,3 +1097,31 @@ function predictPartyVictory(senate: string): string {
 // Space: O(n)
 ```
 
+
+
+### *[2095. Delete the Middle Node of a Linked List](https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/) (31/3)
+
+```typescript
+
+function deleteMiddle(head: ListNode | null): ListNode | null {
+
+    if (!head || !head.next) return null;
+
+    let prev = null;
+    let slow = head;
+    let fast = head;
+
+    while (fast && fast.next) {
+        fast = fast.next.next;
+        prev = slow;
+        slow = slow.next;
+    }
+
+    prev.next = slow.next;
+    return head;
+};
+
+// Time: O(n)
+// Space: O(1)
+```
+
