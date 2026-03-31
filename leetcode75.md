@@ -1021,6 +1021,7 @@ function dailyTemperatures(temperatures: number[]): number[] {
 
 class RecentCounter {
 
+  	// should be queue here
     private s: number[] = [];
     private head: number = 0;
 
@@ -1050,5 +1051,49 @@ class RecentCounter {
 // Space:
 // O(N)
 
+```
+
+
+
+
+
+### ***[649. Dota2 Senate](https://leetcode.com/problems/dota2-senate/) (31/3)
+
+```typescript
+
+function predictPartyVictory(senate: string): string {
+
+    const n = senate.length;
+
+    const rQueue = [];
+    const dQueue = [];
+
+    for (let i = 0; i < n; i++) {
+        if (senate[i] === 'R') {
+            rQueue.push(i);
+        } else {
+            dQueue.push(i);
+        }
+    }
+
+    let rHead = 0;
+    let dHead = 0;
+
+    while (rHead < rQueue.length && dHead < dQueue.length) {
+        const r = rQueue[rHead++];
+        const d = dQueue[dHead++];
+
+        if (r < d) {
+            rQueue.push(r + n);
+        } else {
+            dQueue.push(d + n);
+        }
+    }
+
+    return rHead < rQueue.length ? 'Radiant' : 'Dire';
+};
+
+// Time: O(n) a senate can only be push limited times
+// Space: O(n)
 ```
 
