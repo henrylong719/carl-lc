@@ -988,3 +988,67 @@ function decodeString(s: string): string {
 
 ```
 
+
+
+### ***[739. Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) (30/3)
+
+```typescript
+
+function dailyTemperatures(temperatures: number[]): number[] {
+  const s: number[] = [];
+  const res: number[] = new Array(temperatures.length).fill(0);
+
+  for (let i = 0; i < temperatures.length; i++) {
+    while (s.length > 0 && temperatures[i] > temperatures[s[s.length - 1]]) {
+      const idx = s.pop();
+      res[idx] = i - idx;
+    }
+    s.push(i);
+  }
+
+  return res;
+}
+
+// Time: O(n)
+// Space: O(n)
+```
+
+
+
+### *[933. Number of Recent Calls](https://leetcode.com/problems/number-of-recent-calls/) (30/3)
+
+```typescript
+
+class RecentCounter {
+
+    private s: number[] = [];
+    private head: number = 0;
+
+    ping(t: number): number {
+
+        this.s.push(t);
+
+        const limit = t - 3000;
+
+        while (this.s[this.head] < limit) this.head++;
+
+        // clean up to prvent memory growth
+        // more than half of the memory is already useless
+        if (this.head > 1024 && this.head > this.s.length / 2) {
+            this.s = this.s.slice(this.head);
+            this.head = 0;
+        }
+
+        return this.s.length - this.head;
+    }
+}
+
+// Time:
+// per ping(): amotized O(1)
+// across N pings, O(N) in total
+
+// Space:
+// O(N)
+
+```
+
