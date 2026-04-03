@@ -1157,3 +1157,91 @@ function oddEvenList(head: ListNode | null): ListNode | null {
 // Space: O(1)
 ```
 
+
+
+### *** [2130. Maximum Twin Sum of a Linked List](https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/) (2/4)
+
+```typescript
+
+function pairSum(head: ListNode | null): number {
+
+    // find the mid node
+    let slow = head;
+    let fast = head;
+
+    while (fast && fast.next) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+
+    // reverse the second half
+    let cur = slow;
+    let pre = null;
+
+    while (cur) {
+        const nxt = cur.next;
+        cur.next = pre;
+        pre = cur;
+        cur = nxt;
+    }
+
+    // find the max
+    let p1 = head;
+    let p2 = pre;
+    let maxSum = 0
+
+    while (p1 && p2) {
+        maxSum = Math.max(p1.val + p2.val, maxSum);
+        p1 = p1.next;
+        p2 = p2.next;
+    }
+
+    return maxSum;
+};
+
+// Time: O(n)
+// Space: O(1)
+```
+
+
+
+### *[872. Leaf-Similar Trees](https://leetcode.com/problems/leaf-similar-trees/) (3/4)
+
+```typescript
+
+function leafSimilar(root1: TreeNode | null, root2: TreeNode | null): boolean {
+
+    const getLeaves = (root: TreeNode) => {
+        const leaves = [];
+
+        const dfs = (root: TreeNode) => {
+            if (!root) return;
+
+            if (!root.left && !root.right) leaves.push(root.val);
+
+            dfs(root.left);
+            dfs(root.right);
+        }
+
+        dfs(root);
+        return leaves;
+    }
+
+    const leaves1 = getLeaves(root1);
+    const leaves2 = getLeaves(root2);
+
+    if (leaves1.length !== leaves2.length) return false;
+
+    for (let i = 0; i < leaves1.length; i++) {
+        if (leaves1[i] !== leaves2[i]) return false;
+    }
+
+    return true;
+};
+
+
+// Time: O(m + n)
+// Space: O(m + n)
+
+```
+
