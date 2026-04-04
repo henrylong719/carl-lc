@@ -1245,3 +1245,80 @@ function leafSimilar(root1: TreeNode | null, root2: TreeNode | null): boolean {
 
 ```
 
+
+
+### ***[437. Path Sum III](https://leetcode.com/problems/path-sum-iii/) (3/4)
+
+```typescript
+
+
+function pathSum(root: TreeNode | null, targetSum: number): number {
+
+    const sum = (root: TreeNode | null, target: number) => {
+        if (!root) return 0;
+        target -= root.val;
+        
+        let res = target === 0 ? 1 : 0;
+
+        res += sum(root.left, target);
+        res += sum(root.right, target);
+
+        return res;
+    }
+
+    const dfs = (root: TreeNode | null) => {
+        if (!root) return 0;
+        let count = sum(root, targetSum);
+
+        count += dfs(root.left);
+        count += dfs(root.right);
+
+        return count;
+    }
+
+    return dfs(root);
+};
+
+
+// Time: O(n^2)
+// Space: O(n)
+
+
+
+function pathSum(root: TreeNode | null, targetSum: number): number {
+
+    const prefixSum = new Map();
+    prefixSum.set(0, 1);
+
+    const dfs = (node: TreeNode | null, currentSum: number): number => {
+
+        if (!node) return 0;
+
+        currentSum += node.val;
+
+        const need = currentSum - targetSum;
+
+        let ans = prefixSum.get(need) ?? 0;
+
+        prefixSum.set(currentSum, (prefixSum.get(currentSum) ?? 0) + 1);
+
+        ans += dfs(node.left, currentSum);
+        ans += dfs(node.right, currentSum);
+
+        prefixSum.set(currentSum, (prefixSum.get(currentSum) ?? 0) - 1);
+
+        return ans;
+    }
+
+    return dfs(root, 0);
+};
+
+// Time: O(n)
+// Space: O(n)
+
+```
+
+
+
+
+
