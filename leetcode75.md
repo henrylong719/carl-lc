@@ -1430,3 +1430,80 @@ function rightSideView(root: TreeNode | null): number[] {
 
 ```
 
+
+
+
+
+### *[1161. Maximum Level Sum of a Binary Tree](https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/) (4/4)
+
+```typescript
+
+function maxLevelSum(root: TreeNode | null): number {
+
+    let bestLevel = 1;
+    let bestSum = -Infinity;
+    let queue: [TreeNode, number][] = [[root, 1]];
+    let head = 0;
+
+    while (head < queue.length) {
+        const size = queue.length - head;
+        const level = queue[head][1];
+        let sum = 0;
+
+        for (let i = 0; i < size; i++) {
+            const [n, l] = queue[head++];
+            sum += n.val;
+            if (n.left) queue.push([n.left, l + 1]);
+            if (n.right) queue.push([n.right, l + 1]);
+        }
+
+        if (sum > bestSum) {
+            bestSum = sum;
+            bestLevel = level;
+        }
+    }
+
+    return bestLevel;
+};
+
+// Time: O(n)
+// Space: O(w) worst case O(n)
+
+
+
+function maxLevelSum(root: TreeNode | null): number {
+
+
+    const levelSum: number[] = [];
+
+    const dfs = (node: TreeNode | null, level: number) => {
+
+        if (!node) return;
+
+        if (levelSum.length < level) levelSum.push(0);
+
+        levelSum[level - 1] += node.val;
+
+        dfs(node.left, level + 1);
+        dfs(node.right, level + 1);
+    }
+
+    dfs(root, 1);
+
+    let bestSum = -Infinity;
+    let bestLevel = 1;
+
+    for (let i = 0; i < levelSum.length; i++) {
+        if (levelSum[i] > bestSum) {
+            bestSum = levelSum[i];
+            bestLevel = i + 1;
+        }
+    }
+    return bestLevel;
+};
+
+
+// Time: O(n)
+// Space: O(h) worst case O(n)
+```
+
