@@ -1351,7 +1351,7 @@ function longestZigZag(root: TreeNode | null): number {
 
 
 
-## *[236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) (4/4)
+### *[236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) (4/4)
 
 ```typescript
 
@@ -1373,6 +1373,60 @@ function lowestCommonAncestor(root: TreeNode | null, p: TreeNode | null, q: Tree
 
 // Time: O(n)
 // Space: O(n)
+
+```
+
+
+
+### [199. Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/) (4/4) 
+
+```typescript
+
+function rightSideView(root: TreeNode | null): number[] {
+
+    if (!root) return [];
+    const res: number[] = [];
+    let arr = [root];
+
+    while (arr.length) {
+        const len = arr.length;
+        for (let i = 0; i < len; i++) {
+            const node = arr[i];
+            if (i === 0) res.push(node.val);
+            if (node.right) arr.push(node.right);
+            if (node.left) arr.push(node.left);
+        }
+        arr = arr.slice(len);
+    }
+
+    return res;
+};
+
+// Time: O(n)
+// Space: O(w) worst case O(n)
+
+function rightSideView(root: TreeNode | null): number[] {
+
+    if (!root) return [];
+
+    let res = [];
+
+    const dfs = (node: TreeNode | null, level: number) => {
+        if (!node) return;
+
+        if (level === res.length) res.push(node.val);
+
+        dfs(node.right, level + 1);
+        dfs(node.left, level + 1);
+    }
+
+    dfs(root, 0);
+
+    return res;
+};
+
+// Time: O(n)
+// Space: O(h) worst case O(n)
 
 ```
 
