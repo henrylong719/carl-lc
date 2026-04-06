@@ -1507,3 +1507,40 @@ function maxLevelSum(root: TreeNode | null): number {
 // Space: O(h) worst case O(n)
 ```
 
+
+
+### ***[450. Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/) (5/4)
+
+```typescript
+
+function minValue(node: TreeNode | null): number {
+    while (node.left) {
+        node = node.left;
+    }
+    return node.val;
+}
+
+function deleteNode(root: TreeNode | null, key: number): TreeNode | null {
+    if (!root) return null;
+    if (key < root.val) {
+        root.left = deleteNode(root.left, key);
+    } else if (key > root.val) {
+        root.right = deleteNode(root.right, key);
+    } else {
+
+        if (!root.left && !root.right) return null;
+        if (!root.left) return root.right;
+        if (!root.right) return root.left;
+
+        const successor = minValue(root.right);
+        root.val = successor;
+        root.right = deleteNode(root.right, successor);
+    }
+    return root;
+};
+
+// Time: O(h) + O(h) + O(h) = O(h), worst case O(n) (Skewed), balanced case O(log n)
+// Space: O(h), worst case O(n) (Skewed) balanced case O(log n)
+
+```
+
