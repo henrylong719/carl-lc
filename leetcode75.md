@@ -1544,3 +1544,73 @@ function deleteNode(root: TreeNode | null, key: number): TreeNode | null {
 
 ```
 
+
+
+### [841. Keys and Rooms](https://leetcode.com/problems/keys-and-rooms/) (7/4)
+
+```typescript
+
+// BFS
+function canVisitAllRooms(rooms: number[][]): boolean {
+  const visited = new Set([0]);
+  const queue = [...rooms[0]];
+
+  let head = 0;
+
+  while (head < queue.length) {
+    const room = queue[head++];
+    visited.add(room);
+
+    for (const k of rooms[room]) {
+      if (visited.has(k)) continue;
+      queue.push(k);
+    }
+  }
+
+  return visited.size === rooms.length;
+}
+
+// DFS
+function canVisitAllRooms(rooms: number[][]): boolean {
+  const visited = new Set([0]);
+  const stack = [0];
+
+  while (stack.length) {
+    const room = stack.pop();
+    visited.add(room);
+
+    for (const k of rooms[room]) {
+      if (visited.has(k)) continue;
+      stack.push(k);
+    }
+  }
+
+  return visited.size === rooms.length;
+}
+
+function canVisitAllRooms(rooms: number[][]): boolean {
+  const visited = new Array(rooms.length).fill(false);
+
+  const dfs = (room: number) => {
+    visited[room] = true;
+
+    for (const r of rooms[room]) {
+      if (!visited[r]) dfs(r);
+    }
+  };
+
+  dfs(0);
+
+  for (const v of visited) {
+    if (!v) return false;
+  }
+
+  return true;
+}
+
+// Time: O(N+E)
+// N: number of rooms, E: number of keys across all rooms sum(rooms[i].length)
+// Space: O(N)
+
+```
+
