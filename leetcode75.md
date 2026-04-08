@@ -1614,3 +1614,41 @@ function canVisitAllRooms(rooms: number[][]): boolean {
 
 ```
 
+
+
+### ***[1466. Reorder Routes to Make All Paths Lead to the City Zero](https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero/) (8/4)
+
+```typescript
+function minReorder(n: number, connections: number[][]): number {
+
+    const adjacencyList = Array.from({ length: n }, () => new Set<number>());
+    const undirected = Array.from({ length: n }, () => []);
+
+    for (const [src, dest] of connections) {
+        undirected[src].push(dest);
+        undirected[dest].push(src);
+        adjacencyList[src].add(dest);
+    }
+
+    const visited = new Array(n).fill(false);
+    let res = 0;
+
+    const dfs = (city: number) => {
+        if (visited[city]) return;
+        visited[city] = true;
+
+        for (const neigh of undirected[city]) {
+            if (visited[neigh]) continue;
+            if (!adjacencyList[neigh].has(city)) res++;
+            dfs(neigh);
+        }
+    }
+
+    dfs(0);
+    return res;
+};
+
+// Time: O(n)
+// Space: O(n)
+```
+
