@@ -1652,3 +1652,76 @@ function minReorder(n: number, connections: number[][]): number {
 // Space: O(n)
 ```
 
+
+
+### *[547. Number of Provinces](https://leetcode.com/problems/number-of-provinces/) (9/4)
+
+```typescript
+
+function findCircleNum(isConnected: number[][]): number {
+
+    const n = isConnected.length;
+    const undirected = Array.from({ length: n }, () => []);
+
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+            if (i === j) continue;
+            if (isConnected[i][j] === 1) {
+                undirected[i].push(j);
+            }
+        }
+    }
+
+    const visited = new Array(n).fill(false);
+
+    const dfs = (city: number) => {
+        visited[city] = true;
+        for (const neigh of undirected[city]) {
+            if (visited[neigh]) continue;
+            dfs(neigh);
+        }
+    }
+
+    let count = 0;
+
+    for (let i = 0; i < n; i++) {
+        if (visited[i] === true) continue;
+        count++;
+        dfs(i);
+    }
+
+    return count;
+};
+
+// Time: O(n^2)
+// Space: O(n^2)
+
+
+function findCircleNum(isConnected: number[][]): number {
+
+    const n = isConnected.length;
+    const visited = new Array(n).fill(false);
+
+    const dfs = (city: number) => {
+        visited[city] = true;
+        for (let nei = 0; nei < n; nei++) {
+            if (visited[nei] || isConnected[city][nei] === 0) continue;
+            dfs(nei);
+        }
+    }
+
+    let count = 0;
+
+    for (let i = 0; i < n; i++) {
+        if (visited[i] === true) continue;
+        count++;
+        dfs(i);
+    }
+
+    return count;
+};
+
+// Time: O(n^2)
+// Space: O(n)
+```
+
