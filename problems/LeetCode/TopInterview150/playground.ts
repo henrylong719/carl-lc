@@ -1,15 +1,45 @@
-function pivotIndex2(nums: number[]): number {
-  const totalSum = nums.reduce((acc, cur) => acc + cur, 0);
+function calcEquation(
+  equations: string[][],
+  values: number[],
+  queries: string[][],
+): number[] {
+  const map = new Map<string, any>();
 
-  let leftTotal = 0;
+  for (let i = 0; i < equations.length; i++) {
+    const [src, end] = equations[i];
+    const v = values[i];
+    if (map.has(src)) {
+      const exist = map.get(src);
+      exist.push([end, v]);
+      map.set(src, exist);
+    } else {
+      map.set(src, [[end, v]]);
+    }
 
-  for (let i = 0; i < nums.length; i++) {
-    const rightTotal = totalSum - nums[i] - leftTotal;
-    if (rightTotal === leftTotal) return i;
-    leftTotal += nums[i];
+    if (map.has(end)) {
+      const exist = map.get(end);
+      exist.push([src, 1 / v]);
+      map.set(end, exist);
+    } else {
+      map.set(end, [[src, 1 / v]]);
+    }
   }
 
-  return -1;
-}
+  console.log(map);
 
-console.log(pivotIndex2([9]));
+  return [];
+}
+calcEquation(
+  [
+    ['a', 'b'],
+    ['b', 'c'],
+  ],
+  [2.0, 3.0],
+  [
+    ['a', 'c'],
+    ['b', 'a'],
+    ['a', 'e'],
+    ['a', 'a'],
+    ['x', 'x'],
+  ],
+);

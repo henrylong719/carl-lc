@@ -1725,3 +1725,108 @@ function findCircleNum(isConnected: number[][]): number {
 // Space: O(n)
 ```
 
+
+
+### *** [399. Evaluate Division](https://leetcode.com/problems/evaluate-division/)(10/4)
+
+```typescript
+function calcEquation(
+  equations: string[][],
+  values: number[],
+  queries: string[][],
+): number[] {
+  const graph = new Map<string, [string, number][]>();
+
+  const buildEdges = (from: string, to: string, weight: number) => {
+    if (!graph.has(from)) graph.set(from, []);
+    graph.get(from).push([to, weight]);
+  };
+
+  for (let i = 0; i < equations.length; i++) {
+    const [from, to] = equations[i];
+    buildEdges(from, to, values[i]);
+    buildEdges(to, from, 1 / values[i]);
+  }
+
+  const dfs = (start: string, end: string) => {
+    if (!graph.has(start) || !graph.has(end)) return -1;
+
+    let visited = new Set();
+    const stack: [string, number][] = [[start, 1]];
+
+    while (stack.length) {
+      const [cur, dist] = stack.pop();
+      if (cur === end) return dist;
+
+      visited.add(cur);
+
+      for (const [neigh, v] of graph.get(cur)) {
+        if (visited.has(neigh)) continue;
+        stack.push([neigh, dist * v]);
+      }
+    }
+    return -1;
+  };
+
+  const res = [];
+  for (const [src, end] of queries) {
+    res.push(dfs(src, end));
+  }
+  return res;
+}
+
+
+function calcEquation(
+  equations: string[][],
+  values: number[],
+  queries: string[][],
+): number[] {
+  const graph = new Map<string, [string, number][]>();
+
+  const buildEdges = (start: string, end: string, value: number) => {
+    if (!graph.has(start)) graph.set(start, []);
+    graph.get(start).push([end, value]);
+  };
+
+  for (let i = 0; i < equations.length; i++) {
+    const [start, end] = equations[i];
+    buildEdges(start, end, values[i]);
+    buildEdges(end, start, 1 / values[i]);
+  }
+
+  const dfs = (start: string, end: string) => {
+    if (!graph.has(start) || !graph.has(end)) return -1;
+    const visited = new Set();
+
+    const search = (node: string, product: number) => {
+      if (node === end) return product;
+
+      visited.add(node);
+
+      for (const [neigh, weight] of graph.get(node)) {
+        if (visited.has(neigh)) continue;
+        const result = search(neigh, weight * product);
+        if (result !== -1) {
+          return result;
+        }
+      }
+      return -1;
+    };
+
+    return search(start, 1);
+  };
+
+  const res = [];
+  for (const [start, end] of queries) {
+    res.push(dfs(start, end));
+  }
+
+  return res;
+}
+
+
+// Time: O(E + Q * (V + E))
+// Space: O(V + E)
+
+```
+

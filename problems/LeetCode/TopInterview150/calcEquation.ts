@@ -51,3 +51,50 @@ function calcEquation(
 
   return ans;
 }
+function calcEquation(
+  equations: string[][],
+  values: number[],
+  queries: string[][],
+): number[] {
+  const graph = new Map<string, [string, number][]>();
+
+  const buildEdges = (start: string, end: string, value: number) => {
+    if (!graph.has(start)) graph.set(start, []);
+    graph.get(start).push([end, value]);
+  };
+
+  for (let i = 0; i < equations.length; i++) {
+    const [start, end] = equations[i];
+    buildEdges(start, end, values[i]);
+    buildEdges(end, start, 1 / values[i]);
+  }
+
+  const dfs = (start: string, end: string) => {
+    if (!graph.has(start) || !graph.has(end)) return -1;
+    const visited = new Set();
+
+    const search = (node: string, product: number) => {
+      if (node === end) return product;
+
+      visited.add(node);
+
+      for (const [neigh, weight] of graph.get(node)) {
+        if (visited.has(neigh)) continue;
+        const result = search(neigh, weight * product);
+        if (result !== -1) {
+          return result;
+        }
+      }
+      return -1;
+    };
+
+    return search(start, 1);
+  };
+
+  const res = [];
+  for (const [start, end] of queries) {
+    res.push(dfs(start, end));
+  }
+
+  return res;
+}
