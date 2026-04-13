@@ -1907,3 +1907,71 @@ function orangesRotting(grid: number[][]): number {
 
 ```
 
+
+
+### *[1926. Nearest Exit from Entrance in Maze](https://leetcode.com/problems/nearest-exit-from-entrance-in-maze/) (12/4)
+
+```typescript
+
+
+function nearestExit(maze: string[][], entrance: number[]): number {
+  const rows = maze.length;
+  const cols = maze[0].length;
+
+  // directions: top, right, bottom, left
+  const dirs = [
+    [-1, 0],
+    [0, 1],
+    [1, 0],
+    [0, -1],
+  ];
+
+  const isExit = (r: number, c: number) => {
+    if (r === entrance[0] && c === entrance[1]) return false;
+    return r === 0 || c === 0 || r === rows - 1 || c === cols - 1;
+  };
+
+  const inBound = (r: number, c: number) => {
+    return r >= 0 && r < rows && c >= 0 && c < cols;
+  };
+
+  const queue: [number, number][] = [[entrance[0], entrance[1]]];
+  const visited = new Set<string>();
+  visited.add(`${entrance[0]}#${entrance[1]}`);
+  let head = 0;
+  let steps = 0;
+
+  while (head < queue.length) {
+    const size = queue.length - head;
+
+    let moved = false;
+
+    for (let i = 0; i < size; i++) {
+      const [r, c] = queue[head++];
+      if (isExit(r, c)) return steps;
+
+      for (const [dr, dc] of dirs) {
+        const nr = r + dr;
+        const nc = c + dc;
+        if (
+          !inBound(nr, nc) ||
+          maze[nr][nc] !== '.' ||
+          visited.has(`${nr}#${nc}`)
+        )
+          continue;
+        moved = true;
+        queue.push([nr, nc]);
+        visited.add(`${nr}#${nc}`);
+      }
+    }
+    if (moved) steps++;
+  }
+  return -1;
+}
+
+
+// Time: O(r * c)
+// Space: O(r * c)
+
+```
+
