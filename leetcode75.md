@@ -1830,3 +1830,80 @@ function calcEquation(
 
 ```
 
+
+
+### **[994. Rotting Oranges](https://leetcode.com/problems/rotting-oranges/) (12/4)
+
+```typescript
+
+
+function orangesRotting(grid: number[][]): number {
+  // directions: top, right, bottom, left
+  const dirs = [
+    [-1, 0],
+    [0, 1],
+    [1, 0],
+    [0, -1],
+  ];
+
+  // for visited oranges
+  const rotten = new Set<string>();
+  const queue: [number, number][] = [];
+
+  let fresh = 0;
+  const rows = grid.length;
+  const cols = grid[0].length;
+
+  const inBound = (r: number, c: number) => {
+    return r < rows && r >= 0 && c < cols && c >= 0;
+  };
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const val = grid[r][c];
+      if (val === 1) {
+        fresh++;
+        continue;
+      }
+      if (val === 2) {
+        queue.push([r, c]);
+        rotten.add(`${r}#${c}`);
+      }
+    }
+  }
+
+  if (fresh === 0) return 0;
+
+  let head = 0;
+  let round = 0;
+
+  while (head < queue.length) {
+    const size = queue.length - head;
+    let newRound = false;
+    for (let i = 0; i < size; i++) {
+      const [r, c] = queue[head++];
+      for (let [dr, dc] of dirs) {
+        const nr = r + dr;
+        const nc = c + dc;
+        if (!inBound(nr, nc) || rotten.has(`${nr}#${nc}`)) continue;
+        if (grid[nr][nc] === 1) {
+          fresh--;
+          queue.push([nr, nc]);
+          newRound = true;
+          rotten.add(`${nr}#${nc}`);
+        }
+      }
+    }
+    if (newRound) round++;
+  }
+
+  if (fresh === 0) return round;
+  return -1;
+}
+
+
+// Time: O(r * c)
+// Space: O(r * c) queue
+
+```
+
