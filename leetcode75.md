@@ -1970,8 +1970,40 @@ function nearestExit(maze: string[][], entrance: number[]): number {
 }
 
 
-// Time: O(r * c)
-// Space: O(r * c)
+// Time: O(r*c)
+// Space: O(r*c)
+
+```
+
+
+
+### 
+
+```typescript
+
+function findKthLargest(nums: number[], k: number): number {
+  if (k < 1 || k > nums.length) {
+    throw new Error(' k is out of range');
+  }
+
+  const pq = new MaxPriorityQueue<number>();
+
+  for (const num of nums) {
+    pq.enqueue(num);
+  }
+
+  let res = null;
+
+  while (k > 0) {
+    res = pq.dequeue();
+    k--;
+  }
+
+  return res;
+}
+
+// Time: O(n + klog(n))
+// Space: O(n)
 
 ```
 
