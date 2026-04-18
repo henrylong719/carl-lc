@@ -1977,7 +1977,7 @@ function nearestExit(maze: string[][], entrance: number[]): number {
 
 
 
-### 
+### **[215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/) (15/4)
 
 ```typescript
 
@@ -2004,6 +2004,81 @@ function findKthLargest(nums: number[], k: number): number {
 
 // Time: O(n + klog(n))
 // Space: O(n)
+
+
+function findKthLargest(nums: number[], k: number): number {
+  let min = Infinity;
+  let max = -Infinity;
+
+  for (const num of nums) {
+    if (num < min) min = num;
+    if (num > max) max = num;
+  }
+
+  const bucket = new Array(max - min + 1).fill(0);
+
+  for (const num of nums) {
+    bucket[num - min]++;
+  }
+
+  let remaining = k;
+  let res = null;
+
+  for (let i = bucket.length - 1; i >= 0; i--) {
+    remaining -= bucket[i];
+    if (remaining <= 0) {
+      res = min + i;
+      break;
+    }
+  }
+
+  return res;
+}
+
+
+// Time: O(n)
+// Space: O(n)
+
+
+```
+
+
+
+### ***[2336. Smallest Number in Infinite Set](https://leetcode.com/problems/smallest-number-in-infinite-set/) (17/4)
+
+```typescript
+class SmallestInfiniteSet {
+  private current = 1;
+  private pq = new MinPriorityQueue<number>();
+  private inHeap = new Set<number>();
+
+  // time O(log k)
+  popSmallest(): number {
+    if (!this.pq.isEmpty()) {
+      const min = this.pq.dequeue();
+      this.inHeap.delete(min);
+      return min;
+    }
+
+    return this.current++;
+  }
+
+  // Time: O(log k)
+  addBack(num: number): void {
+    if (this.inHeap.has(num) || num >= this.current) return;
+    this.inHeap.add(num);
+    this.pq.enqueue(num);
+  }
+}
+
+// space: O(k)
+
+/**
+ * Your SmallestInfiniteSet object will be instantiated and called as such:
+ * var obj = new SmallestInfiniteSet()
+ * var param_1 = obj.popSmallest()
+ * obj.addBack(num)
+ */
 
 ```
 
