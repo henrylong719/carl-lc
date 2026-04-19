@@ -1,45 +1,32 @@
-function calcEquation(
-  equations: string[][],
-  values: number[],
-  queries: string[][],
+function successfulPairs(
+  spells: number[],
+  potions: number[],
+  success: number,
 ): number[] {
-  const map = new Map<string, any>();
+  potions.sort((a, b) => a - b);
 
-  for (let i = 0; i < equations.length; i++) {
-    const [src, end] = equations[i];
-    const v = values[i];
-    if (map.has(src)) {
-      const exist = map.get(src);
-      exist.push([end, v]);
-      map.set(src, exist);
-    } else {
-      map.set(src, [[end, v]]);
-    }
+  const lowerBound = (s: number) => {
+    let lo = 0;
+    let hi = potions.length - 1;
 
-    if (map.has(end)) {
-      const exist = map.get(end);
-      exist.push([src, 1 / v]);
-      map.set(end, exist);
-    } else {
-      map.set(end, [[src, 1 / v]]);
+    while (lo <= hi) {
+      const mid = Math.floor((lo + hi) / 2);
+      const val = potions[mid] * s;
+      if (val >= success) {
+        hi = mid - 1;
+      } else {
+        lo = mid + 1;
+      }
     }
+    return lo;
+  };
+
+  let res: number[] = [];
+
+  for (const s of spells) {
+    const idx = lowerBound(s);
+    res.push(potions.length - idx);
   }
 
-  console.log(map);
-
-  return [];
+  return res;
 }
-calcEquation(
-  [
-    ['a', 'b'],
-    ['b', 'c'],
-  ],
-  [2.0, 3.0],
-  [
-    ['a', 'c'],
-    ['b', 'a'],
-    ['a', 'e'],
-    ['a', 'a'],
-    ['x', 'x'],
-  ],
-);
