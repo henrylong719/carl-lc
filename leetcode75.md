@@ -2125,3 +2125,53 @@ function successfulPairs(
 // Space: O(n)
 ```
 
+
+
+### ***[338. Counting Bits](https://leetcode.com/problems/counting-bits/) (24/4)
+
+```typescript
+
+function countBits(n: number): number[] {
+    const res: number[] = [];
+    for (let i = 0; i <= n; i++) {
+        res.push(countOnes(i));
+    }
+    return res;
+};
+
+function countOnes(n: number): number {
+    let count = 0;
+    while (n) {
+        if (n % 2 === 1) count++;
+        n = Math.floor(n / 2);
+    }
+    return count;
+}
+
+// Time:O(nlog(n))
+// Space: O(n)
+
+
+
+function countBits(n: number): number[] {
+  const dp: number[] = new Array(n + 1).fill(0);
+  let sub = 1;
+
+  for (let i = 1; i <= n; i++) {
+     // sub always stores the largest power of 2 that is ≤ i.
+    if (sub * 2 === i) {
+      sub = i;
+    }
+
+    dp[i] = dp[i - sub] + 1;
+  }
+
+  return dp;
+}
+
+
+// Time: O(n)
+// Space: O(n)
+
+```
+
