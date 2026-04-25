@@ -2175,3 +2175,28 @@ function countBits(n: number): number[] {
 
 ```
 
+
+
+### ***[901. Online Stock Span](https://leetcode.com/problems/online-stock-span/) (25/4)
+
+```typescript
+
+class StockSpanner {
+  private s = [];
+
+  next(price: number): number {
+    let span = 1;
+
+    while (this.s.length > 0 && this.s[this.s.length - 1][0] <= price) {
+      span += this.s.pop()[1];
+    }
+
+    this.s.push([price, span]);
+    return span;
+  }
+}
+
+// Time: amortized O(1) each element pushed once poped once
+// Space: O(n)
+```
+
