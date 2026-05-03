@@ -56,7 +56,7 @@ function groupAnagrams2(strs: string[]): string[][] {
   return Object.values(ans);
 }
 
-// Time complexity: O(n*log(n))
+// Time complexity: O(n*mlog(m))
 // Space complexity: O(m*n)
 
 function groupAnagrams3(strs: string[]): string[][] {
