@@ -45,3 +45,29 @@ function longestPalindrome(s: string): string {
 
 ```
 
+
+
+### ***[518. Coin Change II](https://leetcode.com/problems/coin-change-ii/) (23/5)
+
+```typescript
+
+function change(amount: number, coins: number[]): number {
+
+    // dp[i] means: number of ways to make amount i using only the coins we have processed so far.
+    const dp = new Array(amount + 1).fill(0);
+    dp[0] = 1;
+
+    for (const coin of coins) {
+        for (let i = coin; i <= amount; i++) {
+            dp[i] += dp[i - coin];
+        }
+    }
+
+    return dp[amount];
+};
+
+
+// Time: O(n^2)
+// Space: O(n)
+```
+
