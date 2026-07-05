@@ -7,6 +7,7 @@ function threeSum(nums: number[]): number[][] {
     if (i !== 0 && sorted[i] === sorted[i - 1]) {
       continue;
     }
+
     twoSum(sorted, i + 1, -sorted[i], ans);
   }
 
@@ -17,7 +18,7 @@ function twoSum(
   sorted: number[],
   left: number,
   target: number,
-  ans: number[][]
+  ans: number[][],
 ) {
   let right = sorted.length - 1;
 

@@ -71,3 +71,52 @@ function change(amount: number, coins: number[]): number {
 // Space: O(n)
 ```
 
+
+
+### *[15. 3Sum](https://leetcode.com/problems/3sum/) (5/7)
+
+```typescript
+function threeSum(nums: number[]): number[][] {
+  const result: number[][] = [];
+  nums.sort((a, b) => a - b);
+
+  for (let i = 0; i < nums.length; i++) {
+    if (i !== 0 && nums[i] === nums[i - 1]) {
+      continue;
+    }
+    twoSum2(nums, result, i + 1, nums.length - 1, -nums[i]);
+  }
+
+  return result;
+}
+
+function twoSum(
+  nums: number[],
+  result: number[][],
+  l: number,
+  r: number,
+  need: number,
+) {
+  while (l < r) {
+    const sum = nums[l] + nums[r];
+
+    if (sum === need) {
+      result.push([-need, nums[l], nums[r]]);
+      while (nums[r] === nums[r - 1]) r--;
+      while (nums[l] === nums[l + 1]) l++;
+      l++;
+      r--;
+    } else if (sum < need) {
+      l++;
+    } else {
+      r--;
+    }
+  }
+}
+
+
+// Time: O(n^2) +O(nlog(n)) = O(n^2)
+// Space: O(n)
+
+```
+
