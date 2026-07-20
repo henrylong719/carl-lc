@@ -14,6 +14,11 @@ class Solution:
         for i in range(n):
             nums[i] = arr[i]
             
+
+# Time: O(n)
+# Space: O(n)
+
+
 class Solution:
     def rotate(self, nums: List[int], k: int) -> None:
         """
@@ -38,3 +43,6 @@ class Solution:
         reverse(k, n-1)
 
         
+
+# Time: O(n)
+# Space: O(1)
