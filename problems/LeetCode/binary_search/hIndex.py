@@ -1,18 +1,20 @@
 class Solution:
     def hIndex(self, citations: List[int]) -> int:
-        
-        # Have at least n papers cited 
-        
-        left = 1
-        right = len(citations) - 1
 
-        while left <= right:
+        citations.sort(reverse=True)
+        h = 0
 
-            mid = (left + right) // 2
+        for i, citation in enumerate(citations):
 
-            if citations[-mid] >= mid:
-                left = mid + 1
+            papers = i + 1
+
+            if citation >= papers:
+                h = papers
             else:
-                right = mid - 1
+                break
 
-        return right
+        return h
+
+
+# Time: O(n)
+# Space: O(1)
