@@ -7,7 +7,7 @@ class Solution:
         start = 0
 
         # If you start from station A and stuck at B, then you can't
-        # get to B from any startion between A and B
+        # get to B from any station between A and B
         for i, (available, required) in enumerate(zip(gas, cost)):
 
             balance = available - required
